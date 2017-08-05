@@ -19,7 +19,8 @@ class Documentos
     
     		$beanoc = BeanFactory::getBean('SCO_OrdenCompra', $row['oc_id']);
 
-    		$beanoc->orc_cotizacion = $bean->doc_descipcion;
+    		$cotiza = explode(".", $bean->filename);
+    		$beanoc->orc_cotizacion = $cotiza[0];
     		$beanoc->save();
     		$bean->save();
     	}
