@@ -4,7 +4,7 @@ class CldatosA
 {
   function Fndatosa($bean, $event, $arguments)
   {
-    //pobla datos proveedor
+    //llena datos de proveedor
     $user_id = $bean->user_id_c;
     $bean_user = BeanFactory::getBean('Users', $user_id);
     $bean->name = $bean_user->user_name;
