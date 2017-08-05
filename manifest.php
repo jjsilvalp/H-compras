@@ -63,6 +63,14 @@ $installdefs = array(
       'to'   => 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php',
      ),
      array(
+      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/jquery.jexcel.css',
+      'to'   => 'custom/modules/SCO_OrdenCompra/jquery.jexcel.css',
+     ),
+     array(
+      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/jquery.jexcel.js',
+      'to'   => 'custom/modules/SCO_OrdenCompra/jquery.jexcel.js',
+     ),
+     array(
       'from' => '<basepath>/custom/modules/SCO_PlandePagos/datosPlanPagos.php',
       'to'   => 'custom/modules/SCO_PlandePagos/datosPlanPagos.php',
      ),
@@ -102,6 +110,24 @@ $installdefs = array(
        'file'   => 'custom/modules/SCO_documentos/Documentos.php',
        'class'   => 'Documentos',
        'function'  => 'Fndocs',
+      ),
+      array(
+       'module'  => 'SCO_documentos',
+       'hook'    => 'before_save',
+       'order'   => 77,
+       'description' => 'creafolokm',
+       'file'   => 'custom/modules/SCO_documentos/Documentos.php',
+       'class'   => 'Documentos',
+       'function'  => 'Fncreafol',
+      ),
+      array(
+       'module'  => 'SCO_documentos',
+       'hook'    => 'before_save',
+       'order'   => 77,
+       'description' => 'cargaarchokm',
+       'file'   => 'custom/modules/SCO_documentos/Documentos.php',
+       'class'   => 'Documentos',
+       'function'  => 'Fnscargaarch',
       ),
       array(
        'module'  => 'SCO_OrdenCompra',
@@ -165,6 +191,15 @@ $installdefs = array(
        'file'   => 'custom/modules/SCO_Productos/Productos.php',
        'class'   => 'Productos',
        'function'  => 'FnDeproductos',
+      ),
+      array(
+       'module'  => 'SCO_Productos',
+       'hook'    => 'before_save',
+       'order'   => 3,
+       'description' => 'nombreoc',
+       'file'   => 'custom/modules/SCO_Productos/Productos.php',
+       'class'   => 'Productos',
+       'function'  => 'FnNomOC',
       ),
       array(
        'module'  => 'SCO_Productos',
