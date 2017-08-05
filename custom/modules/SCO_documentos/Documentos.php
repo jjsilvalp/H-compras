@@ -6,6 +6,7 @@ class Documentos
 	{		
 		$bean->name = $bean->filename;		
 		$id = $bean->id;
+		//documento cotizacion
 		if ($bean->doc_tipo == 15)
 		{
     		$query = "
