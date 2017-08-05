@@ -10,6 +10,7 @@ class CldatosA
     $bean->name = $bean_user->user_name;
     $bean->apr_titulo = $bean_user->title;
     $bean->save();
+    #HOLA
   } 
 }
 ?>
