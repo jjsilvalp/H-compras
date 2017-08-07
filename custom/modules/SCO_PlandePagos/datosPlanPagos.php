@@ -15,12 +15,14 @@ class CldatosPP
     $row = $bean->db->fetchByAssoc($results);
     
     $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $row['oc_id']);
-    $tot = $beanoc->orc_importet;
+    $tot = $beanoc->orc_tototal;
+    $mon_oc = $beanoc->orc_tcmoneda;
 
     $valor = $tot * ($bean->ppg_porc / 100);
     $bean->ppg_monto = $valor;
     $bean->name = $bean->ppg_fecha;
     $bean->ppg_hito = $bean->ppg_tipo;
+    $bean->currency_id = $mon_oc;
 
     $bean->save();
   } 
