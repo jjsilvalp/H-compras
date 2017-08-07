@@ -4,16 +4,7 @@ class CldatosO
   {
     function Fndatoso($bean, $event, $arguments) 
     {
-      //precargar datos de facturacion
-      #$bean->orc_dfnomemp = "Sociedad Comercial e Industrial Hansa Ltda.";
-      #$bean->orc_dfdireccion = "Calle Mercado Nro. 1004";
-      #$bean->orc_dfnit = "1020343027";
-      #$bean->orc_dftelefono = "(591-2) 214 9000";
-      #$bean->orc_dffax = "(591-2) 211 2264";
-      #$bean->orc_dfpobox = "Box 10800";
-      #$bean->orc_dfpais = "La Paz - Bolivia";
-
-      //Copia datos facturacion en datos envio
+       //Copia datos facturacion en datos envio
       $op_comp = $bean->orc_decop;
       if ($op_comp == '1')
       {
