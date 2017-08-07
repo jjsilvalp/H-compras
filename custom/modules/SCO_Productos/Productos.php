@@ -153,5 +153,46 @@ class Productos
 		    $beanoc->save();
 	    }
  	}
+
+ 	function FnActualizaPP($bean, $event, $arguments) 
+ 	{
+ 		#Obteniendo Id OC
+        $id_p = $bean->id;
+	    $que = "
+	    SELECT sco_ordencompra_sco_productossco_ordencompra_ida as idoc
+	    FROM sco_ordencompra_sco_productos_c  as ocp
+	    WHERE ocp.sco_ordencompra_sco_productossco_productos_idb = '".$id_p."' ";
+	    $query1 = $bean->db->query($que, true);
+	    $sco = $bean->db->fetchByAssoc($query1);
+	    $idoc = $sco['idoc'];
+
+	    #Obtenieno Monto total en la Orden de compra
+	    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
+	    $tot_oc = $beanoc->orc_tototal;
+	    $mon_oc = $beanoc->orc_tcmoneda;
+
+	    //obteniendo plan de pagos
+	    $con = "
+		SELECT 
+		sco_ordencompra_sco_plandepagossco_plandepagos_idb, 
+		sco_ordencompra_sco_plandepagossco_ordencompra_ida 
+		FROM sco_ordencompra_sco_plandepagos_c
+		WHERE 
+		deleted = 0
+		and sco_ordencompra_sco_plandepagossco_ordencompra_ida = '".$idoc."'
+	    ";
+	    $cons = $bean->db->query($con, true);
+	    while($row = $bean->db->fetchByAssoc($cons))
+	      {
+	        //recorre elementos
+	        $idpp = $row["sco_ordencompra_sco_plandepagossco_plandepagos_idb"];
+	        $beanpp = BeanFactory::getBean('SCO_PlandePagos', $idpp);
+	        $pp_porc = $beanpp->ppg_porc;
+	        $pp_impact = $tot_oc * $pp_porc / 100;
+	        $beanpp->ppg_monto = $pp_impact;
+	        $beanpp->currency_id = $mon_oc;
+	        $beanpp->save();
+	      }                      
+ 	}
 }
 ?>
