@@ -4,6 +4,12 @@ class Productos
 {
       function Fnproductos($bean, $event, $arguments) 
       {
+      	//obtiene datos proyecto
+      	$idpy = $bean->sco_proyectosco_sco_productossco_proyectosco_ida;
+      	$beanpy = BeanFactory::getBean('SCO_ProyectosCO', $idpy);
+      	$pynom = $beanpy->name;
+      	$pycor = $beanpy->proyc_correlativo;
+
       	#Obteniedno id de la relacion 
       	$id_pc = $bean->sco_productos_sco_productoscomprassco_productoscompras_ida;
 
@@ -18,6 +24,7 @@ class Productos
         $bean->pro_unidad = $row["proge_unidad"];
         $bean->pro_nombre = $row["proge_nompro"];
         $bean->name = $row["name"];
+        $bean->pro_nomproyco = $pynom;
 
         #Query para obtener campos de Proveedor
         $query0 = "
