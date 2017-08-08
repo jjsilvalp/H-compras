@@ -107,6 +107,45 @@ class CldatosO
 
   function fnview()
   {
+    //carga automatica de productos en jexcel
+    $idoc = $GLOBALS['_POST']['record'];
+    $con = "
+    select 
+    pr.id, 
+    pr.name, 
+    pr.pro_descripcion, 
+    pr.pro_unidad, 
+    pr.pro_cantidad, 
+    pr.pro_descuento, 
+    pr.pro_preciound, 
+    pr.pro_subtotal,
+    pr.pro_procentaje,
+    pr.pro_nomproyco, 
+    ocpr.sco_ordencompra_sco_productossco_ordencompra_ida, 
+    ocpr.sco_ordencompra_sco_productossco_productos_idb 
+    from sco_ordencompra_sco_productos_c ocpr, 
+    sco_productos pr 
+    where ocpr.deleted = 0 
+    and pr.id = ocpr.sco_ordencompra_sco_productossco_productos_idb
+    and ocpr.sco_ordencompra_sco_productossco_ordencompra_ida = '".$idoc."'";
+    $res = $GLOBALS['db']->query($con, true);
+    $datos = "";
+    while($row = $GLOBALS['db']->fetchByAssoc($res))
+    {
+      $datos .= "[";
+      $datos .= "'" . $row['name'] . "',";
+      $datos .= "'" . $row['pro_descripcion'] . "',";
+      $datos .= "'" . $row['pro_unidad'] . "',";
+      $datos .= $row['pro_cantidad'] . ",";
+      $datos .= $row['pro_preciound'] . ",";
+      $datos .= $row['pro_procentaje'] . ",";
+      $datos .= $row['pro_descuento'] . ",";
+      $datos .= $row['pro_subtotal'] . ",";
+      $datos .= "'" . $row['pro_nomproyco'] . "'";
+      $datos .= "],";
+    }
+    //*************************
+    
     switch ($GLOBALS['app']->controller->action) 
     {
       case "EditView":  
@@ -164,7 +203,7 @@ class CldatosO
            $('#detailpanel_5').append(\"<tr><td><div id='my'></div></td></tr>\");
 
             data = [
-                ['', '', '0'],
+                " . $datos . "
             ];
             update = function (obj, cel, row) {
               function checkPos(pos) {
