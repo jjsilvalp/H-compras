@@ -12,7 +12,51 @@ class SCO_ProductosViewEdit extends ViewEdit {
 	}
 
  	function display(){
-    echo "<script>$('#list_subpanel_sco_ordencompra_sco_productos').append('sdasdasd')</script>";
+    echo "<script src='modules/SCO_Productos/views/jquery.validate.min.js'></script>";
+    echo '<script>
+      $.validator.addMethod("alfanumOespacio", function(value, element) {
+        return /^[ a-z0-9áéíóúüñ]*$/i.test(value);
+    });
+
+    $.validator.addMethod("num", function(value, element) {
+        return /^[ 0-9]*$/i.test(value);
+    });
+
+    $("#form_SubpanelQuickCreate_SCO_Productos").validate({
+      highlight: function(element, errClass) {
+        $("input[type=\"text\"]").popover("show");
+      },
+      unhighlight: function(element, errClass) {
+        $("input[type=\"text\"]").popover("hide");
+      },
+        rules: {
+            name: {
+                alfanumOespacio: true,
+                required: true,
+            },
+            pro_cantidad: {
+              num : true,
+              required: true,
+            },
+            pro_descuento: {
+              num : true,
+              required: true,
+            },
+        },
+        messages: {
+          name: "Ingrese sólo letras, números o espacios",
+          pro_cantidad: "Ingrese sólo números",
+          pro_descuento: "Ingrese sólo números",
+        }
+        
+    });
+    $("input[type=\"submit\"]").attr("disabled","disabled");
+    $("input[type=\"text\"]").keypress(function(){
+    if($(this).val() != ""){
+       $("input[type=\"submit\"]").removeAttr("disabled");
+    }
+  }); 
+    </script>';
  		echo '
  		<style>
     #Default_SCO_Productos_Subpanel{
