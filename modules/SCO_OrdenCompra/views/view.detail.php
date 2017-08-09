@@ -14,34 +14,26 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
         parent::preDisplay();
     }
  	function display(){ 
- 		$estado = $this->bean->orc_estado;
- 		
+ 		$estado = $this->bean->orc_estado; 		
  		$id = $this->bean->id;
- 		$arr_estado = array(1 => 'En curso',2=>'Borrador', 3 =>'Pendiente de Aprobación', 4 => 'Aprobado' ,5 => 'cacelado', 6 =>'Cerrado');
- 		echo "
-			";
-        	$js = '<script>
- 				//$("ul .sugar_action_button").hide();
- 				//$(".single").hide();
- 				//$("tbody td a").bind("click", false);
-				//$("td a").addClass("gris");	
- 			</script>';
- 			$st ='<style>
- 				.gris{
- 					color: #ccc;
- 				}
- 				.gris:hover{
- 					color: #ccc;
- 				}
- 				#sugar_action_button, .sugar_action_button{
- 				display: none;}
- 				tbody td a {
-				   pointer-events: none;
-				   cursor: default;
-				}
- 			</style>'; 			
+ 		$arr_estado = array(1 => 'En curso',2=>'Borrado ', 3 =>'Pendiente de Aprobación ', 4 => 'Aprobado ' ,5 => 'Cacelado ', 6 =>'Cerrado ');
+		$js = '
+		<script>
+			//$("ul .sugar_action_button").hide();
+			//$(".single").hide();
+			//$("tbody td a").bind("click", false);
+			//$("td a").addClass("gris");	
+		</script>';
+		$st ='<style>
+			.gris{color: #ccc;}
+			.gris:hover{color: #ccc;}
+			#sugar_action_button, .sugar_action_button{
+			display: none;}
+			tbody td a {pointer-events: none; cursor: default;}
+			</style>'; 			
  		#script para cambio de estados 			
- 		echo '<script>
+ 		echo '
+ 		<script>
 		 	function showreport(){
 		 		var url1 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=false";
 		 		window.open(url1,"","width=1220,height=650");
@@ -50,8 +42,9 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 		var url2 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=False&rs:Format=PDF&rc:MarginTop=1cm&rc:MarginRight=1cm&rc:MarginBottom=1cm&rc:MarginLeft=1cm";
 		 		window.open(url2,"","");
 		 	}
-		 	</script>';
-		 echo "<script>$('#btn-estados').attr('OTRO TEXTO');
+		</script>';
+		echo "
+		<script>
 		 	function estado(est){
 		 		var id = '".$this->bean->id."';
 		 		var num = est;
@@ -83,9 +76,12 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 </script>";	
  		switch ($estado) {
  			case '1': 			 	 	
- 				echo "<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Imprimir</a>
+ 				echo "
+ 					<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Imprimir</a>
  					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
- 				<script>$(\"#sco_ordencompra_sco_productos_nuevo_button\").click();</script>";		
+ 					<script>
+ 						$(\"#sco_ordencompra_sco_productos_nuevo_button\").click();
+ 					</script>";		
  				parent::display();  				
  				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
  					<table class="panelContainer" cellspacing="1"><tbody>

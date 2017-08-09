@@ -26,7 +26,7 @@ class Documentos
     		$bean->save();
     	}
     	
-    	if($bean->doc_tipo == 16){
+    	/*if($bean->doc_tipo == 16){
 			$dir = "/opt/bitnami/apps/suitecrm/htdocs/5598-upload/".$id;
 			$archivo = fopen($dir, "r");
 
@@ -70,7 +70,7 @@ class Documentos
 			    #$bean->save();    
 		    }
 		    echo "<script>alert('Importacion de datos correcta');</script>";
-	  		}
+	  		}*/
 	}	
 
 	function Fncreafol($bean, $event, $arguments) 
