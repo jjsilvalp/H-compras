@@ -294,6 +294,7 @@ class CldatosO
       //$beanpro = BeanFactory::newBean('SCO_Productos');
       //$beanpro->name = "carlos";
       //$beanpro->save();
+      
     }
 
   }
