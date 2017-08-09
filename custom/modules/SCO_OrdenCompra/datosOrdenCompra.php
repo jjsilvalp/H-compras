@@ -150,6 +150,8 @@ class CldatosO
     {
       case "EditView":  
         $js = "<script>
+            $('#orc_productos_label').hide();
+            $('#orc_productos').hide();
             $('#orc_denomemp_label').hide();
             $('#orc_denomemp').hide();
             $('#orc_defax_label').hide();
@@ -197,8 +199,15 @@ class CldatosO
         <script src=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.js\"></script>
             <link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css\" type=\"text/css\" />         
           <script>
-          $('#SAVE_FOOTER').click(function(){
-          });
+
+          function act_prod()
+          {
+            var txt_prod = JSON.stringify($('#my').jexcel('getData'));
+            $('#orc_productos').text(txt_prod);
+            //alert('juanjo');
+          }
+
+          $('#SAVE_FOOTER').focus(act_prod);
 
            $('#detailpanel_5').append(\"<tr><td><div id='my'></div></td></tr>\");
 
@@ -245,8 +254,7 @@ class CldatosO
               var tot_t = tot - des_val;
               $('#7-'+row).text(tot_t);
             }
-            //alert($(cel).prop('id').split('-')[1]); 
-            
+
             }
 
             $('#my').jexcel({
@@ -272,6 +280,21 @@ class CldatosO
       break;
     }
   }
+
+  function Fnactprod($bean, $event, $arguments) 
+    {
+      $prod = $bean->orc_productos
+      $link = "SCO_Productos";
+      if ($bean->load_relationship($link))
+      {
+          //Fetch related beans 
+          $relatedBeans = $bean->$link->getBeans();
+      }
+
+      //$beanpro = BeanFactory::newBean('SCO_Productos');
+      //$beanpro->name = "carlos";
+      //$beanpro->save();
+    }
 
   }
 
