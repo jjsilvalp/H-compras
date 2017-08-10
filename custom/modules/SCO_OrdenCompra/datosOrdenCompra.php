@@ -283,7 +283,7 @@ class CldatosO
 
   function Fnactprod($bean, $event, $arguments) 
     {
-      $prod = $bean->orc_productos
+      $prod = $bean->orc_productos;
       $link = "SCO_Productos";
       if ($bean->load_relationship($link))
       {
@@ -294,7 +294,6 @@ class CldatosO
       //$beanpro = BeanFactory::newBean('SCO_Productos');
       //$beanpro->name = "carlos";
       //$beanpro->save();
-      
     }
 
   }
