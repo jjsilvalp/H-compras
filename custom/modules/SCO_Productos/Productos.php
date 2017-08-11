@@ -101,11 +101,11 @@ class Productos
 
 	    #Obtenieno Monto total de productos
 	    $query2 = "
-	    select 
+	    SELECT 
 		sum(pr.pro_subtotal) as tot 
-		from sco_ordencompra_sco_productos_c ocpr, 
+		FROM sco_ordencompra_sco_productos_c ocpr, 
 		sco_productos pr
-		where 
+		WHERE 
 		ocpr.deleted = 0 and
 		pr.id = ocpr.sco_ordencompra_sco_productossco_productos_idb and
 		ocpr.sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc'";

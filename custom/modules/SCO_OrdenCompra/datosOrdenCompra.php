@@ -128,7 +128,7 @@ class CldatosO
       //$beanpr->name = $idpro;
       $beanpr->pro_descripcion = $idpro;
       //$beanpr->deleted = 1;
-      $beanpr->save();
+      //$beanpr->save();
     }
     //$bean->mark_relationships_deleted('SCO_Productos');
   }
