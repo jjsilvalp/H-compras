@@ -21,10 +21,9 @@ class PlanPagos
     $bean->ppg_monto = $valor;
     $bean->name = $bean->ppg_fecha;
     $bean->ppg_hito = $bean->ppg_tipo;
-    $bean->currency_id = $mon_oc;
+    $bean->ppg_moneda = $mon_oc;
 
     $bean->save();
-
   }
 }
 ?>
