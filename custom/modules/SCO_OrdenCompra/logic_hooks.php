@@ -10,6 +10,8 @@ $hook_array['before_save'][] = Array(1, 'contactos', 'custom/modules/SCO_OrdenCo
 
 $hook_array['before_save'][] = Array(1, 'aprobadores', 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php','CldatosO', 'Fndatosap');
 
+$hook_array['before_save'][] = Array(2, 'actualiza productos', 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php','CldatosO', 'Fnactprod');
+
 $hook_array['after_ui_frame'] = Array();
 $hook_array['after_ui_frame'][] = Array(1, 'vistas de orden de compra con js', 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php','CluiOC', 'fnview');
 ?>

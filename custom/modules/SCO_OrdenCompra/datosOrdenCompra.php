@@ -38,26 +38,27 @@ class CldatosO
     $bean->user_id_c = $current_user->id;
     $bean->save();
   }
-  
+
   function Fndatosco($bean, $event, $arguments) 
   {
     $div = $bean->orc_division;
     $reg = $bean->orc_regional;
+    $ido = $bean->id;
 
     $query = "SELECT count(*) as cantidad 
       FROM sco_ordencompra_sco_contactos_c
-      where sco_ordencompra_sco_contactossco_ordencompra_ida = '".$bean->id."'
+      where sco_ordencompra_sco_contactossco_ordencompra_ida = '$ido'
       and deleted = 0";
     $results = $GLOBALS['db']->query($query, true);
     $row = $GLOBALS['db']->fetchByAssoc($results);
 
-    if ($row["cantidad"] == 0 )
+    if ($row["cantidad"] == 0)
     {
       $query = "SELECT u.id, cc.cnfco_te 
       FROM sco_cnf_contactos cc
       inner join users u on (u.user_name=cc.name)
-      where cc.cnfco_div = '".$div."'
-      and cc.cnfco_reg = '".$reg."'
+      where cc.cnfco_div = '$div'
+      and cc.cnfco_reg = '$reg'
       and cc.deleted = 0";
 
       $results = $GLOBALS['db']->query($query, true);
@@ -77,10 +78,11 @@ class CldatosO
   {
     $div = $bean->orc_division;
     $reg = $bean->orc_regional;
+    $ido = $bean->id;
 
     $query = "SELECT count(*) as cantidad 
       FROM sco_ordencompra_sco_aprobadores_c 
-      where sco_ordencompra_sco_aprobadoressco_ordencompra_ida = '".$bean->id."'
+      where sco_ordencompra_sco_aprobadoressco_ordencompra_ida = '$ido'
       and deleted = 0";
     $results = $GLOBALS['db']->query($query, true);
     $row = $GLOBALS['db']->fetchByAssoc($results);
@@ -104,7 +106,33 @@ class CldatosO
       }
     }
   }
+
+  function Fnactprod($bean, $event, $arguments) 
+  {
+    $idoc = $bean->id;
+    $con = "
+    SELECT 
+    id,
+    sco_ordencompra_sco_productossco_productos_idb
+    FROM sco_ordencompra_sco_productos_c
+    where 
+    deleted = 0 and
+    sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc'";
+    $results = $GLOBALS['db']->query($con, true);
+    while($row = $GLOBALS['db']->fetchByAssoc($results))
+    {
+      $idpro = $row['sco_ordencompra_sco_productossco_productos_idb'];
+      //$beanpr->mark_relationships_deleted('SCO_Productos', $idpro);
+  
+      $beanpr = BeanFactory::newBean('SCO_Productos');
+      $beanpr->name = $idpro;
+      //$beanpr->deleted = 1;
+      $beanpr->save();
+    }
+    //$bean->mark_relationships_deleted('SCO_Productos');
+  }
 }
+
 
 class CluiOC
 {
@@ -256,7 +284,7 @@ data = [
               $('#7-'+row).text(tot_t);
             }
             }
-            
+
             $('#my').jexcel({
               data:data, 
               onchange:update,
