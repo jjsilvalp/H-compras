@@ -12,7 +12,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
 	}
 
  	function display(){
-    echo "<script src='modules/SCO_Productos/views/jquery.validate.min.js'></script>";
+    echo "<script src='modules/SCO_Productos/views/jquery.validate.min.js'></script>";z
     echo '
     <script>
       $.validator.addMethod("alfanumOespacio", function(value, element) {
