@@ -124,8 +124,9 @@ class CldatosO
       $idpro = $row['sco_ordencompra_sco_productossco_productos_idb'];
       //$beanpr->mark_relationships_deleted('SCO_Productos', $idpro);
   
-      $beanpr = BeanFactory::newBean('SCO_Productos');
-      $beanpr->name = $idpro;
+      $beanpr = BeanFactory::getBean('SCO_Productos', $idpro);
+      //$beanpr->name = $idpro;
+      $beanpr->pro_descripcion = $idpro;
       //$beanpr->deleted = 1;
       $beanpr->save();
     }

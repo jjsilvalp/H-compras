@@ -2,8 +2,8 @@
 
 class Productos 
 {
-      function Fnproductos($bean, $event, $arguments) 
-      {
+	function Fnproductos($bean, $event, $arguments) 
+        {
       	//obtiene datos proyecto
       	$idpy = $bean->sco_proyectosco_sco_productossco_proyectosco_ida;
       	$beanpy = BeanFactory::getBean('SCO_ProyectosCO', $idpy);
@@ -17,7 +17,7 @@ class Productos
       	$query = "
       	SELECT name, proge_preciounid, proge_descripcion, proge_unidad, proge_nompro
       	FROM sco_productoscompras
-      	WHERE id = '".$id_pc."' ";
+      	WHERE id = '$id_pc'";
 		$results = $bean->db->query($query, true);
         $row = $bean->db->fetchByAssoc($results);
         $bean->pro_descripcion = $row["proge_descripcion"];
@@ -34,7 +34,7 @@ class Productos
 		on prov.id = provpc.sco_proveedor_sco_productoscomprassco_proveedor_ida
 		INNER JOIN sco_productoscompras as pc
 		on pc.id = provpc.sco_proveedor_sco_productoscomprassco_productoscompras_idb
-		WHERE pc.id = '".$id_pc."' and provpc.deleted = '0' ";
+		WHERE pc.id = '$id_pc' and provpc.deleted = '0' ";
         $res = $bean->db->query($query0, true);
         $rown = $bean->db->fetchByAssoc($res);
         #$bean->name = $rown['nom_prov'];
@@ -94,23 +94,25 @@ class Productos
 	    $que = "
 	    SELECT sco_ordencompra_sco_productossco_ordencompra_ida as idoc
 	    FROM sco_ordencompra_sco_productos_c  as ocp
-	    WHERE ocp.sco_ordencompra_sco_productossco_productos_idb = '".$id_p."' ";
+	    WHERE ocp.sco_ordencompra_sco_productossco_productos_idb = '$id_p'";
 	    $query1 = $bean->db->query($que, true);
 	    $sco = $bean->db->fetchByAssoc($query1);
+	    $idoc = $sco["idoc"];
 
 	    #Obtenieno Monto total de productos
 	    $query2 = "
-	    SELECT sum(p.pro_subtotal) as tot
-	    FROM sco_ordencompra as oc
-	    INNER JOIN sco_ordencompra_sco_productos_c as ocp 
-	    ON (oc.id = ocp.sco_ordencompra_sco_productossco_ordencompra_ida)
-	    INNER JOIN sco_productos as p
-	    ON (ocp.sco_ordencompra_sco_productossco_productos_idb = p.id)
-	    WHERE  ocp.deleted = '0' and oc.id = '".$sco['idoc']."' ";
+	    select 
+		sum(pr.pro_subtotal) as tot 
+		from sco_ordencompra_sco_productos_c ocpr, 
+		sco_productos pr
+		where 
+		ocpr.deleted = 0 and
+		pr.id = ocpr.sco_ordencompra_sco_productossco_productos_idb and
+		ocpr.sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc'";
 		$obj = $bean->db->query($query2, true);
 	    $cco = $bean->db->fetchByAssoc($obj);
 	    $ou = $cco["tot"];
-	    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $sco['idoc']);
+	    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
 	    $beanoc->orc_importet = $ou;
 	    $beanoc->orc_tototal = $ou;
 	    $beanoc->save();                         
@@ -123,7 +125,7 @@ class Productos
 	    $que = "
 	    SELECT sco_ordencompra_sco_productossco_ordencompra_ida as idoc
 	    FROM sco_ordencompra_sco_productos_c  as ocp
-	    WHERE ocp.sco_ordencompra_sco_productossco_productos_idb = '".$id_p."' ";
+	    WHERE ocp.sco_ordencompra_sco_productossco_productos_idb = '$id_p'";
 	    $query1 = $bean->db->query($que, true);
 	    $sco = $bean->db->fetchByAssoc($query1);
 	    $idoc = $sco['idoc'];
@@ -141,16 +143,16 @@ class Productos
 		AND ocpr.sco_ordencompra_sco_productossco_productos_idb = pr.id 
 		AND prpr.sco_proyectosco_sco_productossco_productos_idb = pr.id
 		AND prpr.sco_proyectosco_sco_productossco_proyectosco_ida = po.id 
-		AND ocpr.sco_ordencompra_sco_productossco_ordencompra_ida = '".$idoc."'";
+		AND ocpr.sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc'";
 		$obj = $bean->db->query($query2, true);
-	    //$idpr = $bean->db->fetchByAssoc($obj);
+	    
 	    $nom = "";
 	    $cnt_obj = 0;
 
 	    while($row = $bean->db->fetchByAssoc($obj))
 	      {
 	        //recorre elementos
-	        $nom .= $row["name"] . "_" . $row["proyc_correlativo"] . "|";
+	        $nom .= $row["name"] . "_" . $row["proyc_correlativo"] . " - ";
 	        $cnt_obj++;
 	      }
 	    if($cnt_obj > 0)
@@ -168,7 +170,7 @@ class Productos
 	    $que = "
 	    SELECT sco_ordencompra_sco_productossco_ordencompra_ida as idoc
 	    FROM sco_ordencompra_sco_productos_c  as ocp
-	    WHERE ocp.sco_ordencompra_sco_productossco_productos_idb = '".$id_p."' ";
+	    WHERE ocp.sco_ordencompra_sco_productossco_productos_idb = '$id_p'";
 	    $query1 = $bean->db->query($que, true);
 	    $sco = $bean->db->fetchByAssoc($query1);
 	    $idoc = $sco['idoc'];
@@ -186,8 +188,7 @@ class Productos
 		FROM sco_ordencompra_sco_plandepagos_c
 		WHERE 
 		deleted = 0
-		and sco_ordencompra_sco_plandepagossco_ordencompra_ida = '".$idoc."'
-	    ";
+		and sco_ordencompra_sco_plandepagossco_ordencompra_ida = '$idoc'";
 	    $cons = $bean->db->query($con, true);
 	    while($row = $bean->db->fetchByAssoc($cons))
 	      {
