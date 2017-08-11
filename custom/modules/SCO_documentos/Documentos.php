@@ -7,25 +7,30 @@ class Documentos
 		$bean->name = $bean->filename;		
 		$id = $bean->id;
 		//documento cotizacion
-		if ($bean->doc_tipo == 15)
-		{
-    		$query = "
+		$query = "
     		SELECT 
 			sco_ordencompra_sco_documentossco_ordencompra_ida as oc_id
 			FROM sco_ordencompra_sco_documentos_c
 			where 
 			sco_ordencompra_sco_documentossco_documentos_idb = '".$id."'";
-    		$results = $bean->db->query($query, true);
-    		$row = $bean->db->fetchByAssoc($results);
+    	$results = $bean->db->query($query, true);
+    	$row = $bean->db->fetchByAssoc($results);
     
-    		$beanoc = BeanFactory::getBean('SCO_OrdenCompra', $row['oc_id']);
-
+    	$beanoc = BeanFactory::getBean('SCO_OrdenCompra', $row['oc_id']);
+		if ($bean->doc_tipo == 1)
+		{    		
     		$cotiza = explode(".", $bean->filename);
     		$beanoc->orc_cotizacion = $cotiza[0];
     		$beanoc->save();
     		$bean->save();
     	}
-    	
+    	if($bean->doc_tipo == 2){
+    		$cotiza = explode(".", $bean->filename);
+    		$beanoc->orc_cotizacion = $cotiza[0];
+    		$beanoc->orc_estado = 1;
+			$beanoc->save();
+    		$bean->save();
+    	}
     	/*if($bean->doc_tipo == 16){
 			$dir = "/opt/bitnami/apps/suitecrm/htdocs/5598-upload/".$id;
 			$archivo = fopen($dir, "r");
