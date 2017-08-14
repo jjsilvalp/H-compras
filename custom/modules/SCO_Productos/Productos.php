@@ -83,7 +83,7 @@ class Productos
 			        		break;
 			        }
 	        }
-    	}    	
+    	}
         $bean->save();
  	  }
 
