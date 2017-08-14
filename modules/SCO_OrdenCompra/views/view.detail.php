@@ -27,9 +27,12 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		$st ='<style>
 			.gris{color: #ccc;}
 			.gris:hover{color: #ccc;}
-			#sugar_action_button, .sugar_action_button{
-			display: none;}
-			tbody td a {pointer-events: none; cursor: default;}
+			.single{display: none;}
+			#sugar_action_button, .sugar_action_button{display: none;}
+			#whole_subpanel_sco_ordencompra_sco_productos tbody td a {pointer-events: none; cursor: default;}
+			#whole_subpanel_sco_ordencompra_sco_contactos tbody td a {pointer-events: none; cursor: default;}
+			#whole_subpanel_sco_ordencompra_sco_aprobadores	tbody td a {pointer-events: none; cursor: default;}
+			#whole_subpanel_sco_ordencompra_sco_plandepagos	tbody td a {pointer-events: none; cursor: default;}
 			</style>'; 			
  		#script para cambio de estados 			
  		echo '
@@ -37,8 +40,8 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 	function showreport(){
 		 		var url1 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=false";
 		 		window.open(url1,"","width=1220,height=650");
-		 	}
 		 	function imprimir(){
+		 	}
 		 		var url2 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=False&rs:Format=PDF&rc:MarginTop=1cm&rc:MarginRight=1cm&rc:MarginBottom=1cm&rc:MarginLeft=1cm";
 		 		window.open(url2,"","");
 		 	}
@@ -79,9 +82,9 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  				echo "
  					<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Imprimir</a>
  					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
- 					<script>
- 						$(\"#sco_ordencompra_sco_productos_nuevo_button\").click();
- 					</script>";		
+ 					<style>
+ 						#whole_subpanel_sco_ordencompra_sco_documentos tbody td a {pointer-events: none; cursor: default;}
+ 					</style>";		
  				parent::display();  				
  				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
  					<table class="panelContainer" cellspacing="1"><tbody>
@@ -130,6 +133,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 			</tr>
 		 			</tbody></table>
 	 				 </div></div></div>';
+	 			echo $js.$st;
  				break;
  			case '2':
  				echo "<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Descargar</a>
@@ -212,7 +216,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	 						</td>
 	 					<td>
 		 					<input type="text" name="desc_por" id="desc_por" placeholder="Ingrese descuento" value="'.$this->bean->orc_descpor.'">
-		 					<button type="submit" onClick="calc(1)" class="btn btn-sm btn-success" >Realizar</button>
+		 					
 		 				</td>
 		 				<td scope="col">Cambiar Estado a :</td>
 		 				<td>
@@ -225,7 +229,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	 					</td>
 	 					<td>
 	 						<input type="text" name="desc_val" id="desc_val" placeholder="Ingrese descuento" value="'.$this->bean->orc_descvalor.'">
-		 					<button type="submit" onClick="calc(2)" class="btn btn-sm btn-success" >Realizar</button>
+		 					
 	 					</td>
 	 					<td></td>
 	 					<td></td>
