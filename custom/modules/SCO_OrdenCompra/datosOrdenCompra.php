@@ -112,23 +112,27 @@ class CldatosO
     $idoc = $bean->id;
     $con = "
     SELECT 
-    id,
     sco_ordencompra_sco_productossco_productos_idb
     FROM sco_ordencompra_sco_productos_c
-    where 
+    WHERE 
     deleted = 0 and
     sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc'";
     $results = $GLOBALS['db']->query($con, true);
+    $eje = 0;
     while($row = $GLOBALS['db']->fetchByAssoc($results))
     {
-      $idpro = $row['sco_ordencompra_sco_productossco_productos_idb'];
+      $idpro = $row["sco_ordencompra_sco_productossco_productos_idb"];
       //$beanpr->mark_relationships_deleted('SCO_Productos', $idpro);
   
       $beanpr = BeanFactory::getBean('SCO_Productos', $idpro);
+      //BeanFactory::getBean('SCO_Productos', $idpro);
+      //$beanpr->update_date_modified = false;
       //$beanpr->name = $idpro;
-      $beanpr->pro_descripcion = $idpro;
+      //$beanpr->pro_descripcion = $idpro;
+      $beanpr->sco_productos_sco_productoscomprassco_productoscompras_ida = "e7e0d06d-9301-02c7-dcea-598e6a4a5159";
       //$beanpr->deleted = 1;
-      //$beanpr->save();
+      //$beanpr->save(false);
+      //$bean->SCO_Productos->delete($bean->id, $idpro);
     }
     //$bean->mark_relationships_deleted('SCO_Productos');
   }
@@ -141,7 +145,7 @@ class CluiOC
   { 
     $idoc = $GLOBALS['_POST']['record'];
     $con = "
-    select 
+    SELECT 
     pr.id, 
     pr.name, 
     pr.pro_descripcion, 
@@ -158,7 +162,7 @@ class CluiOC
     sco_productos pr 
     where ocpr.deleted = 0 
     and pr.id = ocpr.sco_ordencompra_sco_productossco_productos_idb
-    and ocpr.sco_ordencompra_sco_productossco_ordencompra_ida = '".$idoc."'";
+    and ocpr.sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc'";
     $res = $GLOBALS['db']->query($con, true);
     
     $datos = "";
@@ -181,72 +185,70 @@ class CluiOC
     {
       case "EditView":  
         $js = "
-<script>
-function ocudaenv()
-{
-if($('#orc_decop')[0].checked)
-{
-  $('#orc_denomemp_label').hide();
-  $('#orc_denomemp').hide();
-  $('#orc_defax_label').hide();
-  $('#orc_defax').hide();
-  $('#orc_depobox_label').hide();
-  $('#orc_depobox').hide();
-  $('#orc_depais_label').hide();
-  $('#orc_depais').hide();
-  $('#orc_detelefono_label').hide();
-  $('#orc_detelefono').hide();
-  $('#orc_dedireccion_label').hide();
-  $('#orc_dedireccion').hide();
-}
-else
-{
-  $('#orc_denomemp_label').fadeIn();
-  $('#orc_denomemp').fadeIn();
-  $('#orc_defax_label').fadeIn();
-  $('#orc_defax').fadeIn();
-  $('#orc_depobox_label').fadeIn();
-  $('#orc_depobox').fadeIn();
-  $('#orc_depais_label').fadeIn();
-  $('#orc_depais').fadeIn();
-  $('#orc_detelefono_label').fadeIn();
-  $('#orc_detelefono').fadeIn();
-  $('#orc_dedireccion_label').fadeIn();
-  $('#orc_dedireccion').fadeIn();
-}  
-}
+            <script>
+            function ocudaenv()
+            {
+            if($('#orc_decop')[0].checked)
+            {
+              $('#orc_denomemp_label').hide();
+              $('#orc_denomemp').hide();
+              $('#orc_defax_label').hide();
+              $('#orc_defax').hide();
+              $('#orc_depobox_label').hide();
+              $('#orc_depobox').hide();
+              $('#orc_depais_label').hide();
+              $('#orc_depais').hide();
+              $('#orc_detelefono_label').hide();
+              $('#orc_detelefono').hide();
+              $('#orc_dedireccion_label').hide();
+              $('#orc_dedireccion').hide();
+            } else {
+              $('#orc_denomemp_label').fadeIn();
+              $('#orc_denomemp').fadeIn();
+              $('#orc_defax_label').fadeIn();
+              $('#orc_defax').fadeIn();
+              $('#orc_depobox_label').fadeIn();
+              $('#orc_depobox').fadeIn();
+              $('#orc_depais_label').fadeIn();
+              $('#orc_depais').fadeIn();
+              $('#orc_detelefono_label').fadeIn();
+              $('#orc_detelefono').fadeIn();
+              $('#orc_dedireccion_label').fadeIn();
+              $('#orc_dedireccion').fadeIn();
+            }  
+            }
 
-$('#orc_productos_label').hide();
-$('#orc_productos').hide();
-$('#orc_denomemp_label').hide();
-$('#orc_denomemp').hide();
-$('#orc_defax_label').hide();
-$('#orc_defax').hide();
-$('#orc_depobox_label').hide();
-$('#orc_depobox').hide();
-$('#orc_depais_label').hide();
-$('#orc_depais').hide();
-$('#orc_detelefono_label').hide();
-$('#orc_detelefono').hide();
-$('#orc_dedireccion_label').hide();
-$('#orc_dedireccion').hide();
-$('#orc_decop').change(ocudaenv);           
-</script>";
+            $('#orc_productos_label').hide();
+            $('#orc_productos').hide();
+            $('#orc_denomemp_label').hide();
+            $('#orc_denomemp').hide();
+            $('#orc_defax_label').hide();
+            $('#orc_defax').hide();
+            $('#orc_depobox_label').hide();
+            $('#orc_depobox').hide();
+            $('#orc_depais_label').hide();
+            $('#orc_depais').hide();
+            $('#orc_detelefono_label').hide();
+            $('#orc_detelefono').hide();
+            $('#orc_dedireccion_label').hide();
+            $('#orc_dedireccion').hide();
+            $('#orc_decop').change(ocudaenv);           
+            </script>";
         echo "
-<script src=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.js\"></script>
-<link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css\" type=\"text/css\" />         
-<script>
-function act_prod()
-{
-  var txt_prod = JSON.stringify($('#my').jexcel('getData'));
-  $('#orc_productos').text(txt_prod);
-}
-$('#SAVE_FOOTER').focus(act_prod);
+            <script src=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.js\"></script>
+            <link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css\" type=\"text/css\" />         
+            <script>
+            function act_prod()
+            {
+              var txt_prod = JSON.stringify($('#my').jexcel('getData'));
+              $('#orc_productos').text(txt_prod);
+            }
+            $('#SAVE_FOOTER').focus(act_prod);
 
-$('#detailpanel_5').append(\"<tr><td><div id='my'></div></td></tr>\");
-data = [
-" . $datos . "
-];
+            $('#detailpanel_5').append(\"<tr><td><div id='my'></div></td></tr>\");
+
+            data = [ $datos ];
+
             update = function (obj, cel, row) {
               function checkPos(pos) {
                   return pos == producto;
