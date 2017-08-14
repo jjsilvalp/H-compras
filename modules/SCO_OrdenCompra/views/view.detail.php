@@ -218,9 +218,9 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					<input type="text" name="desc_por" id="desc_por" placeholder="Ingrese descuento" value="'.$this->bean->orc_descpor.'">
 		 					
 		 				</td>
-		 				<td scope="col">Cambiar Estado a :</td>
+		 				<td scope="col"></td>
 		 				<td>
-		 					<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(4);" value="'.$arr_estado[4].'">
+		 					
 		 				</td>
 		 			</tr>
 		 			<tr>
@@ -241,7 +241,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 			</tr>
 		 			</tbody></table>
 	 				 </div></div></div>';
-	 			echo $js.$st."<script>$('#list_subpanel_sco_ordencompra_sco_documentos .sugar_action_button').show();</script>";	
+	 			echo $js.$st."<style>#list_subpanel_sco_ordencompra_sco_documentos .sugar_action_button{display:block;}</style>";	
  				break;
  			case '4':
 				echo "<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Descargar</a>

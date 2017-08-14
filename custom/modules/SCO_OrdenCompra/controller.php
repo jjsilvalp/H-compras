@@ -7,7 +7,6 @@ class SCO_OrdenCompraController extends SugarController {
 
 		if ($_REQUEST['subpanel'] == 'sco_ordencompra_sco_documentos'){   		         
 			$js = "<script>
-			alert(".$sed.");
 				window.location.reload(); 
 			</script> "; 
 			echo $js;                           
