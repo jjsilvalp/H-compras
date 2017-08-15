@@ -80,11 +80,14 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  		switch ($estado) {
  			case '1': 			 	 	
  				echo "
- 					<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Imprimir</a>
- 					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
+ 					<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Descargar</a>
+ 					  <a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
  					<style>
  						#whole_subpanel_sco_ordencompra_sco_documentos tbody td a {pointer-events: none; cursor: default;}
- 					</style>";		
+ 					</style>
+ 					<script>//$('#btn-estados').hide();
+ 					$('#desc_por').prop('disabled', true);
+ 					$('#desc_val').prop('disabled', true);</script>";		
  				parent::display();  				
  				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
  					<table class="panelContainer" cellspacing="1"><tbody>
@@ -108,9 +111,9 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	 						</td>
 	 					<td>
 		 					<input type="text" name="desc_por" id="desc_por" placeholder="Ingrese descuento" value="'.$this->bean->orc_descpor.'">
-		 					<button type="submit" onClick="calc(1)" class="btn btn-sm btn-success" >Realizar</button>
+		 					
 		 				</td>
-		 				<td scope="col">Cambiar Estado a :</td>
+		 				<td scope="col"></td>
 		 				<td>
 		 					<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="'.$arr_estado[2].'">
 		 				</td>
@@ -121,7 +124,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	 					</td>
 	 					<td>
 	 						<input type="text" name="desc_val" id="desc_val" placeholder="Ingrese descuento" value="'.$this->bean->orc_descvalor.'">
-		 					<button type="submit" onClick="calc(2)" class="btn btn-sm btn-success" >Realizar</button>
+		 					
 	 					</td>
 	 					<td></td>
 	 					<td></td>
@@ -136,7 +139,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	 			echo $js.$st;
  				break;
  			case '2':
- 				echo "<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Descargar</a>
+ 				echo "<a class=\"btn btn-success btn-sm\" onClick=\"imprimir()\">Descargar</a>
  					  <a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
  					  <script>$(\"#sco_ordencompra_sco_productos_nuevo_button\").click();</script>";		
  				parent::display();  				
