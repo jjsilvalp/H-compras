@@ -12,7 +12,7 @@ require_once('include/entryPoint.php');
 	if($tipo == 1){
 		$bean->orc_descpor = $desc_por;		
 		$desc_por = $desc_por * $bean->orc_importet /100;	
-		$bean->orc_descvalor = $debeansc_por;				
+		$bean->orc_descvalor = $desc_por;				
 		$bean->orc_tototal = $bean->orc_importet - $desc_por;
 	}
 	if($tipo == 2){
