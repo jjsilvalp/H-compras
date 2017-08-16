@@ -14,4 +14,5 @@ $hook_array['before_save'][] = Array(4, 'actualiza productos', 'custom/modules/S
 
 $hook_array['after_ui_frame'] = Array();
 $hook_array['after_ui_frame'][] = Array(1, 'vistas de orden de compra con js', 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php','CluiOC', 'fnview');
+
 ?>

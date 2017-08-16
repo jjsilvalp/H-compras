@@ -69,7 +69,7 @@ class Productos
  	function FnDeproductos($bean, $event, $arguments) 
  	{
  		#Obteniendo Id OC
-        $id_p = $bean->id;        
+        #$id_p = $bean->id;        
 		$bean->load_relationship('sco_ordencompra_sco_productos');
 	    $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
 	    reset($relatedBeans);
@@ -91,7 +91,7 @@ class Productos
  	function FnNomOC($bean, $event, $arguments) 
  	{
  		//id de oc
- 		$id_p = $bean->id;      
+ 		#$id_p = $bean->id;      
 		$bean->load_relationship('sco_ordencompra_sco_productos');
 	    $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
 	    reset($relatedBeans);
@@ -117,7 +117,8 @@ class Productos
 	    while($row = $bean->db->fetchByAssoc($obj))
 	      {
 	        //recorre elementos
-	        $nom .= $row["name"] . "_" . $row["proyc_correlativo"] . " - ";
+	        #$nom .= $row["name"] . "_" . $row["proyc_correlativo"] . " - ";
+	        $nom .= $row["name"] . "_";
 	        $cnt_obj++;
 	      }
 	    if($cnt_obj > 0)
@@ -131,7 +132,7 @@ class Productos
  	function FnActualizaPP($bean, $event, $arguments) 
  	{
  		#Obteniendo Id OC
-        $id_p = $bean->id;      
+        #$id_p = $bean->id;      
 		$bean->load_relationship('sco_ordencompra_sco_productos');
 	    $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
 	    reset($relatedBeans);
