@@ -80,7 +80,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  		switch ($estado) {
  			case '1': 			 	 	
  				echo "
- 					<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Descargar</a>
+ 					<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
  					  <a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
  					<style>
  						#whole_subpanel_sco_ordencompra_sco_documentos tbody td a {pointer-events: none; cursor: default;}
@@ -139,7 +139,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	 			echo $js.$st;
  				break;
  			case '2':
- 				echo "<a class=\"btn btn-success btn-sm\" onClick=\"imprimir()\">Descargar</a>
+ 				echo "<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
  					  <a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
  					  <script>$(\"#sco_ordencompra_sco_productos_nuevo_button\").click();</script>";		
  				parent::display();  				
@@ -193,7 +193,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  				break;
  			case '3': 		
 				echo "
-					<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Descargar</a>
+					<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
  					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
  					";	 				
  				parent::display();  				

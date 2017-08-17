@@ -59,61 +59,61 @@ class SCO_ProductosViewEdit extends ViewEdit {
       }); 
     </script>';
  		echo '
- 		<style>    
-      #Default_SCO_Productos_Subpanel{
-        background: #ggg;
+ 		<style>
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{
+        background: #eee;
         margin: 5px;
       }
-      .btn-verde{ background:#449d44;}
-      #Default_SCO_Productos_Subpanel table{
-        background: #ggg;
+      #form_SubpanelQuickCreate_SCO_Productos .btn-verde{ background:#449d44;}
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel table{
+        background: #eee;
         padding: 10px;
       }
-      #Default_SCO_Productos_Subpanel tr{
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel tr{
           display: inline;
       } 
-      #Default_SCO_Productos_Subpanel tr td{
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel tr td{
          display: inline;
       }
-      #Default_SCO_Productos_Subpanel input{
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel input{
         display: inline;
         size:5;
       }
-      #Default_SCO_Productos_Subpanel #pro_fechaprev{
+      #form_SubpanelQuickCreate_SCO_Productos  #Default_SCO_Productos_Subpanel #pro_fechaprev{
         width: 80px;
       }
-      #Default_SCO_Productos_Subpanel #pro_cantidad{
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel #pro_cantidad{
         width: 50px;
       }
-      #Default_SCO_Productos_Subpanel #pro_cantidadr{
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel #pro_cantidadr{
         width: 50px;
       }
-      #Default_SCO_Productos_Subpanel #pro_cantidadt{
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel #pro_cantidadt{
         width: 50px;
       }
-      #Default_SCO_Productos_Subpanel #pro_preciound{
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel #pro_preciound{
         width: 50px;
       }
-      #Default_SCO_Productos_Subpanel #pro_descuento_c{
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel #pro_descuento_c{
         width: 50px;
       }
       #form_SubpanelQuickCreate_SCO_Productos{
         background: #eee;
         border: 1px solid #ccc;;
       }
-      tr input{
+      #form_SubpanelQuickCreate_SCO_Productos tr input{
         width: 70px;
       }     
-      #sco_productos_sco_productoscompras_name{
+      #form_SubpanelQuickCreate_SCO_Productos #sco_productos_sco_productoscompras_name{
         display:inline-block;
       }
-      #btn_sco_productos_sco_productoscompras_name{
+      #form_SubpanelQuickCreate_SCO_Productos #btn_sco_productos_sco_productoscompras_name{
         display:inline-block;
       }
-      #btn_clr_sco_productos_sco_productoscompras_name{
+      #form_SubpanelQuickCreate_SCO_Productos  #btn_clr_sco_productos_sco_productoscompras_name{
         display:inline-block;
       }  
-      .boton {
+      #form_SubpanelQuickCreate_SCO_Productos .boton {
         background-color: #3C8DBC;
         border: none;
         color: #fff;
@@ -122,28 +122,29 @@ class SCO_ProductosViewEdit extends ViewEdit {
         padding: 5px 8px 5px 8px;
         margin-bottom: 2px;
       }
-      .proserv{
+      #form_SubpanelQuickCreate_SCO_Productos .proserv{
         margin-right: 5px;
         margin-left: 5px;
         float:left;
       }
+    }
       </style>
- 		';
-		echo '
-    <script>
-			$("#pro_tipodesc_label").hide();
- 			$("#SCO_Productos_subpanel_cancel_button").hide();
- 			$("#SCO_Productos_subpanel_save_button").hide();
- 			$(".dcQuickEdit #SCO_Productos_subpanel_full_form_button").hide();
- 			function convRes() {
- 				//var url = "index.php?module=' . $this->module . '&action=action_mod";
- 				var url = "index.php?module=SCO_ProductosCompras&action=EditView";
-        window.open(url, "", "width=990,height=650");
-        //location.reload();
-      } 			
-	 	</script>';
+ 		';		
 	 	echo "<input type=\"submit\" class=\"button\" onClick=\"convRes();\" value=\"Crear Nuevo Producto\">";
 	 	parent::display();
+    echo '
+    <script>
+      $("#pro_tipodesc_label").hide();
+      $("#SCO_Productos_subpanel_cancel_button").hide();
+      $("#SCO_Productos_subpanel_save_button").hide();
+      $(".dcQuickEdit #SCO_Productos_subpanel_full_form_button").hide();
+      function convRes() {
+        //var url = "index.php?module=' . $this->module . '&action=action_mod";
+        var url = "index.php?module=SCO_ProductosCompras&action=EditView";
+        window.open(url, "", "width=990,height=650");
+        //location.reload();
+      }       
+    </script>';
  	}
 }
 

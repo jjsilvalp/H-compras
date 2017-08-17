@@ -4,77 +4,30 @@ class Documentos
 {
 	function Fndocs($bean, $event, $arguments) 
 	{		
-		$bean->name = $bean->filename;		
-		$id = $bean->id;
+		
+		$bean->name = $bean->filename;				
 		//documento cotizacion
-		$query = "
-    		SELECT 
-			sco_ordencompra_sco_documentossco_ordencompra_ida as oc_id
-			FROM sco_ordencompra_sco_documentos_c
-			where 
-			sco_ordencompra_sco_documentossco_documentos_idb = '$id'";
-    	$results = $bean->db->query($query, true);
-    	$row = $bean->db->fetchByAssoc($results);
-    
-    	$beanoc = BeanFactory::getBean('SCO_OrdenCompra', $row['oc_id']);
-		if ($bean->doc_tipo == 1)
-		{    		
-    		$cotiza = explode(".", $bean->filename);
-    		$beanoc->orc_cotizacion = $cotiza[0];
-    		$beanoc->save();    		
+		$bean->load_relationship('sco_ordencompra_sco_documentos');
+	    $relatedBeans = $bean->sco_ordencompra_sco_documentos->getBeans();
+	    reset($relatedBeans);
+	    $parentBean = current($relatedBeans);
+	    $idoc = $parentBean->id;
+
+    	$beanoc = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
+    	if ($bean->description === false){
+			if ($bean->doc_tipo == 1){    		
+	    		$cotiza = explode(".", $bean->filename);
+	    		$beanoc->orc_cotizacion = $cotiza[0];
+	    		$beanoc->save();    		
+	    	}
+	    	if($bean->doc_tipo == 2){
+	    		$cotiza = explode(".", $bean->filename);
+	    		$beanoc->orc_cotizacion = $cotiza[0];
+	    		$beanoc->orc_estado = 1;
+				$beanoc->save();    		
+	    	}
+	    	$bean->save();
     	}
-    	if($bean->doc_tipo == 2){
-    		$cotiza = explode(".", $bean->filename);
-    		$beanoc->orc_cotizacion = $cotiza[0];
-    		$beanoc->orc_estado = 1;
-			$beanoc->save();    		
-    	}
-    	$bean->save();
-    	/*if($bean->doc_tipo == 16){
-			$dir = "/opt/bitnami/apps/suitecrm/htdocs/5598-upload/".$id;
-			$archivo = fopen($dir, "r");
-
-			echo "<script>console.log('".$beanoc->id."');</script>";
-
-
-			$sql = "SELECT id FROM sco_ordencompra_sco_productos_c WHERE deleted = 0";
-			$result = $GLOBALS['db']->query($sql);
-			while($row_r_oc = $GLOBALS['db']->fetchByAssoc($result) ){
-			    echo "<script>console.log('".$row_r_oc['id']."')</script>";
-			}
-
-			while (($datos = fgetcsv($archivo, 1000, ",")) !== FALSE) {		    				  
-			    $beanproge = BeanFactory::newBean('SCO_ProductosCompras');
-			    $beanproge->name = $datos[0];
-			    $beanproge->proge_nompro = $datos[1];
-			    $beanproge->proge_categoria = $datos[2];
-			    $beanproge->proge_tipopro = $datos[3];
-			    $beanproge->proge_descripcion = $datos[4];
-			    $beanproge->proge_preciounid = $datos[5];
-			    $beanproge->proge_codaio = $datos[6];
-			    $beanproge->proge_negociacion = $datos[8];
-			    #proveedor id relacion
-			    $beanproge->sco_proveedor_sco_productoscompras_name = 2;
-
-			    #echo "<script>console.log('".$beanpc->id."');</script>";
-
-			    $beanpro = BeanFactory::newBean('SCO_Productos');
-			    $beanpro->sco_productos_sco_productoscompras_name = $beanproge->id;
-			    $beanpro->name = $beanproge->name;
-			    $beanpro->pro_descripcion = $beanproge->proge_descripcion;
-			    $beanpro->pro_preciound = $beanproge->proge_preciounid;			    
-			    $beanpro->pro_cantidad = $datos[9];
-			    #productos compras id relacion
-			    $beanpro->sco_productos_sco_productoscompras_name = 2;
-			    #proyectos id relacion
-			    $beanpro->sco_proyectosco_sco_productos_name = 2;				
-			    #$beanproge->save();
-
-			    #echo '<script>console.log("'.$datos[0].$datos[1].$datos[2].$datos[3].$datos[4].$datos[5].$datos[6].$datos[7].'")</script>';
-			    #$bean->save();    
-		    }
-		    echo "<script>alert('Importacion de datos correcta');</script>";
-	  		}*/
 	}	
 
 	function Fncreafol($bean, $event, $arguments) 
@@ -114,8 +67,8 @@ class Documentos
 
 	function Fnscargaarch($bean, $event, $arguments) 
 	{
-		$preAdded = $_POST['preAdded'];
-		$GLOBALS['log']->debug("jjsc ".serialize($bean));
+		//$preAdded = $_POST['preAdded'];
+		//$GLOBALS['log']->debug("jjsc ".serialize($bean));
 	}
 }
  ?>
