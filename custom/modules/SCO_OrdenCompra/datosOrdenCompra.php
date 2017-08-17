@@ -38,6 +38,7 @@ class CldatosO
     $bean->user_id_c = $current_user->id;
     $bean->save();
     #hola
+    #hola profe
   }
 
   function Fndatosco($bean, $event, $arguments) 
