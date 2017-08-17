@@ -2,6 +2,7 @@
 
 class CldatosO 
 {
+  static $already_ran = false;
   function Fndatoso($bean, $event, $arguments) 
   {
     //Copia datos facturacion en datos envio
@@ -109,6 +110,9 @@ class CldatosO
 
   function Fnguardapro($bean, $event, $arguments) 
   {
+    if(self::$already_ran == true) return;
+      self::$already_ran = true;
+
       $prod = $bean->orc_productos;
       $prod = str_replace("[[", "", $prod);
       $prod = str_replace("]]", "", $prod);
@@ -116,14 +120,14 @@ class CldatosO
       $prod = str_replace("],", "|", $prod);
       $filas = explode("|", $prod);
       $cnt_filas = count($filas);
-      for ($i=0; $i<=$cnt_filas; $i++)
+      for ($i=0; $i<$cnt_filas; $i++)
       {
         $textfila = $filas[$i];
         $fila = explode(",", $textfila);
       }
       $bean->orc_observaciones = $fila[1];
     
-      $bean->save(false);   
+      $bean->save();   
   }
 }
 

@@ -26,7 +26,7 @@ class Documentos
 	    		$beanoc->orc_estado = 1;
 				$beanoc->save();    		
 	    	}
-	    	$bean->save();
+	    	$bean->save(false);
     	}
 	}	
 
