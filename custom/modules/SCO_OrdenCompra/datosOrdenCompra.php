@@ -107,34 +107,23 @@ class CldatosO
     }
   }
 
-  function Fnactprod($bean, $event, $arguments) 
+  function Fnguardapro($bean, $event, $arguments) 
   {
-    $idoc = $bean->id;
-    $con = "
-    SELECT 
-    sco_ordencompra_sco_productossco_productos_idb
-    FROM sco_ordencompra_sco_productos_c
-    WHERE 
-    deleted = 0 and
-    sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc'";
-    $results = $GLOBALS['db']->query($con, true);
-    $eje = 0;
-    while($row = $GLOBALS['db']->fetchByAssoc($results))
-    {
-      $idpro = $row["sco_ordencompra_sco_productossco_productos_idb"];
-      //$beanpr->mark_relationships_deleted('SCO_Productos', $idpro);
-  
-      $beanpr = BeanFactory::getBean('SCO_Productos', $idpro);
-      //BeanFactory::getBean('SCO_Productos', $idpro);
-      //$beanpr->update_date_modified = false;
-      //$beanpr->name = $idpro;
-      //$beanpr->pro_descripcion = $idpro;
-      $beanpr->sco_productos_sco_productoscomprassco_productoscompras_ida = "e7e0d06d-9301-02c7-dcea-598e6a4a5159";
-      //$beanpr->deleted = 1;
-      //$beanpr->save(false);
-      //$bean->SCO_Productos->delete($bean->id, $idpro);
-    }
-    //$bean->mark_relationships_deleted('SCO_Productos');
+      $prod = $bean->orc_productos;
+      $prod = str_replace("[[", "", $prod);
+      $prod = str_replace("]]", "", $prod);
+      $prod = str_replace("[", "", $prod);
+      $prod = str_replace("],", "|", $prod);
+      $filas = explode("|", $prod);
+      $cnt_filas = count($filas);
+      for ($i=0; $i<=$cnt_filas; $i++)
+      {
+        $textfila = $filas[$i];
+        $fila = explode(",", $textfila);
+      }
+      $bean->orc_observaciones = $fila[1];
+    
+      $bean->save(false);   
   }
 }
 
@@ -144,40 +133,23 @@ class CluiOC
   function fnview()
   { 
     $idoc = $GLOBALS['_POST']['record'];
-    $con = "
-    SELECT 
-    pr.id, 
-    pr.name, 
-    pr.pro_descripcion, 
-    pr.pro_unidad, 
-    pr.pro_cantidad, 
-    pr.pro_descuento, 
-    pr.pro_preciound, 
-    pr.pro_subtotal,
-    pr.pro_procentaje,
-    pr.pro_nomproyco, 
-    ocpr.sco_ordencompra_sco_productossco_ordencompra_ida, 
-    ocpr.sco_ordencompra_sco_productossco_productos_idb 
-    from sco_ordencompra_sco_productos_c ocpr, 
-    sco_productos pr 
-    where ocpr.deleted = 0 
-    and pr.id = ocpr.sco_ordencompra_sco_productossco_productos_idb
-    and ocpr.sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc'";
-    $res = $GLOBALS['db']->query($con, true);
-    
+
+    $bean = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
+    $bean->load_relationship('sco_ordencompra_sco_productos');
+    $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
     $datos = "";
-    while($row = $GLOBALS['db']->fetchByAssoc($res))
+    foreach ($relatedBeans as $producto) 
     {
       $datos .= "[";
-      $datos .= "'" . $row['name'] . "',";
-      $datos .= "'" . $row['pro_descripcion'] . "',";
-      $datos .= "'" . $row['pro_unidad'] . "',";
-      $datos .= $row['pro_cantidad'] . ",";
-      $datos .= $row['pro_preciound'] . ",";
-      $datos .= $row['pro_procentaje'] . ",";
-      $datos .= $row['pro_descuento'] . ",";
-      $datos .= $row['pro_subtotal'] . ",";
-      $datos .= "'" . $row['pro_nomproyco'] . "'";
+      $datos .= "'" . $producto->name . "',";
+      $datos .= "'" . $producto->pro_descripcion . "',";
+      $datos .= "'" . $producto->pro_unidad . "',";
+      $datos .= $producto->pro_cantidad . ",";
+      $datos .= $producto->pro_preciound . ",";
+      $datos .= $producto->pro_procentaje . ",";
+      $datos .= $producto->pro_descuento . ",";
+      $datos .= $producto->pro_subtotal . ",";
+      $datos .= "'" . $producto->pro_nomproyco . "'";
       $datos .= "],";
     }
     
@@ -218,8 +190,8 @@ class CluiOC
             }  
             }
 
-            $('#orc_productos_label').hide();
-            $('#orc_productos').hide();
+            //$('#orc_productos_label').hide();
+            //$('#orc_productos').hide();
             $('#orc_denomemp_label').hide();
             $('#orc_denomemp').hide();
             $('#orc_defax_label').hide();
@@ -244,6 +216,7 @@ class CluiOC
               $('#orc_productos').text(txt_prod);
             }
             $('#SAVE_FOOTER').focus(act_prod);
+            $('#SAVE_HEADER').focus(act_prod);
 
             $('#detailpanel_5').append(\"<tr><td><div id='my'></div></td></tr>\");
 
@@ -310,6 +283,27 @@ class CluiOC
       break;
     }
   }
+
+function Fnactproducto() 
+  {
+
+    $idoc = $GLOBALS['_POST']['record'];
+    
+    if($GLOBALS['app']->controller->action == "EditView")
+    {
+      //echo("<script>alert('$aaaa');</script>");
+      $bean = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
+      $bean->load_relationship('sco_ordencompra_sco_productos');
+      $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
+      foreach ($relatedBeans as $producto) 
+      {
+        $idpr = $producto->id;
+        $producto->deleted = 1;
+        $producto->save();
+      }
+    }
+  }
+
 }
   
 ?>
