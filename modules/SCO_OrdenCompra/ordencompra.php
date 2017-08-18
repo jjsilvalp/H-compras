@@ -15,6 +15,28 @@ require_once('include/entryPoint.php');
 			break;	
 		case "3":
 			$beanoc->orc_estado = 3;  
+			$GLOBALS['db'];
+		    $db = DBManagerFactory::getInstance();
+		    $query = "
+		    	SELECT DISTINCT proy.id as idproy FROM sco_proyectosco as proy
+				INNER JOIN sco_proyectosco_sco_productos_c as proypro
+				ON proy.id = proypro.sco_proyectosco_sco_productossco_proyectosco_ida
+				INNER JOIN sco_productos as p
+				ON p.id = proypro.sco_proyectosco_sco_productossco_productos_idb
+				INNER JOIN sco_ordencompra_sco_productos_c as ocp
+				ON ocp.sco_ordencompra_sco_productossco_productos_idb = p.id
+				WHERE ocp.sco_ordencompra_sco_productossco_ordencompra_ida = '$id'";
+			$result = $GLOBALS['db']->query($query, true);
+			while($row = $GLOBALS['db']->fetchByAssoc($result))
+			{
+			    $idproy = $row['idproy'];
+			    $beanproy = BeanFactory::getBean('SCO_ProyectosCO', $idproy);	
+				$correl = $beanproy->proyc_correlativo + 1;						
+				$beanproy->proyc_correlativo = $correl;
+				$beanproy->save();
+				$nombreoc .= $beanproy->proyc_tipo.$beanproy->name."_".$correl." - ";
+			}
+		    $beanoc->name = trim($nombreoc, ' - ');
 			break;	
 		case "4":
 			$beanoc->orc_estado = 4;  
@@ -28,35 +50,6 @@ require_once('include/entryPoint.php');
 		default:
 			break;
 	}
-	$nomoc = explode("_", $beanoc->name);
-	$beanoc->load_relationship('sco_ordencompra_sco_productos');
-    $relatedBeans = $beanoc->sco_ordencompra_sco_productos->getBeans();
-
-    $GLOBALS['db'];
-    $db = DBManagerFactory::getInstance();
-    $query = "
-    	SELECT DISTINCT proy.id as idproy FROM sco_proyectosco as proy
-		INNER JOIN sco_proyectosco_sco_productos_c as proypro
-		ON proy.id = proypro.sco_proyectosco_sco_productossco_proyectosco_ida
-		INNER JOIN sco_productos as p
-		ON p.id = proypro.sco_proyectosco_sco_productossco_productos_idb
-		INNER JOIN sco_ordencompra_sco_productos_c as ocp
-		ON ocp.sco_ordencompra_sco_productossco_productos_idb = p.id
-		WHERE ocp.sco_ordencompra_sco_productossco_ordencompra_ida = '$id'";
-	$result = $GLOBALS['db']->query($query, true);
-	while($row = $GLOBALS['db']->fetchByAssoc($result))
-	{
-	    $idproy = $row['idproy'];
-	    $beanproy = BeanFactory::getBean('SCO_ProyectosCO', $idproy);	
-		$correl = $beanproy->proyc_correlativo + 1;						
-		$beanproy->proyc_correlativo = $correl;
-		$beanproy->save();
-		$nombreoc .= $beanproy->name."_".$correl." - ";
-	}
-    foreach ($relatedBeans as $pro) {
-    	$id_p = $pro->id;
-    	$colpro .= "#".$pro->id;
-    }
-    $beanoc->name = trim($nombreoc, ' - ');
+    
 	$beanoc->save();
 ?> 
