@@ -3,7 +3,7 @@ $hook_version = 1;
 $hook_array = Array(); 
 
 $hook_array['before_save'] = Array();
-$hook_array['before_save'][] = Array(1, 'Productos', 'custom/modules/SCO_Productos/Productos.php','Productos', 'Fnproductos');
+$hook_array['before_save'][] = Array(1, 'Productos', 'custom/modules/SCO_Productos/Productos.php','ClProductos', 'Fnproductos');
 $hook_array['before_save'][] = Array(2, 'Productos a', 'custom/modules/SCO_Productos/Deproductos.php','ClDeproductos', 'FnDeproductos');
 $hook_array['before_save'][] = Array(3, 'nombreoc', 'custom/modules/SCO_Productos/NomOC.php','ClNomOC', 'FnNomOC');
 $hook_array['before_save'][] = Array(4, 'actualizapp', 'custom/modules/SCO_Productos/ActualizaPP.php','ClActualizaPP', 'FnActualizaPP');
