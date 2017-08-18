@@ -1,14 +1,15 @@
 <?php
 class ClguardadatosO 
 {
-  static $already_ran = false;
+  //static $already_ran = false;
 
   function Fnguardapro($bean, $event, $arguments) 
   {
-  	if(self::$already_ran == true) return;
-    self::$already_ran = true;
+  	//if(self::$already_ran == true) return;
+    //self::$already_ran = true;
 
     $prod = $bean->orc_productos;
+    $bean->orc_observaciones = $prod;
     $prod = str_replace("&quot;","",$prod);
     $prod = str_replace("[[", "", $prod);
     $prod = str_replace("]]", "", $prod);
@@ -37,7 +38,6 @@ class ClguardadatosO
       $row1 = $GLOBALS['db']->fetchByAssoc($results1);
 
       $beanprod = BeanFactory::newBean('SCO_Productos');
-      	//$fila[0] = substr(substr($fila[0],1),0,-1);
       $beanprod->sco_productos_sco_productoscomprassco_productoscompras_ida = $row['id'];
       $beanprod->pro_cantidad = $cant;
       $beanprod->pro_preciound = $prec;
@@ -49,7 +49,6 @@ class ClguardadatosO
     }
     $bean->orc_productos = "";
     $bean->save();
-    #hola
   }
 }
 ?>
