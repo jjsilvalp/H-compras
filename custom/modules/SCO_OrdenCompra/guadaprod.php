@@ -49,6 +49,7 @@ class ClguardadatosO
     }
     $bean->orc_productos = "";
     $bean->save();
+    #hola
   }
 }
 ?>
