@@ -13,11 +13,10 @@ class SCO_OrdenCompraController extends SugarController {
 		}
 		if ($_REQUEST['subpanel'] == 'sco_ordencompra_sco_productos'){             
 			$js = "<script>
-				window.location.reload(); 
+				
 			</script> "; 
 			echo $js;                           
 		}
 	}
-
 }
 ?>

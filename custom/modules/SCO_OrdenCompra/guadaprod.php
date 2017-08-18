@@ -33,7 +33,7 @@ class ClguardadatosO
       $row = $GLOBALS['db']->fetchByAssoc($results);
 
       $query1 = "SELECT id FROM sco_proyectosco WHERE deleted = 0 AND name = '$idpo'";
-      $results = $GLOBALS['db']->query($query1, true);
+      $results1 = $GLOBALS['db']->query($query1, true);
       $row1 = $GLOBALS['db']->fetchByAssoc($results1);
 
       $beanprod = BeanFactory::newBean('SCO_Productos');
