@@ -6,7 +6,7 @@ require_once('include/entryPoint.php');
 	$id = $_GET['id'];  
 	$beanoc = BeanFactory::getBean('SCO_OrdenCompra', $id);
 	$num = $_GET['num'];
-	/*switch ($num) {
+	switch ($num) {
 		case "1":
 			$beanoc->orc_estado = 2; 
 			break;	
@@ -27,7 +27,7 @@ require_once('include/entryPoint.php');
 			break;		
 		default:
 			break;
-	}*/
+	}
 	$nomoc = explode("_", $beanoc->name);
 	$beanoc->load_relationship('sco_ordencompra_sco_productos');
     $relatedBeans = $beanoc->sco_ordencompra_sco_productos->getBeans();
@@ -57,11 +57,6 @@ require_once('include/entryPoint.php');
     	$id_p = $pro->id;
     	$colpro .= "#".$pro->id;
     }
-    //$idoc = $parentBean->id;
-    //$myString = substr($myString, 0, -1);
     $beanoc->name = trim($nombreoc, ' - ');
 	$beanoc->save();
-
-
-
 ?> 
