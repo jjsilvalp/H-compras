@@ -107,28 +107,6 @@ class CldatosO
       }
     }
   }
-
-  function Fnguardapro($bean, $event, $arguments) 
-  {
-    if(self::$already_ran == true) return;
-      self::$already_ran = true;
-
-      $prod = $bean->orc_productos;
-      $prod = str_replace("[[", "", $prod);
-      $prod = str_replace("]]", "", $prod);
-      $prod = str_replace("[", "", $prod);
-      $prod = str_replace("],", "|", $prod);
-      $filas = explode("|", $prod);
-      $cnt_filas = count($filas);
-      for ($i=0; $i<$cnt_filas; $i++)
-      {
-        $textfila = $filas[$i];
-        $fila = explode(",", $textfila);
-      }
-      $bean->orc_observaciones = $fila[1];
-    
-      $bean->save();   
-  }
 }
 
 
@@ -194,8 +172,8 @@ class CluiOC
             }  
             }
 
-            //$('#orc_productos_label').hide();
-            //$('#orc_productos').hide();
+            $('#orc_productos_label').hide();
+            $('#orc_productos').hide();
             $('#orc_denomemp_label').hide();
             $('#orc_denomemp').hide();
             $('#orc_defax_label').hide();
