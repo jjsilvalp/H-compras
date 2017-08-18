@@ -42,7 +42,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 		window.open(url1,"","width=1220,height=650");
 		 	function imprimir(){
 		 	}
-		 		var url2 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=False&rs:Format=PDF&rc:MarginTop=1cm&rc:MarginRight=1cm&rc:MarginBottom=1cm&rc:MarginLeft=1cm";
+		 		var url2 = "#";
 		 		window.open(url2,"","");
 		 	}
 		</script>';

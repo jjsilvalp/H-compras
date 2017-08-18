@@ -25,7 +25,7 @@ require_once('include/entryPoint.php');
 				ON p.id = proypro.sco_proyectosco_sco_productossco_productos_idb
 				INNER JOIN sco_ordencompra_sco_productos_c as ocp
 				ON ocp.sco_ordencompra_sco_productossco_productos_idb = p.id
-				WHERE ocp.sco_ordencompra_sco_productossco_ordencompra_ida = '$id'";
+				WHERE p.deleted <> 1 AND ocp.sco_ordencompra_sco_productossco_ordencompra_ida = '$id'";
 			$result = $GLOBALS['db']->query($query, true);
 			while($row = $GLOBALS['db']->fetchByAssoc($result))
 			{
