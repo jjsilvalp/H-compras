@@ -7,7 +7,6 @@ class ClguardadatosO
   {
   	//if(self::$already_ran == true) return;
     //self::$already_ran = true;
-
     $prod = $bean->orc_productos;
     $bean->orc_observaciones = $prod;
     $prod = str_replace("&quot;","",$prod);
@@ -17,7 +16,7 @@ class ClguardadatosO
     $prod = str_replace("],", "|", $prod);
     $filas = explode("|", $prod);
     $cnt_filas = count($filas);
-    for ($i=0; $i<$cnt_filas; $i++)
+    /*for ($i=0; $i<$cnt_filas; $i++)
     {
       $textfila = $filas[$i];
       $fila = explode(",", $textfila);
@@ -45,10 +44,11 @@ class ClguardadatosO
       $beanprod->pro_procentaje = $dscp;
       $beanprod->pro_descuento = $dscv;
       $beanprod->sco_proyectosco_sco_productossco_proyectosco_ida = $row1['id'];
+      $beanprod->sco_ordencompra_sco_productos_name = $bean->id;
       $beanprod->save();
-    }
-    $bean->orc_productos = "";
-    $bean->save();
+    }*/
+    #$bean->orc_productos = "";
+    #$bean->save(); 
   }
 }
 ?>

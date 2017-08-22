@@ -127,14 +127,16 @@ class SCO_ProductosViewEdit extends ViewEdit {
         margin-left: 5px;
         float:left;
       }
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
+      #description{display:none;}
     }
       </style>
  		';		
 	 	echo "<input type=\"submit\" class=\"button\" onClick=\"convRes();\" value=\"Crear Nuevo Producto\">";
 	 	parent::display();
-    echo '
+     echo '
     <script>
-      $("#pro_tipodesc_label").hide();
+      //$("#Default_SCO_Productos_Subpanel").hide();
       $("#SCO_Productos_subpanel_cancel_button").hide();
       $("#SCO_Productos_subpanel_save_button").hide();
       $(".dcQuickEdit #SCO_Productos_subpanel_full_form_button").hide();
@@ -145,6 +147,84 @@ class SCO_ProductosViewEdit extends ViewEdit {
         //location.reload();
       }       
     </script>';
+    echo "
+      <script src=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.js\"></script>
+      <link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css\" type=\"text/css\" />         
+      <script>
+      
+      $('#form_SubpanelQuickCreate_SCO_Productos_tabs').append(\"<div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><table class='panelContainer' cellspacing='1'><tbody><tr><td><div id='my'></div></td></tr></tbody></table></div></div></div>\");
+
+      data = [ $datos ];
+
+      update = function (obj, cel, row) {
+        function checkPos(pos) {
+            return pos == producto;
+
+        }
+
+        val = $('#my').jexcel('getValue', $(row));
+        var col = $(cel).prop('id').split('-')[0];
+      if(col == 3 || col == 4){
+        var row = $(cel).prop('id').split('-')[1];
+        //alert($(cel).prop('id'));
+        var cant = $('#3-'+row).text();
+        var prec = $('#4-'+row).text();
+        var tot = cant * prec;
+        $('#7-'+row).text(tot);
+        $('#5-'+row).text('');
+        $('#6-'+row).text('');
+      }
+      
+        var row = $(cel).prop('id').split('-')[1];      
+        var cant = $('#3-'+row).text();
+        var prec = $('#4-'+row).text();
+        var tot = cant * prec;  
+      if(col == 5){
+                          
+        var des_por = $('#5-'+row).text();              
+        $('#6-'+row).text((tot * des_por)/100);
+        var des_val = $('#6-'+row).text();
+        var tot_t = tot - des_val;
+        $('#7-'+row).text(tot_t);
+      }
+      if (col == 6) {                          
+        var des_val = $('#6-'+row).text();              
+        $('#5-'+row).text((des_val * 100)/tot);
+        
+        var des_val = $('#6-'+row).text();
+        var tot_t = tot - des_val;
+        $('#7-'+row).text(tot_t);
+      }
+
+      }
+
+      $('#my').jexcel({
+        data:data, 
+        onchange:update,
+        colHeaders: ['Cod Prov','Descripcion', 'Unidad','Cantidad', 'Prec Uni','Desc %','Desc Valor', 'Sub Total', 'Proy / CO'],
+        colWidths: [ 150, 300, 100, 80, 80, 80, 80, 100,150 ],
+        columns: [
+            { type: 'text'},
+            { type: 'text'},
+            { type: 'text'},
+            { type: 'text'},
+            { type: 'text'},
+            { type: 'text'},
+            { type: 'text'},
+            { type: 'text'},
+          ]
+      });
+      function act_prod()
+      {
+        var txt_prod = JSON.stringify($('#my').jexcel('getData'));
+        $('#description').text(txt_prod);
+      }
+
+      $('#form_SubpanelQuickCreate_SCO_Productos').on('mousemove',act_prod)
+      $('#SCO_Productos_subpanel_save_button').on('mousemove',act_prod)      
+      </script>    
+           
+    ";
  	}
 }
 

@@ -4,7 +4,6 @@ class Clactproducto
   function Fnactproducto() 
   {
     $idoc = $GLOBALS['_POST']['record'];
-    
     if($GLOBALS['app']->controller->action == "EditView")
     {
       $bean = BeanFactory::getBean('SCO_OrdenCompra', $idoc);

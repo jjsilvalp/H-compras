@@ -37,12 +37,14 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  		#script para cambio de estados 			
  		echo '
  		<script>
-		 	function showreport(){
+		 	function showreport()
+		 	{
 		 		var url1 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=false";
 		 		window.open(url1,"","width=1220,height=650");
-		 	function imprimir(){
 		 	}
-		 		var url2 = "#";
+		 	function imprimir()
+		 	{
+		 		var url2 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=False&rs:Format=PDF&rc:MarginTop=1cm&rc:MarginRight=1cm&rc:MarginBottom=1cm&rc:MarginLeft=1cm";
 		 		window.open(url2,"","");
 		 	}
 		</script>';
@@ -142,7 +144,9 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  				echo "<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
  					  <a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
  					  <script>$(\"#sco_ordencompra_sco_productos_nuevo_button\").click();</script>";		
- 				parent::display();  				
+ 				parent::display();  
+ 				
+				
  				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
@@ -167,7 +171,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					<input type="text" name="desc_por" id="desc_por" placeholder="Ingrese descuento" value="'.$this->bean->orc_descpor.'">
 		 					<button type="submit" onClick="calc(1)" class="btn btn-sm btn-success" >Realizar</button>
 		 				</td>
-		 				<td scope="col">Cambiar Estado a :</td>
+		 				<td scope="col">Solicitar :</td>
 		 				<td>
 		 					<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(3);" value="'.$arr_estado[3].'">
 		 				</td>
@@ -272,7 +276,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					<td>
 		 					<input type="text" id="desc" placeholder="Ingrese descuento">
 		 					<button type="submit" onclick="calc()" class="btn btn-sm btn-success" >Realizar Descuento</button>
-		 				</td><td scope="col">Cambiar Estado a :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(6);" value="'.$arr_estado[6].'"></td>
+		 				</td><td scope="col">Solicitar :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(6);" value="'.$arr_estado[6].'"></td>
 		 				</tr></tr>
 		 				<tr>
 		 					<td width="12.5%" scope="col">			
@@ -311,7 +315,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					<td>
 		 					<input type="text" id="desc" placeholder="Ingrese descuento">
 		 					<button type="submit" onclick="calc()" class="btn btn-sm btn-success" >Realizar Descuento</button>
-		 				</td><td scope="col">Cambiar Estado a :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(1);" value="'.$arr_estado[1].'"></td>
+		 				</td><td scope="col">Solicitar :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(1);" value="'.$arr_estado[1].'"></td>
 		 				</tr></tr>
 		 				<tr>
 		 					<td width="12.5%" scope="col">			
@@ -351,7 +355,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					<td>
 		 					<input type="text" id="desc" placeholder="Ingrese descuento">
 		 					<button type="submit" onclick="calc()" class="btn btn-sm btn-success" >Realizar Descuento</button>
-		 				</td><td scope="col">Cambiar Estado a :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(6);" value="'.$arr_estado[6].'"></td>
+		 				</td><td scope="col">Solicitar :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(6);" value="'.$arr_estado[6].'"></td>
 		 				</tr></tr>
 		 				<tr>
 		 					<td width="12.5%" scope="col">			

@@ -41,7 +41,7 @@ class ClNomOC
 		    $beanoc->name = $nom;
 		    $beanoc->save();
 	    }
- 	}
+	}
 }
 
  ?>
