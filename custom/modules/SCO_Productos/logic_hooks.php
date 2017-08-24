@@ -8,7 +8,9 @@ $hook_array['before_save'][] = Array(2, 'Productos a', 'custom/modules/SCO_Produ
 $hook_array['before_save'][] = Array(3, 'nombreoc', 'custom/modules/SCO_Productos/NomOC.php','ClNomOC', 'FnNomOC');
 $hook_array['before_save'][] = Array(4, 'actualizapp', 'custom/modules/SCO_Productos/ActualizaPP.php','ClActualizaPP', 'FnActualizaPP');
 
-$hook_array['after_relationship_delete'] = Array();
-$hook_array['after_relationship_delete'][] = Array(1, 'DeProductos', 'custom/modules/SCO_Productos/Deproductos.php','ClDeproductos', 'FnDeproductos');
-$hook_array['after_relationship_delete'][] = Array(2, 'Deactualizapp', 'custom/modules/SCO_Productos/ActualizaPP.php','ClActualizaPP', 'FnActualizaPP');
+$hook_array['before_relationship_delete'] = Array();
+#$hook_array['before_relationship_delete'][] = Array(1, 'DeProductos', 'custom/modules/SCO_Productos/Deproductos.php','ClDeproductos', 'FnDeproductos');
+$hook_array['before_relationship_delete'][] = Array(2, 'Deactualizapp', 'custom/modules/SCO_Productos/ActualizaPP.php','ClActualizaPP', 'FnActualizaPP');
+$hook_array['before_relationship_delete'][] = Array(3, 'Deactualizapp', 'custom/modules/SCO_Productos/NomOC.php','ClNomOC', 'FnNomOC');
+$hook_array['before_relationship_delete'][] = Array(4, 'Deletepro', 'custom/modules/SCO_Productos/Deletepro.php','ClDeletepro', 'FnDeletepro');
 ?>

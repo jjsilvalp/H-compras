@@ -152,7 +152,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
       <link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css\" type=\"text/css\" />         
       <script>
       
-      $('#form_SubpanelQuickCreate_SCO_Productos_tabs').append(\"<div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><table class='panelContainer' cellspacing='1'><tbody><tr><td><div id='my'></div></td></tr></tbody></table></div></div></div>\");
+      $('#form_SubpanelQuickCreate_SCO_Productos_tabs').append(\"<div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><table class='panelContainer' cellspacing='1'><div id='my'></div></table></div></div></div>\");
 
       data = [ $datos ];
 
@@ -221,7 +221,6 @@ class SCO_ProductosViewEdit extends ViewEdit {
       }
 
       $('#form_SubpanelQuickCreate_SCO_Productos').on('mousemove',act_prod)
-      $('#SCO_Productos_subpanel_save_button').on('mousemove',act_prod)      
       </script>    
            
     ";

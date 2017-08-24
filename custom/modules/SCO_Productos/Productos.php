@@ -4,7 +4,12 @@ class ClProductos
 {
 	function Fnproductos($bean, $event, $arguments) 
     {
-    if(empty($bean->description) == TRUE){
+    	$bean->load_relationship('sco_ordencompra_sco_productos');
+	    $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
+	    reset($relatedBeans);
+	    $parentBean = current($relatedBeans);
+	    $idoc = $parentBean->id;
+      if(empty($bean->description) == TRUE){
 	  
 	  }else{
 	  	 	$prod = $bean->description;
@@ -21,7 +26,6 @@ class ClProductos
 	    	reset($relatedBeans);
 	    	$parentBean = current($relatedBeans);
 	    	$idoc = $parentBean->id;
-
 		    for ($i=0; $i<$cnt_filas; $i++)
 		    {
 		      $textfila = $filas[$i];
@@ -42,9 +46,9 @@ class ClProductos
 		      $results1 = $GLOBALS['db']->query($query1, true);
 		      $row1 = $GLOBALS['db']->fetchByAssoc($results1);
 
-		      $beanp = BeanFactory::newBean('SCO_Productos');		      
+		      $beanp = BeanFactory::newBean('SCO_Productos', $idoc);		      
 		      $beanp->sco_productos_sco_productoscomprassco_productoscompras_ida = $row['id'];
-		      $beanp->name= $row['name'];
+		      $beanp->name = $row['name'];
 		      $beanp->pro_cantidad = $cant;
 		      $beanp->pro_preciound = $prec;
 		      $beanp->pro_tipodesc = "1";

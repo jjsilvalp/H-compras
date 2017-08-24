@@ -7,7 +7,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	
  	function SCO_OrdenCompraViewDetail(){
  		parent::ViewDetail();
- 		$this->useForSubpanel = true;
+ 		#$this->useForSubpanel = true;
  	}
  	 public function preDisplay()
     {
@@ -16,14 +16,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  	function display(){ 
  		$estado = $this->bean->orc_estado; 		
  		$id = $this->bean->id;
- 		$arr_estado = array(1 => 'En curso',2=>'Borrado ', 3 =>'Pendiente de Aprobación ', 4 => 'Aprobado ' ,5 => 'Cacelado ', 6 =>'Cerrado ');
-		$js = '
-		<script>
-			//$("ul .sugar_action_button").hide();
-			//$(".single").hide();
-			//$("tbody td a").bind("click", false);
-			//$("td a").addClass("gris");	
-		</script>';
+ 		$arr_estado = array(1 => 'En curso',2=>'Borrador ', 3 =>'Solicitar Aprobación ', 4 => 'Aprobado ' ,5 => 'Cacelado ', 6 =>'Cerrado ');
 		$st ='<style>
 			.gris{color: #ccc;}
 			.gris:hover{color: #ccc;}
@@ -78,11 +71,44 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		        	}  
 		        });
 		 	}
-		 </script>";	
+		 </script>";
+		echo "<script>	
+		var htmlestado = '';
+		htmlestado = '';
+		var htmldesc = '';
+			htmldesc += '<div class=\"row\">';
+			htmldesc += '<div class=\"col-xs-3 col-sm-offset-0\">';
+			htmldesc += '<table class=\"table table-bordered \"> ';
+			htmldesc += '	<tbody> ';
+			htmldesc += '		<tr> ';
+			htmldesc += '			<td>Importe Total : </td> ';
+			htmldesc += '			<td>".$this->bean->orc_importet."</td> ';
+			htmldesc += '		</tr> ';
+			htmldesc += '		<tr> ';
+			htmldesc += '			<td>Descuento % : </td> ';
+			htmldesc += '			<td><input type=\"text\" name=\"desc_val\" id=\"desc_por\" placeholder=\"Ingrese descuento\" value=\"".$this->bean->orc_descpor."\" onblur=\"calc(1)\"></td> ';
+			htmldesc += '		</tr> ';
+			htmldesc += '		<tr> ';
+			htmldesc += '			<td>Descuento Valor : </td> ';
+			htmldesc += '			<td><input type=\"text\" name=\"desc_val\" id=\"desc_por\" placeholder=\"Ingrese descuento\" value=\"".$this->bean->orc_descvalor."\" onblur=\"calc(2)\"></td> ';
+			htmldesc += '		</tr> ';
+			htmldesc += '		<tr> ';
+			htmldesc += '			<td>Total : </td> ';
+			htmldesc += '<td>".$this->bean->orc_tototal."</td> 	';
+			htmldesc += '		</tr> ';
+			htmldesc += '	</tbody> ';
+			htmldesc += '</table> ';
+			htmldesc += '</div>';
+		window.onload = function(){
+			//alert('DOM CARGADO');			
+			$('#list_subpanel_sco_ordencompra_sco_productos').append(htmldesc);		
+		}
+		$('#list_subpanel_sco_ordencompra_sco_productos').append(htmldesc);
+
+		</script>";
  		switch ($estado) {
  			case '1': 			 	 	
- 				echo "
- 					<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
+ 				echo "<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
  					  <a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
  					<style>
  						#whole_subpanel_sco_ordencompra_sco_documentos tbody td a {pointer-events: none; cursor: default;}
@@ -95,157 +121,62 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Importe Total: </label>
+		 					<label for="">Estado Actual:</label>
 		 				</td>
 		 				<td>
-		 					'.$this->bean->orc_importet.'
+		 					'.$arr_estado[1].'
 		 				</td>
-		 				<td width="12.5%" scope="col">
-							Estado Actual:
+		 				<td width="12.5%" >	
+		 				<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="'.$arr_estado[2].'">					
 						</td>
-						<td class="" type="enum" field="orc_regional" width="37.5%">
-							'.$arr_estado[1].'
+						<td class="" type="enum" field="orc_regional" width="70%">	 
 						</td>
-		 			</tr>
-		 			<tr>	
-	 					<td scope="col">
-	 						<label for="">Descuento %: </label>
-	 						</td>
-	 					<td>
-		 					<input type="text" name="desc_por" id="desc_por" placeholder="Ingrese descuento" value="'.$this->bean->orc_descpor.'">
-		 					
-		 				</td>
-		 				<td scope="col"></td>
-		 				<td>
-		 					<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="'.$arr_estado[2].'">
-		 				</td>
-		 			</tr>
-		 			<tr>
-	 					<td width="12.5%" scope="col">			
-	 						<label for="">Descuento Valor: </label>
-	 					</td>
-	 					<td>
-	 						<input type="text" name="desc_val" id="desc_val" placeholder="Ingrese descuento" value="'.$this->bean->orc_descvalor.'">
-		 					
-	 					</td>
-	 					<td></td>
-	 					<td></td>
-		 			</tr>
-		 			<tr>	
-		 				<td width="12.5%" scope="col">Total</td>
-		 				<td>'.$this->bean->orc_tototal.'</td> 
-		 				<td></td><td></td>
-		 			</tr>
+		 			</tr>		 					 					 			
 		 			</tbody></table>
 	 				 </div></div></div>';
 	 			echo $js.$st;
  				break;
  			case '2':
  				echo "<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
- 					  <a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
- 					  <script>$(\"#sco_ordencompra_sco_productos_nuevo_button\").click();</script>";		
- 				parent::display();  
- 				
-				
+ 					  <a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>";		
+ 				parent::display();   						
  				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Importe Total: </label>
+		 					<label for="">Estado Actual:</label>
 		 				</td>
 		 				<td>
-		 					'.$this->bean->orc_importet.'
+		 					'.$arr_estado[2].'
 		 				</td>
-		 				<td width="12.5%" scope="col">
-							Estado Actual:
+		 				<td width="12.5%" >	
+		 				<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(3);" value="'.$arr_estado[3].'">					
 						</td>
-						<td class="" type="enum" field="orc_regional" width="37.5%">
-							'.$arr_estado[2].'
+						<td class="" type="enum" field="orc_regional" width="70%">	 
 						</td>
-		 			</tr>
-		 			<tr>	
-	 					<td scope="col">
-	 						<label for="">Descuento %: </label>
-	 						</td>
-	 					<td>
-		 					<input type="text" name="desc_por" id="desc_por" placeholder="Ingrese descuento" value="'.$this->bean->orc_descpor.'">
-		 					<button type="submit" onClick="calc(1)" class="btn btn-sm btn-success" >Realizar</button>
-		 				</td>
-		 				<td scope="col">Solicitar :</td>
-		 				<td>
-		 					<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(3);" value="'.$arr_estado[3].'">
-		 				</td>
-		 			</tr>
-		 			<tr>
-	 					<td width="12.5%" scope="col">			
-	 						<label for="">Descuento Valor: </label>
-	 					</td>
-	 					<td>
-	 						<input type="text" name="desc_val" id="desc_val" placeholder="Ingrese descuento" value="'.$this->bean->orc_descvalor.'">
-		 					<button type="submit" onClick="calc(2)" class="btn btn-sm btn-success" >Realizar</button>
-	 					</td>
-	 					<td></td>
-	 					<td></td>
-		 			</tr>
-		 			<tr>	
-		 				<td width="12.5%" scope="col">Total</td>
-		 				<td>'.$this->bean->orc_tototal.'</td> 
-		 				<td></td><td></td>
-		 			</tr>
+		 			</tr>		 					 					 			
 		 			</tbody></table>
 	 				 </div></div></div>';
  				break;
  			case '3': 		
-				echo "
-					<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
- 					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>
- 					";	 				
+				echo "<a class=\"btn btn-success btn-sm\" onClick=\"imprimir();\">Descargar</a>
+ 					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>";	 				
  				parent::display();  				
  				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Importe Total: </label>
+		 					<label for="">Estado Actual:</label>
 		 				</td>
 		 				<td>
-		 					'.$this->bean->orc_importet.'
+		 					'.$arr_estado[3].'
 		 				</td>
-		 				<td width="12.5%" scope="col">
-							Estado Actual:
+		 				<td width="12.5%" >	
+		 									
 						</td>
-						<td class="" type="enum" field="orc_regional" width="37.5%">
-							'.$arr_estado[3].'
+						<td class="" type="enum" field="orc_regional" width="70%">	 
 						</td>
-		 			</tr>
-		 			<tr>	
-	 					<td scope="col">
-	 						<label for="">Descuento %: </label>
-	 						</td>
-	 					<td>
-		 					<input type="text" name="desc_por" id="desc_por" placeholder="Ingrese descuento" value="'.$this->bean->orc_descpor.'">
-		 					
-		 				</td>
-		 				<td scope="col"></td>
-		 				<td>
-		 					
-		 				</td>
-		 			</tr>
-		 			<tr>
-	 					<td width="12.5%" scope="col">			
-	 						<label for="">Descuento Valor: </label>
-	 					</td>
-	 					<td>
-	 						<input type="text" name="desc_val" id="desc_val" placeholder="Ingrese descuento" value="'.$this->bean->orc_descvalor.'">
-		 					
-	 					</td>
-	 					<td></td>
-	 					<td></td>
-		 			</tr>
-		 			<tr>	
-		 				<td width="12.5%" scope="col">Total</td>
-		 				<td>'.$this->bean->orc_tototal.'</td> 
-		 				<td></td><td></td>
-		 			</tr>
+		 			</tr>		 					 					 			
 		 			</tbody></table>
 	 				 </div></div></div>';
 	 			echo $js.$st."<style>#list_subpanel_sco_ordencompra_sco_documentos .sugar_action_button{display:block;}</style>";	
@@ -255,37 +186,21 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>";	 				
  				parent::display();  				
  				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
- 					<table class="panelContainer" cellspacing="1"><tbody><tr>
- 					<td width="12.5%" scope="col">				
-		 					<label for="">Importe Total: </label>
-		 					</td>
-		 					<td>
-		 					'.$this->bean->orc_importet.'
-		 					</td>
-		 					<td width="12.5%" scope="col">
-								Etado Actual:
-								</td>
-								<td class="" type="enum" field="orc_regional" width="37.5%">
-								'.$arr_estado[4].'
-								</td>
-		 					</tr>
-		 					<tr>	
-		 					<td scope="col">
-		 						<label for="">Descuento Total: </label>
-		 						</td>
-		 					<td>
-		 					<input type="text" id="desc" placeholder="Ingrese descuento">
-		 					<button type="submit" onclick="calc()" class="btn btn-sm btn-success" >Realizar Descuento</button>
-		 				</td><td scope="col">Solicitar :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(6);" value="'.$arr_estado[6].'"></td>
-		 				</tr></tr>
-		 				<tr>
-		 					<td width="12.5%" scope="col">			
-		 					<label for="">Total: </label>
-		 					</td>
-		 					<td>
-		 					'.$this->bean->orc_desctotal.'
-		 					</td><td></td><td></td>
-		 				</tr></tbody></table>
+ 					<table class="panelContainer" cellspacing="1"><tbody>
+ 					<tr>
+ 						<td width="12.5%" scope="col">		
+		 					<label for="">Estado Actual:</label>
+		 				</td>
+		 				<td>
+		 					'.$arr_estado[4].'
+		 				</td>
+		 				<td width="12.5%" >	
+		 				<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(6);" value="'.$arr_estado[6].'">					
+						</td>
+						<td class="" type="enum" field="orc_regional" width="70%">	 
+						</td>
+		 			</tr>		 					 					 			
+		 			</tbody></table>
 	 				 </div></div></div>';
 	 			 echo $js.$st."<script>$('#list_subpanel_sco_ordencompra_sco_documentos .sugar_action_button').show();</script>";	
  				break;
@@ -294,37 +209,21 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>";	 				
  				parent::display();  				
  				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
- 					<table class="panelContainer" cellspacing="1"><tbody><tr>
- 					<td width="12.5%" scope="col">			
-		 					<label for="">Importe Total: </label>
-		 					</td>
-		 					<td>
-		 					'.$this->bean->orc_importet.'
-		 					</td>
-		 					<td width="12.5%" scope="col">
-								Estado Actual:
-								</td>
-								<td class="" type="enum" field="orc_regional" width="37.5%">
-								'.$arr_estado[5].'
-								</td>
-		 					</tr>
-		 					<tr>	
-		 					<td scope="col">
-		 						<label for="">Descuento Total: </label>
-		 						</td>
-		 					<td>
-		 					<input type="text" id="desc" placeholder="Ingrese descuento">
-		 					<button type="submit" onclick="calc()" class="btn btn-sm btn-success" >Realizar Descuento</button>
-		 				</td><td scope="col">Solicitar :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(1);" value="'.$arr_estado[1].'"></td>
-		 				</tr></tr>
-		 				<tr>
-		 					<td width="12.5%" scope="col">			
-		 					<label for="">Total: </label>
-		 					</td>
-		 					<td>
-		 					'.$this->bean->orc_desctotal.'
-		 					</td><td></td><td></td>
-		 				</tr></tbody></table>
+ 					<table class="panelContainer" cellspacing="1"><tbody>
+ 					<tr>
+ 						<td width="12.5%" scope="col">		
+		 					<label for="">Estado Actual:</label>
+		 				</td>
+		 				<td>
+		 					'.$arr_estado[5].'
+		 				</td>
+		 				<td width="12.5%" >	
+				
+						</td>
+						<td class="" type="enum" field="orc_regional" width="70%">	 
+						</td>
+		 			</tr>		 					 					 			
+		 			</tbody></table>
 	 				 </div></div></div>';	
 	 			echo $js.$st;	
  				break;
@@ -333,39 +232,23 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<a class=\"btn btn-sm btn-success\" onClick=\"showreport();\" value=\"Ver Reporte\">Ver Reporte</a>";	
  				echo $st.$js;	
  				parent::display();  				
- 				echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
- 					<table class="panelContainer" cellspacing="1"><tbody><tr>
- 					<td width="12.5%" scope="col">			
-		 					<label for="">Importe Total: </label>
-		 					</td>
-		 					<td>
-		 					'.$this->bean->orc_importet.'
-		 					</td>
-		 					<td width="12.5%" scope="col">
-								Estado Actual:
-								</td>
-								<td class="" type="enum" field="orc_regional" width="37.5%">
-								'.$arr_estado[6].'
-								</td>
-		 					</tr>
-		 					<tr>	
-		 					<td scope="col">
-		 						<label for="">Descuento Total: </label>
-		 						</td>
-		 					<td>
-		 					<input type="text" id="desc" placeholder="Ingrese descuento">
-		 					<button type="submit" onclick="calc()" class="btn btn-sm btn-success" >Realizar Descuento</button>
-		 				</td><td scope="col">Solicitar :</td><td><input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(6);" value="'.$arr_estado[6].'"></td>
-		 				</tr></tr>
-		 				<tr>
-		 					<td width="12.5%" scope="col">			
-		 					<label for="">Total: </label>
-		 					</td>
-		 					<td>
-		 					'.$this->bean->orc_desctotal.'
-		 					</td><td></td><td></td>
-		 				</tr></tbody></table>
-	 				 </div></div></div>';	
+ 			echo '<div class="yui-navset detailview_tabs yui-navset-top"><div class="yui-content"><div class="detail view  detail508 expanded">
+ 					<table class="panelContainer" cellspacing="1"><tbody>
+ 					<tr>
+ 						<td width="12.5%" scope="col">		
+		 					<label for="">Estado Actual:</label>
+		 				</td>
+		 				<td>
+		 					'.$arr_estado[6].'
+		 				</td>
+		 				<td width="12.5%" >	
+		 				<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(3);" value="'.$arr_estado[6].'">					
+						</td>
+						<td class="" type="enum" field="orc_regional" width="70%">	 
+						</td>
+		 			</tr>		 					 					 			
+		 			</tbody></table>
+	 				 </div></div></div>';
 	 			echo $js.$st;	
  				break;
  			default: 			

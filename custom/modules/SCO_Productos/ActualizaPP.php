@@ -5,7 +5,7 @@ class ClActualizaPP
 	function FnActualizaPP($bean, $event, $arguments) 
  	{
  		#Obteniendo Id OC
-        #$id_p = $bean->id;      
+        $id_p = $bean->id;      
 		$bean->load_relationship('sco_ordencompra_sco_productos');
 	    $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
 	    reset($relatedBeans);
