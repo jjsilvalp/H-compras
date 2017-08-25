@@ -75,25 +75,25 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		echo "<script>	
 		var htmlestado = '';
 		htmlestado = '';
-		var htmldesc = '';
+		var htmldesc = '<hr>';
 			htmldesc += '<div class=\"row\">';
-			htmldesc += '<div class=\"col-xs-3 col-sm-offset-0\">';
+			htmldesc += '<div class=\"col-xs-4 col-sm-offset-0\">';
 			htmldesc += '<table class=\"table table-bordered \"> ';
 			htmldesc += '	<tbody> ';
 			htmldesc += '		<tr> ';
-			htmldesc += '			<td>Importe Total : </td> ';
+			htmldesc += '			<td><label>Importe Total : </label></td> ';
 			htmldesc += '			<td>".$this->bean->orc_importet."</td> ';
 			htmldesc += '		</tr> ';
 			htmldesc += '		<tr> ';
-			htmldesc += '			<td>Descuento % : </td> ';
+			htmldesc += '			<td><label>Descuento % : </label></td> ';
 			htmldesc += '			<td><input type=\"text\" name=\"desc_val\" id=\"desc_por\" placeholder=\"Ingrese descuento\" value=\"".$this->bean->orc_descpor."\" onblur=\"calc(1)\"></td> ';
 			htmldesc += '		</tr> ';
 			htmldesc += '		<tr> ';
-			htmldesc += '			<td>Descuento Valor : </td> ';
-			htmldesc += '			<td><input type=\"text\" name=\"desc_val\" id=\"desc_por\" placeholder=\"Ingrese descuento\" value=\"".$this->bean->orc_descvalor."\" onblur=\"calc(2)\"></td> ';
+			htmldesc += '			<td><label>Descuento Valor : </label></td> ';
+			htmldesc += '			<td><input type=\"text\" name=\"desc_val\" id=\"desc_val\" placeholder=\"Ingrese descuento\" value=\"".$this->bean->orc_descvalor."\" onblur=\"calc(2)\"></td> ';
 			htmldesc += '		</tr> ';
 			htmldesc += '		<tr> ';
-			htmldesc += '			<td>Total : </td> ';
+			htmldesc += '			<td><label>Total : </label></td> ';
 			htmldesc += '<td>".$this->bean->orc_tototal."</td> 	';
 			htmldesc += '		</tr> ';
 			htmldesc += '	</tbody> ';
@@ -104,7 +104,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 			$('#list_subpanel_sco_ordencompra_sco_productos').append(htmldesc);		
 		}
 		$('#list_subpanel_sco_ordencompra_sco_productos').append(htmldesc);
-
+		
 		</script>";
  		switch ($estado) {
  			case '1': 			 	 	
@@ -129,7 +129,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 				<td width="12.5%" >	
 		 				<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="'.$arr_estado[2].'">					
 						</td>
-						<td class="" type="enum" field="orc_regional" width="70%">	 
+						<td class="" type="enum" field="orc_regional" width="65%">	 
 						</td>
 		 			</tr>		 					 					 			
 		 			</tbody></table>
@@ -152,7 +152,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 				<td width="12.5%" >	
 		 				<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(3);" value="'.$arr_estado[3].'">					
 						</td>
-						<td class="" type="enum" field="orc_regional" width="70%">	 
+						<td class="" type="enum" field="orc_regional" width="65%">	 
 						</td>
 		 			</tr>		 					 					 			
 		 			</tbody></table>
@@ -174,7 +174,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 				<td width="12.5%" >	
 		 									
 						</td>
-						<td class="" type="enum" field="orc_regional" width="70%">	 
+						<td class="" type="enum" field="orc_regional" width="65%">	 
 						</td>
 		 			</tr>		 					 					 			
 		 			</tbody></table>

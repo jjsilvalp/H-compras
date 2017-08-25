@@ -217,14 +217,60 @@ class SCO_ProductosViewEdit extends ViewEdit {
       function act_prod()
       {
         var txt_prod = JSON.stringify($('#my').jexcel('getData'));
+        
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace(',]',']');
+        txt_prod = txt_prod.replace(',]',']');
+        txt_prod = txt_prod.replace(',,','');
+        txt_prod = txt_prod.replace(',,,','');
+        txt_prod = txt_prod.replace(',,,,','');
+        txt_prod = txt_prod.replace(',,,,,','');
         $('#description').text(txt_prod);
+        return (false);
       }
 
-      $('#form_SubpanelQuickCreate_SCO_Productos').on('mousemove',act_prod)
+      //$('#form_SubpanelQuickCreate_SCO_Productos').on('mousemove',act_prod)
+      //$('.action_buttons #SCO_Productos_subpanel_save_button').prop('disabled', true);
+      $('.action_buttons #SCO_Productos_subpanel_save_button').on('mousemove',act_prod);
+
       </script>    
            
     ";
  	}
 }
-
+$prod = str_replace("[[", "", $prod);
+        $prod = str_replace("]]", "", $prod);
+        $prod = str_replace("&quot;","",$prod);               
+        $prod = str_replace("[", "", $prod);
+        $prod = str_replace("],", "|", $prod);
+        $filas = explode("|", $prod); 
 ?>
