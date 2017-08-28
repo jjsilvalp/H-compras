@@ -10,7 +10,7 @@ class ClProductos
 	    $parentBean = current($relatedBeans);
 	    $idoc = $parentBean->id;
       if(empty($bean->description) == TRUE){
-	  
+      	
 	  }else{
 	  	 	$prod = $bean->description;
 	  	 	$prod = str_replace("[[", "", $prod);
@@ -21,11 +21,11 @@ class ClProductos
 		    $filas = explode("|", $prod);		    	
 		    $cnt_filas = count($filas);
 
-		    $bean->load_relationship('sco_ordencompra_sco_productos');
+		    /*$bean->load_relationship('sco_ordencompra_sco_productos');
 	    	$relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
 	    	reset($relatedBeans);
 	    	$parentBean = current($relatedBeans);
-	    	$idoc = $parentBean->id;
+	    	$idoc = $parentBean->id;*/
 		    for ($i=0; $i<$cnt_filas; $i++)
 		    {
 		      $textfila = $filas[$i];
@@ -38,7 +38,7 @@ class ClProductos
 		      $stot = $fila[7];
 		      $idpo = $fila[8];
 	   		
-		      $query = "SELECT id, name, proge_nompro, proge_descripcion FROM sco_productoscompras WHERE deleted = 0 AND name = '$idpc'";
+		      $query = "SELECT id, name, proge_nompro, proge_descripcion, proge_unidad FROM sco_productoscompras WHERE deleted = 0 AND name = '$idpc'";
 		      $results = $GLOBALS['db']->query($query, true);
 		      $row = $GLOBALS['db']->fetchByAssoc($results);
 
@@ -54,6 +54,7 @@ class ClProductos
 		      $beanp->pro_tipodesc = "1";
 		      $beanp->pro_procentaje = $dscp;
 		      $beanp->pro_descuento = $dscv;
+		      $beanp->pro_unidad = $row['proge_unidad'];
 		      $beanp->pro_subtotal = $stot;
 		      $beanp->pro_descripcion = $row['proge_nompro']." ".$row['proge_descripcion'];
 		      $beanp->sco_proyectosco_sco_productossco_proyectosco_ida = $row1['id'];
@@ -64,13 +65,15 @@ class ClProductos
 	  	}
  	}
 
- 	/*function Fnprodedit($bean, $event, $arguments){
- 		//obtiene datos proyecto
-	  	$bean->pro_descripcion = $beanpc->proge_nompro." ".$beanpc->proge_descripcion;
+ 	function Fnprodedit($bean, $event, $arguments){
+ 		if(empty($bean->description) == TRUE){
+      	$beanpc = BeanFactory::getBean('SCO_ProductosCompras',$bean->sco_productos_sco_productoscomprassco_productoscompras_ida);
+      	$bean->pro_descripcion = $beanpc->proge_nompro." ".$beanpc->proge_descripcion;
 	    $bean->pro_unidad = $beanpc->proge_unidad;
 	    $bean->pro_nombre = $beanpc->proge_nompro;
 	    $bean->name = $beanpc->name;
-	    $bean->pro_nomproyco = $pynom;
+	    $bean->pro_nomproyco = $bean->sco_proyectosco_sco_productos_name;
+	    
 		#Operaciones matematicas para el calculo del precio total
 	    if($bean->pro_preciound == ""){  
 	        $bean->pro_preciound = $beanpc->proge_preciounid;    	
@@ -117,6 +120,7 @@ class ClProductos
 	        }
 		}
 	    $bean->save();
- 	}*/
+	  }
+ 	}
 }
 ?>

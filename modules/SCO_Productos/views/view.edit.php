@@ -127,8 +127,8 @@ class SCO_ProductosViewEdit extends ViewEdit {
         margin-left: 5px;
         float:left;
       }
-      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
-      #description{display:none;}
+      //#form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
+      //#description{display:none;}
     }
       </style>
  		';		
@@ -148,7 +148,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
       }       
     </script>';
     echo "
-      <script src=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.js\"></script>
+      <script src=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.js?".time()."\"></script>
       <link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css\" type=\"text/css\" />         
       <script>
       
@@ -164,38 +164,37 @@ class SCO_ProductosViewEdit extends ViewEdit {
 
         val = $('#my').jexcel('getValue', $(row));
         var col = $(cel).prop('id').split('-')[0];
-      if(col == 3 || col == 4){
-        var row = $(cel).prop('id').split('-')[1];
-        //alert($(cel).prop('id'));
-        var cant = $('#3-'+row).text();
-        var prec = $('#4-'+row).text();
-        var tot = cant * prec;
-        $('#7-'+row).text(tot);
-        $('#5-'+row).text('');
-        $('#6-'+row).text('');
-      }
-      
-        var row = $(cel).prop('id').split('-')[1];      
-        var cant = $('#3-'+row).text();
-        var prec = $('#4-'+row).text();
-        var tot = cant * prec;  
-      if(col == 5){
-                          
-        var des_por = $('#5-'+row).text();              
-        $('#6-'+row).text((tot * des_por)/100);
-        var des_val = $('#6-'+row).text();
-        var tot_t = tot - des_val;
-        $('#7-'+row).text(tot_t);
-      }
-      if (col == 6) {                          
-        var des_val = $('#6-'+row).text();              
-        $('#5-'+row).text((des_val * 100)/tot);
+        if(col == 3 || col == 4){
+          var row = $(cel).prop('id').split('-')[1];
+          //alert($(cel).prop('id'));
+          var cant = $('#3-'+row).text();
+          var prec = $('#4-'+row).text();
+          var tot = cant * prec;
+          $('#7-'+row).text(tot);
+          $('#5-'+row).text('');
+          $('#6-'+row).text('');
+        }
         
-        var des_val = $('#6-'+row).text();
-        var tot_t = tot - des_val;
-        $('#7-'+row).text(tot_t);
-      }
-
+          var row = $(cel).prop('id').split('-')[1];      
+          var cant = $('#3-'+row).text();
+          var prec = $('#4-'+row).text();
+          var tot = cant * prec;  
+        if(col == 5){
+                            
+          var des_por = $('#5-'+row).text();              
+          $('#6-'+row).text((tot * des_por)/100);
+          var des_val = $('#6-'+row).text();
+          var tot_t = tot - des_val;
+          $('#7-'+row).text(tot_t);
+        }
+        if (col == 6) {                          
+          var des_val = $('#6-'+row).text();              
+          $('#5-'+row).text((des_val * 100)/tot);
+          
+          var des_val = $('#6-'+row).text();
+          var tot_t = tot - des_val;
+          $('#7-'+row).text(tot_t);
+        }
       }
 
       $('#my').jexcel({
@@ -217,7 +216,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
       function act_prod()
       {
         var txt_prod = JSON.stringify($('#my').jexcel('getData'));
-        
+
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
@@ -233,7 +232,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"NaN\",\"\",\"\",\"\"]','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
@@ -247,7 +246,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"NaN\",\"\",\"\",\"\"],','');
         txt_prod = txt_prod.replace(',]',']');
         txt_prod = txt_prod.replace(',]',']');
         txt_prod = txt_prod.replace(',,','');
@@ -257,20 +256,34 @@ class SCO_ProductosViewEdit extends ViewEdit {
         $('#description').text(txt_prod);
         return (false);
       }
-
       //$('#form_SubpanelQuickCreate_SCO_Productos').on('mousemove',act_prod)
       //$('.action_buttons #SCO_Productos_subpanel_save_button').prop('disabled', true);
       $('.action_buttons #SCO_Productos_subpanel_save_button').on('mousemove',act_prod);
+      $('.action_buttons #SCO_Productos_subpanel_save_button').on('focus',act_prod);
+      </script>               
+    ";
+    echo "
+      <script>
+      $('#pro_cantidad').on('blur', function(){
+          var preciosin = $('#pro_preciound').val() * $(this).val();          
+          $('#pro_subtotal').val(preciosin);
+      });
+      $('#pro_preciound').on('blur', function(){
+          var preciosin = $('#pro_cantidad').val() * $(this).val();          
+          $('#pro_subtotal').val(preciosin);        
+      });
+      $('#pro_descuento').on('blur',function(){
+        if($('#pro_tipodesc').change(function(){          
+          var precio = $('#pro_preciound').val() * $('#pro_cantidad').val();
+          var preciopor = (precio * $('#pro_descuento').val()) / 100;
+          $('#pro_subtotal').val(precio - preciopor);
 
-      </script>    
-           
+          var precio = $('#pro_preciound').val() * $('#pro_cantidad').val();
+          var preciopor = (precio * 100) / $('#pro_descuento');
+          $('#pro_subtotal').val(precio - preciopor);
+      });
+      </script>
     ";
  	}
 }
-$prod = str_replace("[[", "", $prod);
-        $prod = str_replace("]]", "", $prod);
-        $prod = str_replace("&quot;","",$prod);               
-        $prod = str_replace("[", "", $prod);
-        $prod = str_replace("],", "|", $prod);
-        $filas = explode("|", $prod); 
 ?>

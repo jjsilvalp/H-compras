@@ -32,5 +32,6 @@ require_once('include/entryPoint.php');
 		$ppbean->save();
 	}
 	$bean->orc_productos = $beanrec;
-	$bean->save();
+	echo json_encode($bean->orc_importet.",".$bean->orc_descpor.",".$bean->orc_descvalor.",".$bean->orc_tototal);
+	$bean->save();	
  ?>

@@ -17,7 +17,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  		$estado = $this->bean->orc_estado; 		
  		$id = $this->bean->id;
  		$arr_estado = array(1 => 'En curso',2=>'Borrador ', 3 =>'Solicitar Aprobación ', 4 => 'Aprobado ' ,5 => 'Cacelado ', 6 =>'Cerrado ');
-		$st ='<style>
+		$st ='<style>	
 			.gris{color: #ccc;}
 			.gris:hover{color: #ccc;}
 			.single{display: none;}
@@ -65,18 +65,41 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 			type: 'get',
 		 			url: 'index.php?to_pdf=true&module=SCO_OrdenCompra&action=calculodesc&id='+id,
 		 			data: {desc_val,desc_por,tipo},
-		 			success: function() {
-		            	location.reload();
-		            	console.log(tipo);
-		        	}  
+		 			success: function(data) {
+		 				//debugger;
+		 				var res = jQuery.parseJSON(data);      				        				
+        				arreglocadena = res.split(',');     		
+		            	//location.reload();
+		            		var html = '';
+							html += '<table class=\"table table-bordered \"> ';
+							html += '	<tbody> ';
+							html += '		<tr> ';
+							html += '			<td><label>Importe Total : </label></td> ';
+							html += '			<td>'+arreglocadena[0]+'</td> ';
+							html += '		</tr> ';
+							html += '		<tr> ';
+							html += '			<td><label>Descuento % : </label></td> ';
+							html += '			<td><input type=\"text\" name=\"desc_val\" id=\"desc_por\" placeholder=\"Ingrese descuento\" value=\"'+arreglocadena[1]+'\" onblur=\"calc(1)\"></td> ';
+							html += '		</tr> ';
+							html += '		<tr> ';
+							html += '			<td><label>Descuento Valor : </label></td> ';
+							html += '			<td><input type=\"text\" name=\"desc_val\" id=\"desc_val\" placeholder=\"Ingrese descuento\" value=\"'+arreglocadena[2]+'\" onblur=\"calc(2)\"></td> ';
+							html += '		</tr> ';
+							html += '		<tr> ';
+							html += '			<td><label>Total : </label></td> ';
+							html += '<td>'+arreglocadena[3]+'</td> 	';
+							html += '		</tr> ';
+							html += '	</tbody> ';
+							html += '</table> ';
+						$('.col-xs-4').html(html);
+		        	}
 		        });
+			    
 		 	}
 		 </script>";
 		echo "<script>	
-		var htmlestado = '';
-		htmlestado = '';
-		var htmldesc = '<hr>';
-			htmldesc += '<div class=\"row\">';
+		var htmldesc = '<hr style=\"height: 0px; margin-top:-1px; margin-bottom:-1px;\">';
+			htmldesc += '<div class=\"row\" style=\"margin-bottom:-20px;\">';
 			htmldesc += '<div class=\"col-xs-4 col-sm-offset-0\">';
 			htmldesc += '<table class=\"table table-bordered \"> ';
 			htmldesc += '	<tbody> ';
@@ -121,7 +144,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Estado Actual:</label>
+		 					Estado Actual:
 		 				</td>
 		 				<td>
 		 					'.$arr_estado[1].'
@@ -144,7 +167,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Estado Actual:</label>
+		 					Estado Actual:
 		 				</td>
 		 				<td>
 		 					'.$arr_estado[2].'
@@ -166,7 +189,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Estado Actual:</label>
+		 					Estado Actual:
 		 				</td>
 		 				<td>
 		 					'.$arr_estado[3].'
@@ -189,7 +212,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Estado Actual:</label>
+		 					Estado Actual:
 		 				</td>
 		 				<td>
 		 					'.$arr_estado[4].'
@@ -212,7 +235,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Estado Actual:</label>
+		 					Estado Actual:
 		 				</td>
 		 				<td>
 		 					'.$arr_estado[5].'
@@ -236,7 +259,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  					<table class="panelContainer" cellspacing="1"><tbody>
  					<tr>
  						<td width="12.5%" scope="col">		
-		 					<label for="">Estado Actual:</label>
+		 					Estado Actual:
 		 				</td>
 		 				<td>
 		 					'.$arr_estado[6].'
