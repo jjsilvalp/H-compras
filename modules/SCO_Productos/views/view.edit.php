@@ -127,8 +127,8 @@ class SCO_ProductosViewEdit extends ViewEdit {
         margin-left: 5px;
         float:left;
       }
-      //#form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
-      //#description{display:none;}
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
+      #description{display:none;}
     }
       </style>
  		';		
