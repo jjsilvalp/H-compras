@@ -32,12 +32,12 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
  		<script>
 		 	function showreport()
 		 	{
-		 		var url1 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=false";
+		 		var url1 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?%2fDivision+99+-+Administracion+y+Finanzas%2fCompras%2fSistemaCompras%2foc_qas&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=false";
 		 		window.open(url1,"","width=1220,height=650");
 		 	}
 		 	function imprimir()
 		 	{
-		 		var url2 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?/Division+99+-+Administracion+y+Finanzas/Cobranzas/Autorizacion+de+Cr%C3%A9ditos/oc&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=False&rs:Format=PDF&rc:MarginTop=1cm&rc:MarginRight=1cm&rc:MarginBottom=1cm&rc:MarginLeft=1cm";
+		 		var url2 = "http://hannacbdp01/ReportServer_HANNACBDPI01/Pages/ReportViewer.aspx?%2fDivision+99+-+Administracion+y+Finanzas%2fCompras%2fSistemaCompras%2foc_qas&idoc='.$this->bean->id.'&rs:Command=Render&rc:Toolbar=False&rs:Format=PDF&rc:MarginTop=1cm&rc:MarginRight=1cm&rc:MarginBottom=1cm&rc:MarginLeft=1cm";
 		 		window.open(url2,"","");
 		 	}
 		</script>';
@@ -150,7 +150,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					'.$arr_estado[1].'
 		 				</td>
 		 				<td width="12.5%" >	
-		 				<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="'.$arr_estado[2].'">					
+		 				<!--<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="'.$arr_estado[2].'">-->
 						</td>
 						<td class="" type="enum" field="orc_regional" width="65%">	 
 						</td>

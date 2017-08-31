@@ -272,15 +272,16 @@ class SCO_ProductosViewEdit extends ViewEdit {
           var preciosin = $('#pro_cantidad').val() * $(this).val();          
           $('#pro_subtotal').val(preciosin);        
       });
-      $('#pro_descuento').on('blur',function(){
-        if($('#pro_tipodesc').change(function(){          
+      $('#pro_tipodesc').on('change',function(){
+        if($(this).val() == 1){         
           var precio = $('#pro_preciound').val() * $('#pro_cantidad').val();
           var preciopor = (precio * $('#pro_descuento').val()) / 100;
           $('#pro_subtotal').val(precio - preciopor);
-
+        }else{
           var precio = $('#pro_preciound').val() * $('#pro_cantidad').val();
-          var preciopor = (precio * 100) / $('#pro_descuento');
-          $('#pro_subtotal').val(precio - preciopor);
+          var precioval = (precio * 100) / ($('#pro_descuento'));
+          $('#pro_subtotal').val(precio - precioval);
+        }
       });
       </script>
     ";
