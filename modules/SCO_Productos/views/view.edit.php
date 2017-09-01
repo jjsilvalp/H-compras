@@ -12,52 +12,8 @@ class SCO_ProductosViewEdit extends ViewEdit {
 	}
 
  	function display(){
+    $idoc = $GLOBALS['_POST']['record'];
     echo "<script src='modules/SCO_Productos/views/jquery.validate.min.js'></script>";
-    echo '
-    <script>
-      $.validator.addMethod("alfanumOespacio", function(value, element) {
-        return /^[ a-z0-9áéíóúüñ]*$/i.test(value);
-      });
-      $.validator.addMethod("num", function(value, element) {
-          return /^[ 0-9 .]*$/i.test(value);
-      });
-      $("#form_SubpanelQuickCreate_SCO_Productos").validate({
-        highlight: function(element, errClass) {
-          $("input[type=\"text\"]").popover("show");
-        },
-        unhighlight: function(element, errClass) {
-          $("input[type=\"text\"]").popover("hide");
-        },
-        rules: {
-          name: {
-              alfanumOespacio: true,
-              required: true,
-          },
-          pro_cantidad: {
-            num : true,
-            required: true,
-          },
-          pro_descuento: {
-            num : true,
-            required: true,
-          },
-        },
-        messages: {
-          name: "Ingrese sólo letras, números o espacios",
-          pro_cantidad: "Ingrese sólo valores numéricos",
-          pro_descuento: "Ingrese sólo valores numéricos",
-        },
-        tooltip_options: {
-        pro_cantidad: {trigger:"focus"},
-        pro_descuento: {placement:"right",html:true}
-        }
-      });
-      $("input[type=\"text\"]").keypress(function(){
-        if($(this).val() != ""){
-          $("input[type=\"submit\"]").removeAttr("disabled");
-        }
-      }); 
-    </script>';
  		echo '
  		<style>
       #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{
@@ -127,8 +83,8 @@ class SCO_ProductosViewEdit extends ViewEdit {
         margin-left: 5px;
         float:left;
       }
-      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
-      #description{display:none;}
+      //#form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
+      //#description{display:none;}
     }
       </style>
  		';		
@@ -147,11 +103,56 @@ class SCO_ProductosViewEdit extends ViewEdit {
         //location.reload();
       }       
     </script>';
+
     echo "
       <script src=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.js?".time()."\"></script>
       <link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css\" type=\"text/css\" />         
       <script>
-      
+
+      function buscap(nomp, row){
+        $.ajax({
+          type: 'get',
+          url: 'index.php?to_pdf=true&module=SCO_Productos&action=buscap',
+          data: {nomp},
+          success: function(data) {
+          //debugger;      
+            var sqlprod = $.parseJSON(data);
+            if(Object.keys(sqlprod) != ''){
+              $('#1-'+row).text(sqlprod['proge_nompro']);
+              $('#2-'+row).text(sqlprod['proge_unidad']);
+              //$('#4-'+row).text(sqlprod['proge_preciounid']);
+              $('#0-'+row).css({'background':'#FFF','color':'#000'});         
+            }else{
+              $('.action_buttons #SCO_Productos_subpanel_save_button').attr('disabled', true);
+              $('#0-'+row).css({'background':'#d9534f','color':'#FFF'});
+              $('#1-'+row).text('');
+              $('#2-'+row).text('');
+              $('#4-'+row).text('');
+            }
+          } 
+        });
+        return(false);
+      }
+      function buscaproy(nomproy, row){
+        $.ajax({
+          type: 'get',
+          url: 'index.php?to_pdf=true&module=SCO_Productos&action=buscaproy',
+          data: {nomproy},
+          success: function(data) {
+          //debugger;      
+            var sqlproy = $.parseJSON(data);
+            if(Object.keys(sqlproy) != ''){
+              $('#8-'+row).css({'background':'#FFF','color':'#000'});
+              $('.action_buttons #SCO_Productos_subpanel_save_button').attr('disabled', false);              
+            }else{
+              $('.action_buttons #SCO_Productos_subpanel_save_button').attr('disabled', true);
+              $('#8-'+row).css({'background':'#d9534f','color':'#FFF'});
+            }       
+          } 
+        });
+        return(false);
+      }
+
       $('#form_SubpanelQuickCreate_SCO_Productos_tabs').append(\"<div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><table class='panelContainer' cellspacing='1'><div id='my'></div></table></div></div></div>\");
 
       data = [ $datos ];
@@ -159,9 +160,8 @@ class SCO_ProductosViewEdit extends ViewEdit {
       update = function (obj, cel, row) {
         function checkPos(pos) {
             return pos == producto;
-
         }
-
+      
         val = $('#my').jexcel('getValue', $(row));
         var col = $(cel).prop('id').split('-')[0];
         if(col == 3 || col == 4){
@@ -195,6 +195,10 @@ class SCO_ProductosViewEdit extends ViewEdit {
           var tot_t = tot - des_val;
           $('#7-'+row).text(tot_t);
         }
+
+        buscaproy($('#8-'+row).text(), row);
+        buscap($('#0-'+row).text(), row);
+
       }
 
       $('#my').jexcel({
@@ -216,48 +220,25 @@ class SCO_ProductosViewEdit extends ViewEdit {
       function act_prod()
       {
         var txt_prod = JSON.stringify($('#my').jexcel('getData'));
-
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
+        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"NaN\",\"\",\"\",\"\"]','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],','');
         txt_prod = txt_prod.replace('[\"\",\"\",\"\",\"\",\"\",\"NaN\",\"\",\"\",\"\"],','');
-        txt_prod = txt_prod.replace(',]',']');
+        txt_prod = txt_prod.replace('[]','');
+        txt_prod = txt_prod.replace('[]','');
         txt_prod = txt_prod.replace(',]',']');
         txt_prod = txt_prod.replace(',,','');
         txt_prod = txt_prod.replace(',,,','');
-        txt_prod = txt_prod.replace(',,,,','');
-        txt_prod = txt_prod.replace(',,,,,','');
-        $('#description').text(txt_prod);
+        $('#description').text(txt_prod);        
         return (false);
       }
+      if($('#0-'+0).val() == ''){
+          $('.action_buttons #SCO_Productos_subpanel_save_button').attr('disabled', true);
+        }
       //$('#form_SubpanelQuickCreate_SCO_Productos').on('mousemove',act_prod)
-      //$('.action_buttons #SCO_Productos_subpanel_save_button').prop('disabled', true);
+      //$('.action_buttons #SCO_Productos_subpanel_save_button').attr('disabled', true);
       $('.action_buttons #SCO_Productos_subpanel_save_button').on('mousemove',act_prod);
       $('.action_buttons #SCO_Productos_subpanel_save_button').on('focus',act_prod);
       </script>               
