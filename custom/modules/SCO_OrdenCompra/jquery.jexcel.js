@@ -285,9 +285,9 @@
                                 contextMenuContent = options.contextMenu(o[0], o[1]);
                             } else {
                                 if ($(e.target).parent().parent().is('thead')) {
-                                    contextMenuContent = "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">Ordenar Ascendentemente <span></span></a>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">Ordenar Descendentemente <span></span></a><hr>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insertar una nueva columna<span></span></a>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insertar nueva fila<span></span></a><hr>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Guardar como...<span>Ctrl + S</span></a>" + "<a onclick=\"alert('" + options.about + "')\">Acerca de<span></span></a>";
+                                    contextMenuContent = "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">Ordenar Ascendentemente <span></span></a>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">Ordenar Descendentemente <span></span></a><hr>" + /* "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insertar una nueva columna<span></span></a>" + */ "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insertar nueva fila<span></span></a><hr>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Guardar como...<span>Ctrl + S</span></a>" + "<a onclick=\"alert('" + options.about + "')\">Acerca de<span></span></a>";
                                 } else if ($(e.target).parent().parent().is('tbody')) {
-                                    contextMenuContent = "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insertar nueva Columna<span></span></a>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[-1] + ")\">Insertar nueva fila<span></span></a><hr>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Guardar como...<span>Ctrl + S</span></a>" + "<a onclick=\"alert('" + options.about + "')\">Acerca de<span></span></a>";
+                                    contextMenuContent = "<button title='" + SUGAR.language.get('app_strings', 'boton') + "' accessKey='" + SUGAR.language.get('app_strings', 'boton') + "' type='button' tabindex='116' class='button' value='" + SUGAR.language.get('app_strings', 'boton') + "' name='btn1' onclick='openProductPopup(" + prodln + ");' style='padding: 5px 8px 5px 8px;'><img src='themes/default/images/id-ff-select.png' alt='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_LABEL') + "'></button>" + /*"<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insertar nueva Columna<span></span></a>" + */ "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[-1] + ")\">Insertar nueva fila<span></span></a><hr>" + "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Guardar como...<span>Ctrl + S</span></a>" + "<a onclick=\"alert('" + options.about + "')\">Acerca de<span></span></a>";
                                 }
                             }
                             if (contextMenuContent) {
@@ -752,10 +752,10 @@
                                     }
                                 }
                                 // Tab key - Get the id of the selected cell
-                                if (columnId[0] == $.fn.jexcel.defaults[$.fn.jexcel.current].data[0].length - 1) {
-                                    // New record in case selectedCell in the last column
-                                    $('#' + $.fn.jexcel.current).jexcel('insertColumn');
-                                }
+                                //if (columnId[0] == $.fn.jexcel.defaults[$.fn.jexcel.current].data[0].length - 1) {
+                                //    // New record in case selectedCell in the last column
+                                //    $('#' + $.fn.jexcel.current).jexcel('insertColumn');
+                                //}
                                 // Highlight new column
                                 if (!$($.fn.jexcel.selectedCell).hasClass('edition')) {
                                     cell = $($.fn.jexcel.selectedCell).next();
@@ -1241,11 +1241,11 @@
                 // After changes
                 $(this).jexcel('afterChange');
                 // Sparerows and sparecols configuration
-                if (options.minSpareCols > 0) {
-                    if (position[0] == $.fn.jexcel.defaults[id].data[0].length - 1) {
-                        $('#' + $.fn.jexcel.current).jexcel('insertColumn', options.minSpareCols);
-                    }
-                }
+                //if (options.minSpareCols > 0) {
+                //    if (position[0] == $.fn.jexcel.defaults[id].data[0].length - 1) {
+                //        $('#' + $.fn.jexcel.current).jexcel('insertColumn', options.minSpareCols);
+                //    }
+                //}
                 if (options.minSpareRows > 0) {
                     if (position[1] == $.fn.jexcel.defaults[id].data.length - 1) {
                         $('#' + $.fn.jexcel.current).jexcel('insertRow', options.minSpareRows);
@@ -1745,7 +1745,7 @@
          * @param  int numColumns - number of columns to be created
          * @return void
          */
-        insertColumn: function(numColumns, properties, position) {
+        /*insertColumn: function(numColumns, properties, position) {
             var main = $(this);
             // Id
             var id = $(this).prop('id');
@@ -1799,7 +1799,7 @@
                     $(v).append(td);
                 });
             }
-        },
+        },*/
         /**
          * Insert a new row
          * 
