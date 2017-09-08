@@ -35,6 +35,7 @@ class Cldatoso
       //pobla usuario actual logeado
     global $current_user;
     $bean->user_id_c = $current_user->id;
+    $bean->assigned_user_id = $current_user->id;
     $bean->save();
   }
 }

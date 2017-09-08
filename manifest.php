@@ -54,13 +54,29 @@ $installdefs = array(
       'from' => '<basepath>/custom/modules/SCO_Contactos/datosContactos.php',
       'to'   => 'custom/modules/SCO_Contactos/datosContactos.php',
      ),
+      array(
+      'from' => '<basepath>/custom/modules/SCO_documentos/creafol.php',
+      'to'   => 'custom/modules/SCO_documentos/creafol.php',
+     ),
      array(
       'from' => '<basepath>/custom/modules/SCO_documentos/Documentos.php',
       'to'   => 'custom/modules/SCO_documentos/Documentos.php',
      ),
      array(
-      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datosOrdenCompra.php',
-      'to'   => 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php',
+      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/controller.php',
+      'to'   => 'custom/modules/SCO_OrdenCompra/controller.php',
+     ),
+     array(
+      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datosap.php',
+      'to'   => 'custom/modules/SCO_OrdenCompra/datosap.php',
+     ),
+     array(
+      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datosco.php',
+      'to'   => 'custom/modules/SCO_OrdenCompra/datosco.php',
+     ),
+     array(
+      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datoso.php',
+      'to'   => 'custom/modules/SCO_OrdenCompra/datoso.php',
      ),
      array(
       'from' => '<basepath>/custom/modules/SCO_OrdenCompra/jquery.jexcel.css',
@@ -70,6 +86,11 @@ $installdefs = array(
       'from' => '<basepath>/custom/modules/SCO_OrdenCompra/jquery.jexcel.js',
       'to'   => 'custom/modules/SCO_OrdenCompra/jquery.jexcel.js',
      ),
+     array(
+      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/viewoc.php',
+      'to'   => 'custom/modules/SCO_OrdenCompra/viewoc.php',
+     ),
+     
      array(
       'from' => '<basepath>/custom/modules/SCO_PlandePagos/datosPlanPagos.php',
       'to'   => 'custom/modules/SCO_PlandePagos/datosPlanPagos.php',
