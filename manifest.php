@@ -39,6 +39,7 @@ $installdefs = array(
  'mkdir' => array(
      array('path' => 'custom/modules/SCO_Aprobadores'),
      array('path' => 'custom/modules/SCO_Contactos'),
+     array('path' => 'custom/modules/SCO_Distribuidor'),
      array('path' => 'custom/modules/SCO_documentos'),
      array('path' => 'custom/modules/SCO_OrdenCompra'),
      array('path' => 'custom/modules/SCO_PlandePagos'),
@@ -46,63 +47,84 @@ $installdefs = array(
      array('path' => 'custom/modules/SCO_Proveedor'),
     ), 
  'copy' => array(
-     array(
-      'from' => '<basepath>/custom/modules/SCO_Aprobadores/datosAprobadores.php',
-      'to'   => 'custom/modules/SCO_Aprobadores/datosAprobadores.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_Contactos/datosContactos.php',
-      'to'   => 'custom/modules/SCO_Contactos/datosContactos.php',
-     ),
       array(
-      'from' => '<basepath>/custom/modules/SCO_documentos/creafol.php',
-      'to'   => 'custom/modules/SCO_documentos/creafol.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_documentos/Documentos.php',
-      'to'   => 'custom/modules/SCO_documentos/Documentos.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/controller.php',
-      'to'   => 'custom/modules/SCO_OrdenCompra/controller.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datosap.php',
-      'to'   => 'custom/modules/SCO_OrdenCompra/datosap.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datosco.php',
-      'to'   => 'custom/modules/SCO_OrdenCompra/datosco.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datoso.php',
-      'to'   => 'custom/modules/SCO_OrdenCompra/datoso.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/jquery.jexcel.css',
-      'to'   => 'custom/modules/SCO_OrdenCompra/jquery.jexcel.css',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/jquery.jexcel.js',
-      'to'   => 'custom/modules/SCO_OrdenCompra/jquery.jexcel.js',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_OrdenCompra/viewoc.php',
-      'to'   => 'custom/modules/SCO_OrdenCompra/viewoc.php',
-     ),
+        'from' => '<basepath>/custom/modules/SCO_Aprobadores/correlativo.php',
+        'to'   => 'custom/modules/SCO_Aprobadores/correlativo.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_Aprobadores/datosAprobadores.php',
+        'to'   => 'custom/modules/SCO_Aprobadores/datosAprobadores.php',
+      ),
+
+      array(
+        'from' => '<basepath>/custom/modules/SCO_Contactos/datosContactos.php',
+        'to'   => 'custom/modules/SCO_Contactos/datosContactos.php',
+      ),
+
+      array(
+        'from' => '<basepath>/custom/modules/SCO_Distribuidor/nomdist.php',
+        'to'   => 'custom/modules/SCO_Distribuidor/nomdist.php',
+      ),
+
+      array(
+        'from' => '<basepath>/custom/modules/SCO_documentos/creafol.php',
+        'to'   => 'custom/modules/SCO_documentos/creafol.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_documentos/Documentos.php',
+        'to'   => 'custom/modules/SCO_documentos/Documentos.php',
+      ),
+
+      array(
+        'from' => '<basepath>/custom/modules/SCO_OrdenCompra/contap.php',
+        'to'   => 'custom/modules/SCO_OrdenCompra/contap.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_OrdenCompra/controller.php',
+        'to'   => 'custom/modules/SCO_OrdenCompra/controller.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datosap.php',
+        'to'   => 'custom/modules/SCO_OrdenCompra/datosap.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_OrdenCompra/datosco.php',
+        'to'   => 'custom/modules/SCO_OrdenCompra/datosco.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_OrdenCompra/jquery.jexcel.css',
+        'to'   => 'custom/modules/SCO_OrdenCompra/jquery.jexcel.css',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_OrdenCompra/jquery.jexcel.js',
+        'to'   => 'custom/modules/SCO_OrdenCompra/jquery.jexcel.js',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_OrdenCompra/viewoc.php',
+        'to'   => 'custom/modules/SCO_OrdenCompra/viewoc.php',
+      ),
      
-     array(
-      'from' => '<basepath>/custom/modules/SCO_PlandePagos/datosPlanPagos.php',
-      'to'   => 'custom/modules/SCO_PlandePagos/datosPlanPagos.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_Productos/Productos.php',
-      'to'   => 'custom/modules/SCO_Productos/Productos.php',
-     ),
-     array(
-      'from' => '<basepath>/custom/modules/SCO_Proveedor/ProveedorView.php',
-      'to'   => 'custom/modules/SCO_Proveedor/ProveedorView.php',
-     ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_PlandePagos/datosPlanPagos.php',
+        'to'   => 'custom/modules/SCO_PlandePagos/datosPlanPagos.php',
+      ),
+
+      array(
+        'from' => '<basepath>/custom/modules/SCO_Productos/ActualizaPP.php',
+        'to'   => 'custom/modules/SCO_Productos/ActualizaPP.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_Productos/Deletepro.php',
+        'to'   => 'custom/modules/SCO_Productos/Deletepro.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_Productos/NomOC.php',
+        'to'   => 'custom/modules/SCO_Productos/NomOC.php',
+      ),
+      array(
+        'from' => '<basepath>/custom/modules/SCO_Productos/Productos.php',
+        'to'   => 'custom/modules/SCO_Productos/Productos.php',
+      ),
     ),
  'logic_hooks' => array(
       array(
@@ -115,6 +137,16 @@ $installdefs = array(
        'function'  => 'Fndatosa',
       ),
       array(
+       'module'  => 'SCO_Aprobadores',
+       'hook'    => 'after_save',
+       'order'   => 2,
+       'description' => 'correlativoAprobadores',
+       'file'   => 'custom/modules/SCO_Aprobadores/correlativo.php',
+       'class'   => 'Clcorrelativo',
+       'function'  => 'Fncorrelativo',
+      ),
+
+      array(
        'module'  => 'SCO_Contactos',
        'hook'    => 'after_save',
        'order'   => 1,
@@ -123,6 +155,17 @@ $installdefs = array(
        'class'   => 'CldatosC',
        'function'  => 'Fndatosc',
       ),
+
+      array(
+       'module'  => 'SCO_Distribuidor',
+       'hook'    => 'before_save',
+       'order'   => 1,
+       'description' => 'Distribuidor',
+       'file'   => 'custom/modules/SCO_Distribuidor/nomdist.php',
+       'class'   => 'Clnomdist',
+       'function'  => 'Fnnomdist',
+      ),
+
       array(
        'module'  => 'SCO_documentos',
        'hook'    => 'before_save',
@@ -132,85 +175,79 @@ $installdefs = array(
        'class'   => 'Documentos',
        'function'  => 'Fndocs',
       ),
-      array(
-       'module'  => 'SCO_documentos',
-       'hook'    => 'before_save',
-       'order'   => 77,
-       'description' => 'creafolokm',
-       'file'   => 'custom/modules/SCO_documentos/Documentos.php',
-       'class'   => 'Documentos',
-       'function'  => 'Fncreafol',
-      ),
-      array(
-       'module'  => 'SCO_documentos',
-       'hook'    => 'before_save',
-       'order'   => 77,
-       'description' => 'cargaarchokm',
-       'file'   => 'custom/modules/SCO_documentos/Documentos.php',
-       'class'   => 'Documentos',
-       'function'  => 'Fnscargaarch',
-      ),
+
       array(
        'module'  => 'SCO_OrdenCompra',
-       'hook'    => 'before_save',
+       'hook'    => 'after_save',
        'order'   => 1,
        'description' => 'datosOrdenCompra',
-       'file'   => 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php',
-       'class'   => 'CldatosO',
+       'file'   => 'custom/modules/SCO_OrdenCompra/datoso.php',
+       'class'   => 'Cldatoso',
        'function'  => 'Fndatoso',
       ),
       array(
        'module'  => 'SCO_OrdenCompra',
-       'hook'    => 'before_save',
-       'order'   => 1,
-       'description' => 'contactos',
-       'file'   => 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php',
-       'class'   => 'CldatosO',
+       'hook'    => 'after_save',
+       'order'   => 2,
+       'description' => 'datosContactos',
+       'file'   => 'custom/modules/SCO_OrdenCompra/datosco.php',
+       'class'   => 'Cldatosco',
        'function'  => 'Fndatosco',
       ),
       array(
        'module'  => 'SCO_OrdenCompra',
-       'hook'    => 'before_save',
-       'order'   => 1,
-       'description' => 'aprobadores',
-       'file'   => 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php',
-       'class'   => 'CldatosO',
+       'hook'    => 'after_save',
+       'order'   => 3,
+       'description' => 'datosAprobadores',
+       'file'   => 'custom/modules/SCO_OrdenCompra/datosap.php',
+       'class'   => 'Cldatosap',
        'function'  => 'Fndatosap',
+      ),
+      array(
+       'module'  => 'SCO_OrdenCompra',
+       'hook'    => 'after_save',
+       'order'   => 4,
+       'description' => 'contactosAprobadores',
+       'file'   => 'custom/modules/SCO_OrdenCompra/contap.php',
+       'class'   => 'Clcontap',
+       'function'  => 'Fncontap',
       ),
       array(
        'module'  => 'SCO_OrdenCompra',
        'hook'    => 'after_ui_frame',
        'order'   => 1,
        'description' => 'vistas de orden de compra con js',
-       'file'   => 'custom/modules/SCO_OrdenCompra/datosOrdenCompra.php',
-       'class'   => 'CldatosO',
-       'function'  => 'fnview',
+       'file'   => 'custom/modules/SCO_OrdenCompra/viewoc.php',
+       'class'   => 'Clviewoc',
+       'function'  => 'Fnviewoc',
       ),
+
       array(
        'module'  => 'SCO_PlandePagos',
-       'hook'    => 'after_save',
+       'hook'    => 'before_save',
        'order'   => 1,
        'description' => 'datosPP',
-       'file'   => 'custom/modules/SCO_PlandePagos/datosPlanPagos.php',
-       'class'   => 'CldatosPP',
+       'file'   => 'custom/modules/SCO_PlandePagos/PlanPagos.php',
+       'class'   => 'ClPlanPagos',
        'function'  => 'Fndatospp',
       ),
+
       array(
        'module'  => 'SCO_Productos',
        'hook'    => 'before_save',
        'order'   => 1,
        'description' => 'Productos',
        'file'   => 'custom/modules/SCO_Productos/Productos.php',
-       'class'   => 'Productos',
-       'function'  => 'Fnproductos',
+       'class'   => 'ClProductos',
+       'function'  => 'FnProductos',
       ),
       array(
        'module'  => 'SCO_Productos',
        'hook'    => 'before_save',
        'order'   => 2,
        'description' => 'Productos a',
-       'file'   => 'custom/modules/SCO_Productos/Productos.php',
-       'class'   => 'Productos',
+       'file'   => 'custom/modules/SCO_Productos/Deproductos.php',
+       'class'   => 'ClDeproductos',
        'function'  => 'FnDeproductos',
       ),
       array(
@@ -218,19 +255,47 @@ $installdefs = array(
        'hook'    => 'before_save',
        'order'   => 3,
        'description' => 'nombreoc',
-       'file'   => 'custom/modules/SCO_Productos/Productos.php',
-       'class'   => 'Productos',
+       'file'   => 'custom/modules/SCO_Productos/NomOC.php',
+       'class'   => 'ClNomOC',
+       'function'  => 'FnNomOC',
+      ),
+      array(
+       'module'  => 'SCO_Productos',
+       'hook'    => 'before_save',
+       'order'   => 4,
+       'description' => 'actualizapp',
+       'file'   => 'custom/modules/SCO_Productos/ActualizaPP.php',
+       'class'   => 'ClActualizaPP',
+       'function'  => 'FnActualizaPP',
+      ),
+      array(
+       'module'  => 'SCO_Productos',
+       'hook'    => 'after_relationship_delete',
+       'order'   => 2,
+       'description' => 'Deactualizapp',
+       'file'   => 'custom/modules/SCO_Productos/ActualizaPP.php',
+       'class'   => 'ClActualizaPP',
+       'function'  => 'FnActualizaPP',
+      ),
+      array(
+       'module'  => 'SCO_Productos',
+       'hook'    => 'after_relationship_delete',
+       'order'   => 3,
+       'description' => 'Deactualizapp nom oc',
+       'file'   => 'custom/modules/SCO_Productos/NomOC.php',
+       'class'   => 'ClNomOC',
        'function'  => 'FnNomOC',
       ),
       array(
        'module'  => 'SCO_Productos',
        'hook'    => 'after_relationship_delete',
-       'order'   => 1,
-       'description' => 'DeProductos',
-       'file'   => 'custom/modules/SCO_Productos/Productos.php',
-       'class'   => 'Productos',
-       'function'  => 'FnDeproductos',
+       'order'   => 4,
+       'description' => 'Deletepro',
+       'file'   => 'custom/modules/SCO_Productos/Deletepro.php',
+       'class'   => 'ClDeletepro',
+       'function'  => 'FnDeletepro',
       ),
+      
       array(
        'module'  => 'SCO_Proveedor',
        'hook'    => 'after_ui_frame',

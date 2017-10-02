@@ -1,6 +1,6 @@
 <?php
 
-class PlanPagos 
+class ClPlanPagos 
 {
   function Fndatospp($bean, $event, $arguments)
   {
