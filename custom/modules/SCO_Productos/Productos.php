@@ -1,9 +1,13 @@
 <?php
 
 class ClProductos 
-{
+{	
+	#static $already_ran = false;
 	function Fnproductos($bean, $event, $arguments) 
     {
+ 	#if(self::$already_ran == true) return;
+    #self::$already_ran = true;
+    /*
     	$bean->load_relationship('sco_ordencompra_sco_productos');
 	    $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
 	    reset($relatedBeans);
@@ -20,12 +24,12 @@ class ClProductos
 		    $prod = str_replace("],", "|", $prod);
 		    $filas = explode("|", $prod);		    	
 		    $cnt_filas = count($filas);
-
 		    /*$bean->load_relationship('sco_ordencompra_sco_productos');
 	    	$relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
 	    	reset($relatedBeans);
 	    	$parentBean = current($relatedBeans);
-	    	$idoc = $parentBean->id;*/
+	    	$idoc = $parentBean->id;*//*
+	    	echo "<script>console.log('22');</script>";
 		    for ($i=0; $i<$cnt_filas; $i++)
 		    {
 		      $textfila = $filas[$i];
@@ -41,7 +45,7 @@ class ClProductos
 		      $query = "SELECT id, name, proge_nompro, proge_descripcion, proge_unidad FROM sco_productoscompras WHERE deleted = 0 AND name = '$idpc'";
 		      $results = $GLOBALS['db']->query($query, true);
 		      $row = $GLOBALS['db']->fetchByAssoc($results);
-
+		      
 		      $query1 = "SELECT id, name FROM sco_proyectosco WHERE deleted = 0 AND name = '$idpo'";
 		      $results1 = $GLOBALS['db']->query($query1, true);
 		      $row1 = $GLOBALS['db']->fetchByAssoc($results1);
@@ -56,71 +60,62 @@ class ClProductos
 		      $beanp->pro_descuento = $dscv;
 		      $beanp->pro_unidad = $row['proge_unidad'];
 		      $beanp->pro_subtotal = $stot;
-		      $beanp->pro_descripcion = $row['proge_nompro']." ".$row['proge_descripcion'];
+		      $beanp->pro_descripcion = $row['proge_nompro']." ".$row['proge_descripcion'];		      
 		      $beanp->sco_proyectosco_sco_productossco_proyectosco_ida = $row1['id'];
-		      $beanp->pro_nomproyco = $row1['name'];
+		      $beanp->pro_nomproyco = $row1['name'];		      
 		      $beanp->sco_ordencompra_sco_productos_name = $idoc;
 		      $beanp->save();			  	
 		    }
-	  	}
- 	}
+	  	}*/			
+	  	$bdpro = "
+	    CREATE TABLE sco_productos_co (
+		  id VARCHAR(100) NULL,
+		  deleted INT NULL,
+		  pro_nombre VARCHAR(250) NULL,
+		  pro_descripcion VARCHAR(500) NULL,
+		  pro_unidad VARCHAR(100) NULL,
+		  pro_cantidad INT NULL,
+		  pro_preciounid DECIMAL NULL,
+		  pro_descval DECIMAL NULL,
+		  pro_descpor DECIMAL NULL,
+		  pro_fecha DATETIME NULL,
+		  pro_nomproyco VARCHAR(45) NULL,
+		  pro_idco VARCHAR(45)NULL,
+		  pro_idproy VARCHAR(45)NULL,
+		  pro_idpro VARCHAR(100) NULL,
+		  pro_tipocotiza VARCHAR(100)NULL,
+		  PRIMARY KEY (id))
+		ENGINE = InnoDB
+		DEFAULT CHARACTER SET = utf8
+		COLLATE = utf8_bin;
+	    ";
+	    #$bdp = $bean->db->query($bdpro, true);
 
- 	function Fnprodedit($bean, $event, $arguments){
- 		if(empty($bean->description) == TRUE){
-      	$beanpc = BeanFactory::getBean('SCO_ProductosCompras',$bean->sco_productos_sco_productoscomprassco_productoscompras_ida);
-      	$bean->pro_descripcion = $beanpc->proge_nompro." ".$beanpc->proge_descripcion;
-	    $bean->pro_unidad = $beanpc->proge_unidad;
-	    $bean->pro_nombre = $beanpc->proge_nompro;
-	    $bean->name = $beanpc->name;
-	    $bean->pro_nomproyco = $bean->sco_proyectosco_sco_productos_name;
-	    
-		#Operaciones matematicas para el calculo del precio total
-	    if($bean->pro_preciound == ""){  
-	        $bean->pro_preciound = $beanpc->proge_preciounid;    	
-	        if($bean->pro_preciound >= "0"){
-		        switch (trim($bean->pro_tipodesc)) {
-		        	case '1':
-		        			$st = $bean->pro_preciound  * $bean->pro_cantidad;
-		        			$d = $st * $bean->pro_descuento;
-		        			$bean->pro_subtotal = $st -($d / 100);
-		        			$bean->pro_valor = $st - $bean->pro_subtotal;
-		        			$bean->pro_procentaje = $bean->pro_descuento;
-		        		break;
-		        	case '2':
-		        			$st = $bean->pro_preciound  * $bean->pro_cantidad;		   
-		        			$bean->pro_subtotal = $st - $bean->pro_descuento;
-		        			$bean->pro_valor = $bean->pro_descuento;
-		        			$bean->pro_procentaje = ($bean->pro_descuento * 100)/$st;
-		        		break;
-		        	default:
-		       				$bean->pro_subtotal = $bean->pro_preciound  * $bean->pro_cantidad;
-		        		break;
-		        }
-	        }
-		}else{
-			if($bean->pro_preciound >= "0"){
-		        switch (trim($bean->pro_tipodesc)) {
-		        	case '1':
-		        			$st = $bean->pro_preciound  * $bean->pro_cantidad;
-		        			$d = $st * $bean->pro_descuento;
-		        			$bean->pro_subtotal = $st -($d / 100);
-		        			$bean->pro_valor = $st - $bean->pro_subtotal;
-		        			$bean->pro_procentaje = $bean->pro_descuento;
-		        		break;
-		        	case '2':
-		        			$st = $bean->pro_preciound  * $bean->pro_cantidad;		   
-		        			$bean->pro_subtotal = $st - $bean->pro_descuento;
-		        			$bean->pro_valor = $bean->pro_descuento;
-		        			$bean->pro_procentaje = ($bean->pro_descuento * 100)/$st;
-		        		break;
-		        	default:
-		       				$bean->pro_subtotal = $bean->pro_preciound  * $bean->pro_cantidad;
-		        		break;
-		        }
-	        }
-		}
-	    $bean->save();
-	  }
+	  	$bean->load_relationship('sco_ordencompra_sco_productos');
+	    $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
+	    reset($relatedBeans);
+	    $parentBean = current($relatedBeans);
+	    $idoc = $parentBean->id;
+		
+		$query1 = "
+			UPDATE sco_productos  
+			SET deleted = 1 
+			WHERE id 
+			in(SELECT sco_ordencompra_sco_productossco_productos_idb FROM sco_ordencompra_sco_productos_c
+			WHERE deleted = 0 and sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc')
+			and deleted = 0;
+			";
+		$obj1 = $bean->db->query($query1, true);	
+
+	    $query2 = "
+	    	UPDATE sco_ordencompra_sco_productos_c 
+			SET deleted = 1 
+			WHERE sco_ordencompra_sco_productossco_ordencompra_ida = '$idoc';
+			";
+		$obj2 = $bean->db->query($query2, true);	
+
+		$bean->save();
+
  	}
 }
 ?>
