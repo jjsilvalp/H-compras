@@ -20,10 +20,10 @@ class Cldatoso
     $bean_prov = BeanFactory::getBean('SCO_Proveedor', $sel_prov);
     $bean->orc_pronomemp = $bean_prov->name;
     $bean->orc_procodaio = $bean_prov->prv_codaio;
-    $bean->orc_promovil = $bean_prov->prv_movil;
-    $bean->orc_proemail = $bean_prov->prv_email;
-    $bean->orc_protelefono = $bean_prov->prv_tel;
-    $bean->orc_prodireccion = $bean_prov->prv_direc;
+    //$bean->orc_promovil = $bean_prov->prv_movil;
+    //$bean->orc_proemail = $bean_prov->prv_email;
+    //$bean->orc_protelefono = $bean_prov->prv_tel;
+    //$bean->orc_prodireccion = $bean_prov->prv_direc;
     #MOdificaion
     $bean->orc_nomcorto = $bean_prov->prv_monr;
     //pobla datos usuario
