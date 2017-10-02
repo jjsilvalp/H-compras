@@ -1,8 +1,0 @@
-jsilva: ya se como hacer que no se cachee el hook
-nuestro crm no esta en modo desarrollador
-
-To prevent caching while developing, a developer may opt to turn on Developer Mode by navigating to Admin > System Settings > Advanced > Developer Mode. This will disable caching so that developers can test code-level customizations without the need to manually rebuild the cache, which is especially helpful when developing templates, metadata, or language files. The system automatically refreshes the file cache. Make sure to deactivate Developer Mode after completing customizations because this mode degrades system performance. 
-
-
-Subida del archivo orden de compra firmada y cambio de estado logrado
-Guardado de productos desde subpanel y acutlizar datos en cabecera automaticamente logrado

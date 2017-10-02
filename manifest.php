@@ -110,20 +110,17 @@ $installdefs = array(
       ),
 
       array(
-        'from' => '<basepath>/custom/modules/SCO_Productos/ActualizaPP.php',
-        'to'   => 'custom/modules/SCO_Productos/ActualizaPP.php',
-      ),
-      array(
-        'from' => '<basepath>/custom/modules/SCO_Productos/Deletepro.php',
-        'to'   => 'custom/modules/SCO_Productos/Deletepro.php',
-      ),
-      array(
-        'from' => '<basepath>/custom/modules/SCO_Productos/NomOC.php',
-        'to'   => 'custom/modules/SCO_Productos/NomOC.php',
+        'from' => '<basepath>/custom/modules/SCO_Productos/Deproductos.php',
+        'to'   => 'custom/modules/SCO_Productos/Deproductos.php',
       ),
       array(
         'from' => '<basepath>/custom/modules/SCO_Productos/Productos.php',
         'to'   => 'custom/modules/SCO_Productos/Productos.php',
+      ),
+
+      array(
+        'from' => '<basepath>/custom/modules/SCO_Proveedor/ProveedorView.php',
+        'to'   => 'custom/modules/SCO_Proveedor/ProveedorView.php',
       ),
     ),
  'logic_hooks' => array(
@@ -250,52 +247,7 @@ $installdefs = array(
        'class'   => 'ClDeproductos',
        'function'  => 'FnDeproductos',
       ),
-      array(
-       'module'  => 'SCO_Productos',
-       'hook'    => 'before_save',
-       'order'   => 3,
-       'description' => 'nombreoc',
-       'file'   => 'custom/modules/SCO_Productos/NomOC.php',
-       'class'   => 'ClNomOC',
-       'function'  => 'FnNomOC',
-      ),
-      array(
-       'module'  => 'SCO_Productos',
-       'hook'    => 'before_save',
-       'order'   => 4,
-       'description' => 'actualizapp',
-       'file'   => 'custom/modules/SCO_Productos/ActualizaPP.php',
-       'class'   => 'ClActualizaPP',
-       'function'  => 'FnActualizaPP',
-      ),
-      array(
-       'module'  => 'SCO_Productos',
-       'hook'    => 'after_relationship_delete',
-       'order'   => 2,
-       'description' => 'Deactualizapp',
-       'file'   => 'custom/modules/SCO_Productos/ActualizaPP.php',
-       'class'   => 'ClActualizaPP',
-       'function'  => 'FnActualizaPP',
-      ),
-      array(
-       'module'  => 'SCO_Productos',
-       'hook'    => 'after_relationship_delete',
-       'order'   => 3,
-       'description' => 'Deactualizapp nom oc',
-       'file'   => 'custom/modules/SCO_Productos/NomOC.php',
-       'class'   => 'ClNomOC',
-       'function'  => 'FnNomOC',
-      ),
-      array(
-       'module'  => 'SCO_Productos',
-       'hook'    => 'after_relationship_delete',
-       'order'   => 4,
-       'description' => 'Deletepro',
-       'file'   => 'custom/modules/SCO_Productos/Deletepro.php',
-       'class'   => 'ClDeletepro',
-       'function'  => 'FnDeletepro',
-      ),
-      
+
       array(
        'module'  => 'SCO_Proveedor',
        'hook'    => 'after_ui_frame',
