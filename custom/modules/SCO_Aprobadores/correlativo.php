@@ -18,7 +18,7 @@ class Clcorrelativo
 
     #Obteniendo el ultimo valor
     $query = "SELECT max(ap.apr_correlativo) as ultimo
-      FROM bitnami_suitecrm.sco_aprobadores ap
+      FROM sco_aprobadores ap
       inner join sco_ordencompra_sco_aprobadores_c apr on (ap.id = apr.sco_ordencompra_sco_aprobadoressco_aprobadores_idb)
       where apr.deleted = 0
       and apr.sco_ordencompra_sco_aprobadoressco_ordencompra_ida = '$idoc'";

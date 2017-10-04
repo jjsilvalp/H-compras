@@ -47,6 +47,8 @@ $installdefs = array(
      array('path' => 'custom/modules/SCO_Proveedor'),
     ), 
  'copy' => array(
+      //LOGIC HOOKS
+      //SCO_Aprobadores 
       array(
         'from' => '<basepath>/custom/modules/SCO_Aprobadores/correlativo.php',
         'to'   => 'custom/modules/SCO_Aprobadores/correlativo.php',
@@ -55,17 +57,17 @@ $installdefs = array(
         'from' => '<basepath>/custom/modules/SCO_Aprobadores/datosAprobadores.php',
         'to'   => 'custom/modules/SCO_Aprobadores/datosAprobadores.php',
       ),
-
+      //SCO_Contactos
       array(
         'from' => '<basepath>/custom/modules/SCO_Contactos/datosContactos.php',
         'to'   => 'custom/modules/SCO_Contactos/datosContactos.php',
       ),
-
+      //SCO_Distribuidor
       array(
         'from' => '<basepath>/custom/modules/SCO_Distribuidor/nomdist.php',
         'to'   => 'custom/modules/SCO_Distribuidor/nomdist.php',
       ),
-
+      //SCO_documentos
       array(
         'from' => '<basepath>/custom/modules/SCO_documentos/creafol.php',
         'to'   => 'custom/modules/SCO_documentos/creafol.php',
@@ -74,7 +76,7 @@ $installdefs = array(
         'from' => '<basepath>/custom/modules/SCO_documentos/Documentos.php',
         'to'   => 'custom/modules/SCO_documentos/Documentos.php',
       ),
-
+      //SCO_OrdenCompra
       array(
         'from' => '<basepath>/custom/modules/SCO_OrdenCompra/contap.php',
         'to'   => 'custom/modules/SCO_OrdenCompra/contap.php',
@@ -103,12 +105,12 @@ $installdefs = array(
         'from' => '<basepath>/custom/modules/SCO_OrdenCompra/viewoc.php',
         'to'   => 'custom/modules/SCO_OrdenCompra/viewoc.php',
       ),
-     
+      //SCO_PlandePagos
       array(
-        'from' => '<basepath>/custom/modules/SCO_PlandePagos/datosPlanPagos.php',
-        'to'   => 'custom/modules/SCO_PlandePagos/datosPlanPagos.php',
+        'from' => '<basepath>/custom/modules/SCO_PlandePagos/PlanPagos.php',
+        'to'   => 'custom/modules/SCO_PlandePagos/PlanPagos.php',
       ),
-
+      //SCO_Productos
       array(
         'from' => '<basepath>/custom/modules/SCO_Productos/Deproductos.php',
         'to'   => 'custom/modules/SCO_Productos/Deproductos.php',
@@ -117,11 +119,55 @@ $installdefs = array(
         'from' => '<basepath>/custom/modules/SCO_Productos/Productos.php',
         'to'   => 'custom/modules/SCO_Productos/Productos.php',
       ),
-
+      //SCO_Proveedor
       array(
         'from' => '<basepath>/custom/modules/SCO_Proveedor/ProveedorView.php',
         'to'   => 'custom/modules/SCO_Proveedor/ProveedorView.php',
       ),
+      //VISTAS
+      //SCO_OrdenCompra
+      array(
+        'from' => '<basepath>/modules/SCO_OrdenCompra/views/view.detail.php',
+        'to'   => 'modules/SCO_OrdenCompra/views/view.detail.php',
+      ),
+      array(
+        'from' => '<basepath>/modules/SCO_OrdenCompra/calculodesc.php',
+        'to'   => 'modules/SCO_OrdenCompra/calculodesc.php',
+      ),
+      array(
+        'from' => '<basepath>/modules/SCO_OrdenCompra/ordencompra.php',
+        'to'   => 'modules/SCO_OrdenCompra/ordencompra.php',
+      ),
+      //SCO_Productos
+      array(
+        'from' => '<basepath>/modules/SCO_Productos/views/jquery.validate.min.js',
+        'to'   => 'modules/SCO_Productos/views/jquery.validate.min.js',
+      ),
+      array(
+        'from' => '<basepath>/modules/SCO_Productos/views/view.edit.php',
+        'to'   => 'modules/SCO_Productos/views/view.edit.php',
+      ),
+      array(
+        'from' => '<basepath>/modules/SCO_Productos/buscap.php',
+        'to'   => 'modules/SCO_Productos/buscap.php',
+      ),
+      array(
+        'from' => '<basepath>/modules/SCO_Productos/buscaproy.php',
+        'to'   => 'modules/SCO_Productos/buscaproy.php',
+      ),
+      array(
+        'from' => '<basepath>/modules/SCO_Productos/items.js',
+        'to'   => 'modules/SCO_Productos/items.js',
+      ),
+      array(
+        'from' => '<basepath>/modules/SCO_Productos/jquery.bdt.min.js',
+        'to'   => 'modules/SCO_Productos/jquery.bdt.min.js',
+      ),
+      array(
+        'from' => '<basepath>/modules/SCO_Productos/productos.js',
+        'to'   => 'modules/SCO_Productos/productos.js',
+      ),
+
     ),
  'logic_hooks' => array(
       array(
