@@ -140,10 +140,6 @@ $installdefs = array(
       ),
       //SCO_Productos
       array(
-        'from' => '<basepath>/modules/SCO_Productos/views/jquery.validate.min.js',
-        'to'   => 'modules/SCO_Productos/views/jquery.validate.min.js',
-      ),
-      array(
         'from' => '<basepath>/modules/SCO_Productos/views/view.edit.php',
         'to'   => 'modules/SCO_Productos/views/view.edit.php',
       ),
