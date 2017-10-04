@@ -1,5 +1,5 @@
 <?php 
-
+/*
 class ClNomOC
 {
 	function FnNomOC($bean, $event, $arguments) 
@@ -43,5 +43,5 @@ class ClNomOC
 	    }
 	}
 }
-
+*/
  ?>

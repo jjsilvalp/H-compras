@@ -12,7 +12,7 @@ class ClDeletepro
     $obj = $bean->db->query($query, true);	   
     $query2 = "UPDATE sco_proyectosco_sco_productos_c SET deleted = 1 WHERE sco_proyectosco_sco_productossco_productos_idb = '$idp'";
     $obj2 = $bean->db->query($query2, true);
-  	
+
 	  $bean->load_relationship('sco_ordencompra_sco_productos');
     $relatedBeans = $bean->sco_ordencompra_sco_productos->getBeans();
     reset($relatedBeans);
