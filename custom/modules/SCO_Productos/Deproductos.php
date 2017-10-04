@@ -62,19 +62,24 @@ class ClDeproductos
 		    $stot = $fila[7];
 		    $idpo = $fila[8];			    
 		    $idproy = $fila[9];	
-		    $idpro = $fila[10];		  
-	    $query ="INSERT INTO sco_productos_co (id, deleted, pro_nombre, pro_descripcion, pro_unidad, pro_cantidad, pro_preciounid, pro_descval, pro_descpor, pro_fecha, pro_nomproyco, pro_idco, pro_idproy, pro_idpro) VALUES (UUid(),'0','$idpc','$descr','$unid','$cant','$prec','$dscv','$dscp','$date','$idpo','$idoc','$idproy','$idpro');";
+		    $idpro = $fila[10];	
+		    $tipoProy = $fila[11];		  
+	    $query ="INSERT INTO sco_productos_co (id, deleted, pro_nombre, pro_descripcion, pro_unidad, pro_cantidad, pro_preciounid, pro_descval, pro_descpor, pro_fecha, pro_nomproyco, pro_idco, pro_idproy, pro_idpro, pro_tipocotiza, pro_subtotal) VALUES (UUid(),'0','$idpc','$descr','$unid','$cant','$prec','$dscv','$dscp','$date','$idpo','$idoc','$idproy','$idpro','$tipoProy','$stot');";
 	    $obj = $bean->db->query($query, true);
 	    }	
 
-	    $queryproy = "SELECT DISTINCT(pro_nomproyco) as name FROM sco_productos_co WHERE pro_idco ='$idoc';";
+	    $queryproy = "SELECT DISTINCT(pro_nomproyco) as name, pro_tipocotiza FROM sco_productos_co WHERE pro_idco ='$idoc';";
 	    $objproy = $bean->db->query($queryproy, true);
 	    while($row = $bean->db->fetchByAssoc($objproy))
 	      {
-	        $nom .= $row["name"] . "_";
+	        $nom .= $row["pro_tipocotiza"].$row["name"] . "_";
 	      }
 	    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
 	    $beanoc->name = $nom;
+	    $beanoc->orc_tototal = $arrprec[0];  	    
+	    $beanoc->orc_descpor = $arrprec[1];
+	    $beanoc->orc_descvalor = $arrprec[2];
+	    $beanoc->orc_importet = $arrprec[3];
 	    $beanoc->save();
  	}
 }

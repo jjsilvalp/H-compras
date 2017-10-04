@@ -81,8 +81,8 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	      cont++;        
 	    }else{cont++;}
 	    });	
-
-	    var c = b[0].replace(/['\"]+/g, \"'\");	    
+	    
+		var c = b[0].replace(/['\"]+/g, \"'\");   
 	    c = c.replace(/','/g,'*');
 	    c = c.replace('[[','');
 	    c = c.replace(']]','');
@@ -93,7 +93,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	    for(var i = 0 ; i < c.length;i++){
 	    	d = c[i].split('*');	
 	    	var celda = '';
-	    	for(var j = 0; j< d.length - 2;j++){
+	    	for(var j = 0; j< d.length - 3;j++){
 	    		celda += '<td>'+d[j]+'</td>';	     	
 	    	}
 	    	fila += '<tr>'+celda+'</tr>';	    	
@@ -154,7 +154,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	      cont++;        
 	    }else{cont++;}
 	    });	    
-	    alert(b[0]);
+	    //alert(b[0]);
 	    var c = b[0].replace(/['\"]+/g, \"'\");	    
 	    c = c.replace(/','/g,'*');
 	    c = c.replace('[[','');
@@ -162,11 +162,11 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	    c = c.replace(/'/g,'');
 	    c = c.split('],[');
 	    
-	    var d = '';var fila = '';
+	    var d = ''; var fila = '';
 	    for(var i = 0 ; i < c.length;i++){
 	    	d = c[i].split('*');	
 	    	var celda = '';
-	    	for(var j = 0; j< d.length - 2;j++){
+	    	for(var j = 0; j< d.length - 3;j++){
 	    		celda += '<td>'+d[j]+'</td>';	     	
 	    	}
 	    	fila += '<tr>'+celda+'</tr>';	    	

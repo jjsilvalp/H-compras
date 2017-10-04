@@ -13,7 +13,7 @@ class ClActualizaPP
 	    $idoc = $parentBean->id;
 	    #Obtenieno Monto total en la Orden de compra
 	    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
-	    $tot_oc = $beanoc->orc_tototal;
+	    $tot_oc = $beanoc->orc_importet;
 	    $mon_oc = $beanoc->orc_tcmoneda;
 	    //obteniendo plan de pagos
 	    $beanoc->load_relationship('sco_ordencompra_sco_plandepagos');

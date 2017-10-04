@@ -4,7 +4,7 @@ require_once('data/BeanFactory.php');
 require_once('include/entryPoint.php');
 
 	$nomproy = $_GET['nomproy'];
-	$query = "SELECT id, name 
+	$query = "SELECT id, name, proyc_tipo 
 	FROM sco_proyectosco 
 	WHERE deleted = 0 
 	AND name = '$nomproy'";
