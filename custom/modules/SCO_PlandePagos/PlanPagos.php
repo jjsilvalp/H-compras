@@ -2,20 +2,22 @@
 
 class PlanPagos 
 {
+    static $already_ran = false;
+    
   function Fndatospp($bean, $event, $arguments)
   {
+    if(self::$already_ran == true) return;
+    self::$already_ran = true;
     $id = $bean->id;    
-    $query = "
-    SELECT sco_ordencompra_sco_plandepagossco_ordencompra_ida as oc_id
-    FROM sco_ordencompra_sco_plandepagos_c
-    where sco_ordencompra_sco_plandepagossco_plandepagos_idb = '".$id."'";
-    $results = $bean->db->query($query, true);
-    $row = $bean->db->fetchByAssoc($results);
-    $id_oc =$row['oc_id'];
+    $bean->load_relationship('sco_ordencompra_sco_plandepagos');
+    $relatedBeans = $bean->sco_ordencompra_sco_plandepagos->getBeans();
+    reset($relatedBeans);
+    $parentBean = current($relatedBeans);
+    $id_oc = $parentBean->id;
 
-    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $row['oc_id']);
+    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $id_oc);
     $tot = $beanoc->orc_importet;
-    $mon_oc = $beanoc->orc_tcmoneda;
+    $mon_oc = $beanoc->orc_tcmoneda;    
 
     $valor = $tot * ($bean->ppg_porc / 100);
     $bean->ppg_monto = $valor;
@@ -31,21 +33,21 @@ class PlanPagos
     AND sco_ordencompra_sco_plandepagossco_ordencompra_ida = '".$id_oc."';";
     $objpp = $bean->db->query($querypp, true);    
     $rowpp = $bean->db->fetchByAssoc($objpp);
-
-    if($bean->ppg_porc < 100){       
-        $resto = $rowpp['sumapor'] + $bean->ppg_porc;
-        if($resto <= 100){    
-            if($resto <> 0){   
-                $bean->save();
+    
+    if($bean->ppg_porc < 100){
+        $sumto = $rowpp['sumapor'] + $bean->ppg_porc;
+        if($sumto <= 100){    
+            if($sumto <> 0){  
+                $bean->save();               
             }else{
-                echo "<script>alert('".$resto." representa ningun valor');</script>";
+                echo "<script>alert('".$sumto." representa ningun valor');</script>";
                 exit();
             }
         }else{
-            echo "<script>alert('La suma de los % no debe ser mayor que 100');</script>";
+            echo "<script>alert('La suma de los % del Plan de Pagos no debe ser mayor que 100');</script>";
             exit();
         }
-    }else{      
+    }else{
         echo "<script>alert('El % ".$bean->ppg_porc." no debe ser mayor a 100');</script>";
         exit();
     }

@@ -1,8 +1,12 @@
 <?php
 class Cldatoso 
 {
+  static $already_ran = false;
+
 	function Fndatoso($bean, $event, $arguments) 
   {
+    if(self::$already_ran == true) return;
+    self::$already_ran = true;
     //Copia datos facturacion en datos envio
     $op_comp = $bean->orc_decop;
     if ($op_comp == '1')

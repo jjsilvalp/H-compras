@@ -1,8 +1,11 @@
 <?php 
 class Cldatosap 
-{
+{static $already_ran = false;
+
   function Fndatosap($bean, $event, $arguments) 
   {
+    if(self::$already_ran == true) return;
+    self::$already_ran = true;
     $div = $bean->orc_division;
     $reg = $bean->orc_regional;
     $ido = $bean->id;

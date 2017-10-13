@@ -6,7 +6,9 @@ require_once('include/entryPoint.php');
 	$id = $_GET['id'];  
 	$beanoc = BeanFactory::getBean('SCO_OrdenCompra', $id);
 	$num = $_GET['num'];
-	switch ($num) {
+	$desctotal = $beanoc->orc_aux1;
+	if($desctotal == 100){
+		switch ($num) {
 		case "1":
 			$beanoc->orc_estado = 2; 
 			break;	
@@ -17,7 +19,7 @@ require_once('include/entryPoint.php');
 			$beanoc->orc_estado = 3;  
 			$GLOBALS['db'];
 		    $db = DBManagerFactory::getInstance();
-		    $query = "
+		    /*$query = "
 		    	SELECT DISTINCT proy.id as idproy FROM sco_proyectosco as proy
 				INNER JOIN sco_proyectosco_sco_productos_c as proypro
 				ON proy.id = proypro.sco_proyectosco_sco_productossco_proyectosco_ida
@@ -26,18 +28,23 @@ require_once('include/entryPoint.php');
 				INNER JOIN sco_ordencompra_sco_productos_c as ocp
 				ON ocp.sco_ordencompra_sco_productossco_productos_idb = p.id
 				WHERE p.deleted = 0 
-				AND ocp.sco_ordencompra_sco_productossco_ordencompra_ida = '$id'";
+				AND ocp.sco_ordencompra_sco_productossco_ordencompra_ida = '$id'";*/
+			$query = "
+				SELECT DISTINCT(pro_nomproyco) as nombre, pro_idproy, pro_tipocotiza
+				FROM sco_productos_co pco
+				WHERE pro_idco = '$id' ";	
 			$result = $GLOBALS['db']->query($query, true);
 			while($row = $GLOBALS['db']->fetchByAssoc($result))
 			{
-			    $idproy = $row['idproy'];
+			    $idproy = $row['pro_idproy'];
 			    $beanproy = BeanFactory::getBean('SCO_ProyectosCO', $idproy);	
 				$correl = $beanproy->proyc_correlativo + 1;						
 				$beanproy->proyc_correlativo = $correl;
 				$beanproy->save();
-				$nombreoc .= $beanproy->proyc_tipo.$beanproy->name."_".$correl." - ";
+				$nombreoc .= $row['pro_tipocotiza'].$row['nombre'] . "_" . $correl . " - ";
 			}
-		    $beanoc->name = trim($nombreoc, ' - ');
+			$beanoc->name = $nombreoc;
+		    $beanoc->name = trim($beanoc->name, ' - ');
 			break;	
 		case "4":
 			$beanoc->orc_estado = 4;  
@@ -50,7 +57,11 @@ require_once('include/entryPoint.php');
 			break;		
 		default:
 			break;
-	}
-    
+		} 
 	$beanoc->save();
+		echo json_encode($desctotal);		
+	}else{		
+		echo json_encode($desctotal);	
+	}
+	
 ?> 

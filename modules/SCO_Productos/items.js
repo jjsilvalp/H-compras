@@ -27,6 +27,7 @@ function openProyPopup(ln) {
         "field_to_name_array": {
             "id": "proy_id" + ln,
             "name": "pory_cod" + ln,
+            "proyc_tipo": "tipo_proy" + ln,
         }
     };
     open_popup('SCO_ProyectosCO', 600, 400, '', true, false, popupRequestData, true);
@@ -37,11 +38,11 @@ function insertarProductos() {
     var x = tablapr.insertRow(-1);
     x.id = 'producto' + pronum;
     var b1 = x.insertCell(0);
-    b1.innerHTML = "<input class='sqsEnabled product_part_number yui-ac-input ' style='width:178px;' onkeyup='buscaind(" + pronum + "); 'autocomplete='off' type='text' name='pro_nombre" + pronum + "' id='pro_nombre" + pronum + "' maxlength='50' value='' tabindex='116' placeholder='Cod Prov'><input type='hidden' name='producto_id" + pronum + "' id='producto_id" + pronum + "' size='20' maxlength='50' value=''>";
+    b1.innerHTML = "<input class='sqsEnabled product_part_number yui-ac-input ' style='width:178px;' onblur='buscaind(" + pronum + "); 'autocomplete='off' type='text' name='pro_nombre" + pronum + "' id='pro_nombre" + pronum + "' maxlength='50' value='' tabindex='116' placeholder='Cod Prov'><input type='hidden' name='producto_id" + pronum + "' id='producto_id" + pronum + "' size='20' maxlength='50' value=''>";
     var b2 = x.insertCell(1);
     b2.innerHTML = "<button style='border-radius:10%;border-color: #269abc;' title='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_TITLE') + "' accessKey='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_KEY') + "' type='button' tabindex='116' class='button' value='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_LABEL') + "' name='btn1' onclick='openProductPopup(" + pronum + ");'><img src='themes/default/images/id-ff-select.png' alt='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_LABEL') + "'></button>";
     var b3 = x.insertCell(2);
-    b3.innerHTML = "<textarea id='pro_descripcion" + pronum + "' name='pro_descripcion" + pronum + "' rows='2' cols='35' placeholder='Descripcion'></textarea>";
+    b3.innerHTML = "<textarea id='pro_descripcion" + pronum + "' name='pro_descripcion" + pronum + "' rows='1' cols='35' placeholder='Descripcion'></textarea>";
     var b = x.insertCell(3);
     b.innerHTML = "<input style='width:100px;' autocomplete='off' type='text' name='pro_unidad" + pronum + "' id='pro_unidad" + pronum + "' maxlength='50' tabindex='116' value='' placeholder='Pro Unidad'>";
     var c = x.insertCell(4);
@@ -55,7 +56,7 @@ function insertarProductos() {
     var g = x.insertCell(8);
     g.innerHTML = "<input type='text' style='text-align: right; width:75px;' name='pro_total" + pronum + "' id='pro_total" + pronum + "' size='11' maxlength='50' value='' tabindex='116' readonly='readonly' placeholder='Total'>";
     var i = x.insertCell(9);
-    i.innerHTML = "<input style='width:100px;' autocomplete='off' type='text' name='pory_cod" + pronum + "' onkeyup='buscaindpy(" + pronum + ")' id='pory_cod" + pronum + "' maxlength='50' tabindex='116' value='' placeholder='Proyecto'><input type='hidden' name='proy_id" + pronum + "' id='proy_id" + pronum + "' size='20' maxlength='50' value=''><input type='hidden' name='tipo_proy" + pronum + "' id='tipo_proy" + pronum + "' size='20' maxlength='50' value=''>";
+    i.innerHTML = "<input style='width:100px;' autocomplete='off' type='text' name='pory_cod" + pronum + "' onblur='buscaindpy(" + pronum + ")' id='pory_cod" + pronum + "' maxlength='50' tabindex='116' value='' placeholder='Proyecto'><input type='hidden' name='proy_id" + pronum + "' id='proy_id" + pronum + "' size='20' maxlength='50' value=''><input type='hidden' name='tipo_proy" + pronum + "' id='tipo_proy" + pronum + "' size='20' maxlength='50' value=''>";
     var i2 = x.insertCell(10);
     i2.innerHTML = "<button style='border-radius:10%;border-color: #269abc;' title='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_TITLE') + "' accessKey='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_KEY') + "' type='button' tabindex='116' class='button' value='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_LABEL') + "' name='btn1' onclick='openProyPopup(" + pronum + ");'><img src='themes/default/images/id-ff-select.png' alt='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_LABEL') + "'></button>";
     var h = x.insertCell(11);
@@ -69,7 +70,7 @@ function insertarServicio() {
     var x = tablapr.insertRow(-1);
     x.id = 'servicio' + pronum;
     var b1 = x.insertCell(0);
-    b1.innerHTML = "<input   type='hidden' name='pro_nombre" + pronum + "' id='pro_nombre" + pronum + "' maxlength='50' value='Servicio'><input type='hidden' name='producto_id" + pronum + "' id='producto_id" + pronum + "' size='20' maxlength='50' value=''>";
+    b1.innerHTML = "<input   type='hidden' name='pro_nombre" + pronum + "' id='pro_nombre" + pronum + "' maxlength='50' value='Servicio'><input type='hidden' name='producto_id" + pronum + "' id='producto_id" + pronum + "' size='20' maxlength='50' value='Servicio" + pronum + "'>";
     var b3 = x.insertCell(1);
     b3.innerHTML = "<textarea id='pro_descripcion" + pronum + "' name='pro_descripcion" + pronum + "' rows='1' cols='80' placeholder='Nombre Servicio'></textarea>";
     var b = x.insertCell(2);
@@ -85,7 +86,7 @@ function insertarServicio() {
     var g = x.insertCell(7);
     g.innerHTML = "<input type='text' style='text-align: right; width:75px;' name='pro_total" + pronum + "' id='pro_total" + pronum + "' size='11' maxlength='50' value='' tabindex='116' readonly='readonly' placeholder='Total'>";
     var i = x.insertCell(8);
-    i.innerHTML = "<input style='width:100px;' autocomplete='off' type='text' name='pory_cod" + pronum + "' id='pory_cod" + pronum + "' maxlength='50' value='' tabindex='116' value='' placeholder='Proyecto'><input type='hidden' name='proy_id" + pronum + "' id='proy_id" + pronum + "' size='20' maxlength='50' value=''>";
+    i.innerHTML = "<input style='width:100px;' autocomplete='off' type='text' name='pory_cod" + pronum + "' onblur='buscaindpy(" + pronum + ")' id='pory_cod" + pronum + "' maxlength='50' tabindex='116' value='' placeholder='Proyecto'><input type='hidden' name='proy_id" + pronum + "' id='proy_id" + pronum + "' size='20' maxlength='50' value=''><input type='hidden' name='tipo_proy" + pronum + "' id='tipo_proy" + pronum + "' size='20' maxlength='50' value=''>";
     var i2 = x.insertCell(9);
     i2.innerHTML = "<button style='border-radius:10%;border-color: #269abc;' title='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_TITLE') + "' accessKey='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_KEY') + "' type='button' tabindex='116' class='button' value='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_LABEL') + "' name='btn1' onclick='openProyPopup(" + pronum + ");'><img src='themes/default/images/id-ff-select.png' alt='" + SUGAR.language.get('app_strings', 'LBL_SELECT_BUTTON_LABEL') + "'></button>";
     var h = x.insertCell(10);
