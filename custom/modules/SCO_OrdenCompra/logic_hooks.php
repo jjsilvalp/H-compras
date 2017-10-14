@@ -12,3 +12,4 @@ $hook_array['after_save'][] = Array(4, 'contactosAprobadores', 'custom/modules/S
 $hook_array['after_ui_frame'] = Array();
 $hook_array['after_ui_frame'][] = Array(1, 'vistas de orden de compra con js', 'custom/modules/SCO_OrdenCompra/viewoc.php','Clviewoc', 'Fnviewoc');
 ?>
+
