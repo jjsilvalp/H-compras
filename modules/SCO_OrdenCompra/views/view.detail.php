@@ -7,18 +7,22 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	
  	function SCO_OrdenCompraViewDetail(){
  		parent::ViewDetail();
- 		#$this->useForSubpanel = true;
+ 		$this->useForSubpanel = true;
  	}
+
  	 public function preDisplay()
     {
-        parent::preDisplay();
+        parent::preDisplay();	
     }
+
  	function display(){ 
- 		$estado = $this->bean->orc_estado; 		
- 		$id = $this->bean->id;
- 		
- 		$arr_estado = array(1 => 'En curso',2=>'Borrador ', 3 =>'Solicitar AprobaciÃ³n ', 4 => 'Aprobado ' ,5 => 'Cacelado ', 6 =>'Cerrado ');
-		$st ='<style>	
+ 		$st = "<style>#alertapp{ position: fixed; float: left; margin-top: 10px; margin-left:35%; z-index:1;}#idpro tbody tr{border-bottom: 1px solid #ccc; background-color: #f2f2f2;}</style>";
+ 		$htmlpp ='<div id="alertapp"></div>';
+       	echo $st.$htmlpp;
+
+ 		$estado = $this->bean->orc_estado; 		 	
+ 		$arr_estado = array(1 => 'En curso',2=>'Borrador ', 3 =>'Solicitar Aprobacion ', 4 => 'Aprobado ' ,5 => 'Cacelado ', 6 =>'Cerrado ');
+		$st ='<style>				
 			.gris{color: #ccc;}
 			.gris:hover{color: #ccc;}
 			.single{display: none;}
@@ -44,20 +48,25 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		</script>';
 		echo "
 		<script>
-		 	function estado(est){
+			function estado(est){
 		 		var id = '".$this->bean->id."';
 		 		var num = est;
 		 		$.ajax({
 		 			type: 'get',
 		 			url: 'index.php?to_pdf=true&module=SCO_OrdenCompra&action=ordencompra&id='+id,
 		 			data: {num},
-		 			success: function() {
-		            	console.log('conexion exitosa, num = '+num);
-		            	//window.parent.location.href='';
+		 			success: function(data) {
+		 				debugger;
+		 				var desctot = $.parseJSON(data);
+		 				if(desctot == 100){
+		            	console.log('conexion exitosa, num = ' + desctot);
 		            	location.reload(true);		    
+		            	}else{
+		            		$('#alertapp').append('<div class=\"alert alert-danger\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button><strong>Complete el 100 % del Plan de Pagos</strong>. PP = ' + desctot + ' % .</div>');
+		            	}
 		        	}
 		        });
-		 	}
+			}		
 		</script>";	
 		echo "<script>	
 		var htmlpro = '';
@@ -75,23 +84,23 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		var b = [];
 		var cont = 0;
 	    $('#list_subpanel_sco_ordencompra_sco_productos .list tbody tr td').each(function(){
-	    if(cont == 7){
+	    if(cont == 0){
 	      var a = $(this).text();
 	      b = a.split('|');	      
 	      cont++;        
 	    }else{cont++;}
-	    });	
-	    
+	    });
+
 		var c = b[0].replace(/['\"]+/g, \"'\");   
-	    c = c.replace(/','/g,'*');
+	    c = c.replace(/','/g,'~');
 	    c = c.replace('[[','');
 	    c = c.replace(']]','');
 	    c = c.replace(/'/g,'');
 	    c = c.split('],[');
-	    
+
 	    var d = '';var fila = '';
 	    for(var i = 0 ; i < c.length;i++){
-	    	d = c[i].split('*');	
+	    	d = c[i].split('~');	
 	    	var celda = '';
 	    	for(var j = 0; j< d.length - 3;j++){
 	    		celda += '<td>'+d[j]+'</td>';	     	
@@ -101,7 +110,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	    var c2 = b[1];
        	c2 = c2.split(',');
         var htmlpro = '';
-		htmlpro += '<table id=\"idpro\" class=\"table table-bordered\">';
+		htmlpro += '<table id=\"idpro\" class=\"table table-striped\">';
 		htmlpro += '<thead>';
 		htmlpro += '	<tr>';
 		htmlpro += '<th>Cod Pro</th><th>Descripcion</th><th>Unidad</th><th>Cantidad</th><th>Prec Uni</th><th>Desc %</th><th>Desc valor</th><th>Sub total</th><th>Proy C/O</th>';
@@ -112,23 +121,23 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		htmlpro += '</tbody>';
 		htmlpro += '<tfoot>';
 		htmlpro += '<tr>';
-		htmlpro += '<td>SubTotal</td><td>'+c2[0]+'</td>';
+		htmlpro += '<td><b>SubTotal</b></td><td>'+c2[0]+'</td>';
 		htmlpro += '</tr>';
 		htmlpro += '<tr>';
-		htmlpro += '<td>Descuento Valor</td><td>'+c2[1]+' </td>';
+		htmlpro += '<td><b>Descuento Valor</b></td><td>'+c2[1]+' </td>';
 		htmlpro += '</tr>';
 		htmlpro += '<tr>';
-		htmlpro += '<td>Descuento %</td><td>'+c2[2]+' %</td>';
+		htmlpro += '<td><b>Descuento %</b></td><td>'+c2[2]+' %</td>';
 		htmlpro += '</tr>';
 		htmlpro += '<tr>';
-		htmlpro += '<td>Total</td><td>'+c2[3]+'</td>';
+		htmlpro += '<td><b>Total</b></td><td>'+c2[3]+'</td>';
 		htmlpro += '</tr>';
 		htmlpro += '</table>';	    
 		
         $('#list_subpanel_sco_ordencompra_sco_productos #sco_ordencompra_sco_productos_nuevo_button').on('click',function(){
 			$('#idpro').fadeOut();
 		});
-		
+
 	    $('#list_subpanel_sco_ordencompra_sco_productos .list').hide();
 	    $('#list_subpanel_sco_ordencompra_sco_productos').append(htmlpro);
 		//alert('DOM CARGADO');			
@@ -148,15 +157,15 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		var b = [];
 		var cont = 0;
 	    $('#list_subpanel_sco_ordencompra_sco_productos .list tbody tr td').each(function(){
-	    if(cont == 7){
+	    if(cont == 0){
 	      var a = $(this).text();
 	      b = a.split('|');	      
 	      cont++;        
 	    }else{cont++;}
-	    });	    
+	    });
 	    //alert(b[0]);
 	    var c = b[0].replace(/['\"]+/g, \"'\");	    
-	    c = c.replace(/','/g,'*');
+	    c = c.replace(/','/g,'~');
 	    c = c.replace('[[','');
 	    c = c.replace(']]','');
 	    c = c.replace(/'/g,'');
@@ -164,7 +173,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	    
 	    var d = ''; var fila = '';
 	    for(var i = 0 ; i < c.length;i++){
-	    	d = c[i].split('*');	
+	    	d = c[i].split('~');	
 	    	var celda = '';
 	    	for(var j = 0; j< d.length - 3;j++){
 	    		celda += '<td>'+d[j]+'</td>';	     	
@@ -174,7 +183,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
        	var c2 = b[1];
        	c2 = c2.split(',');
         var htmlpro = '';
-		htmlpro += '<table id=\"idpro\" class=\"table table-bordered\">';
+		htmlpro += '<table id=\"idpro\" class=\"table table-striped\">';
 		htmlpro += '<thead>';
 		htmlpro += '	<tr>';
 		htmlpro += '<th>Cod Pro</th><th>Descripcion</th><th>Unidad</th><th>Cantidad</th><th>Prec Uni</th><th>Desc %</th><th>Desc valor</th><th>Sub total</th><th>Proy C/O</th>';
@@ -185,16 +194,16 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		htmlpro += '</tbody>';
 		htmlpro += '<tfoot>';
 		htmlpro += '<tr>';
-		htmlpro += '<td>SubTotal</td><td>'+c2[0]+'</td>';
+		htmlpro += '<td><b>SubTotal</b></td><td>'+c2[0]+'</td>';
 		htmlpro += '</tr>';
 		htmlpro += '<tr>';
-		htmlpro += '<td>Descuento Valor</td><td>'+c2[1]+' </td>';
+		htmlpro += '<td><b>Descuento Valor</b></td><td>'+c2[1]+' </td>';
 		htmlpro += '</tr>';
 		htmlpro += '<tr>';
-		htmlpro += '<td>Descuento %</td><td>'+c2[2]+' %</td>';
+		htmlpro += '<td><b>Descuento %</b></td><td>'+c2[2]+' %</td>';
 		htmlpro += '</tr>';
 		htmlpro += '<tr>';
-		htmlpro += '<td>Total</td><td>'+c2[3]+'</td>';
+		htmlpro += '<td><b>Total</b></td><td>'+c2[3]+'</td>';
 		htmlpro += '</tr>';
 		htmlpro += '</table>';
 
@@ -284,14 +293,14 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					'.$arr_estado[3].'
 		 				</td>
 		 				<td width="12.5%" >	
-		 									
+		 					<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="Volver a '.$arr_estado[2].'">			
 						</td>
 						<td class="" type="enum" field="orc_regional" width="65%">	 
 						</td>
 		 			</tr>		 					 					 			
 		 			</tbody></table>
 	 				 </div></div></div>';
-	 			echo $js.$st."<style>#list_subpanel_sco_ordencompra_sco_documentos .sugar_action_button{display:block;}</style>";	
+	 			echo "<style>#list_subpanel_sco_ordencompra_sco_documentos .sugar_action_button{display:block;}</style>";	
  				break;
  			case '4':
 				echo "<a class=\"btn btn-success btn-sm\" onclick=\"imprimir()\">Descargar</a>

@@ -42,7 +42,9 @@ class ClDeproductos
 	    	    		    
 	    $arr1 = str_replace("[", "", $arr1);
 	    $arr1 = str_replace("],", "|", $arr1);
-	    $arr1 = str_replace("&quot;","",$arr1);	
+	    $arr1 = str_replace("&quot;","'",$arr1);	
+	    $arr1 = str_replace("','", "~", $arr1);
+	     $arr1 = str_replace("'", "", $arr1);
 	    $arr2 = explode("|", $arr1);	
 	    $arridoc = array_pop($arr2);
 	    $arrprec = array_pop($arr2);
@@ -51,7 +53,7 @@ class ClDeproductos
 	    for ($i=0; $i<count($arr2); $i++)
 		{
 		    $textfila = $arr2[$i];
-		    $fila = explode(",", $textfila);
+		    $fila = explode("~", $textfila);
 		    $idpc = $fila[0];
 		    $descr = $fila[1];
 		    $unid = $fila[2];
@@ -60,20 +62,25 @@ class ClDeproductos
 		    $dscp = $fila[5];
 		    $dscv = $fila[6];
 		    $stot = $fila[7];
-		    $idpo = $fila[8];			    
-		    $idproy = $fila[9];	
-		    $idpro = $fila[10];	
-		    $tipoProy = $fila[11];		  
+		    $idpo = $fila[8];
+		    $idpro = $fila[9];
+		    $idproy = $fila[10];
+		    $tipoProy = $fila[11];
 	    $query ="INSERT INTO sco_productos_co (id, deleted, pro_nombre, pro_descripcion, pro_unidad, pro_cantidad, pro_preciounid, pro_descval, pro_descpor, pro_fecha, pro_nomproyco, pro_idco, pro_idproy, pro_idpro, pro_tipocotiza, pro_subtotal) VALUES (UUid(),'0','$idpc','$descr','$unid','$cant','$prec','$dscv','$dscp','$date','$idpo','$idoc','$idproy','$idpro','$tipoProy','$stot');";
 	    $obj = $bean->db->query($query, true);
-	    }	
+	    }
 
 	    $queryproy = "SELECT DISTINCT(pro_nomproyco) as name, pro_tipocotiza FROM sco_productos_co WHERE pro_idco ='$idoc';";
 	    $objproy = $bean->db->query($queryproy, true);
 	    while($row = $bean->db->fetchByAssoc($objproy))
-	      {
-	        $nom .= $row["pro_tipocotiza"].$row["name"] . "_";
-	      }
+	    {
+	    	if($nom == $nom){
+	        	$nom .= $row["pro_tipocotiza"] . $row["name"] . "_";
+	    	}else{
+	    		$correlativo++;
+	    	}
+	    }
+
 	    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
 	    $beanoc->name = $nom;
 	    $beanoc->orc_tototal = $arrprec[0];  	    

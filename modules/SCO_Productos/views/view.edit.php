@@ -14,22 +14,23 @@ class SCO_ProductosViewEdit extends ViewEdit {
   function display(){
     echo '<style>
       .nav-tabs>li>a { 
-        border-color: rgba(0,60,121,0.40);
+        border-color: rgba(0,60,121,0.05);
       }
       .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
-        color: #fff;
-        background-color: rgba(0,60,121,0.40);  
-        border: 1px solidrgba(0,60,121,0.40);  
+        color: rgba(0,60,121,1);
+        background-color: rgba(0,30,121,0.05);  
+        border: 1px solid rgba(0,60,121,0.2);  
+        border-bottom: 1px solid rgba(0,60,121,0); 
       }
       .tab-content>.active {
-          background-color: rgba(0,60,121,0.40); 
+          background-color: rgba(0,30,121,0.05); 
+          border: 1px solid rgba(0,60,121,0.2);
       }
       .nav-tabs>li>a:hover {
-        border-color: rgba(0,60,121,1); 
+        border-color: rgba(0,60,121,0.2);
         background-color: rgba(0,60,121,1); 
         color: #fff;
       }
-
       #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{
         background: #fff;
         margin: 5px;
@@ -83,22 +84,13 @@ class SCO_ProductosViewEdit extends ViewEdit {
       #form_SubpanelQuickCreate_SCO_Productos  #btn_clr_sco_productos_sco_productoscompras_name{
         display:inline-block;
       }
-      #form_SubpanelQuickCreate_SCO_Productos .boton {
-        background-color: #3C8DBC;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        font-size: 1.1em !important;
-        padding: 5px 8px 5px 8px;
-        margin-bottom: 2px;
-      }
       #form_SubpanelQuickCreate_SCO_Productos .proserv{
         margin-right: 5px;
         margin-left: 5px;
         float:left;
       }
-      //#form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
-      //#description{display:none;}</style>';
+      #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
+      #description{display:none;}</style>';
     echo "<input type=\"submit\" class=\"button\" onClick=\"convRes();\" value=\"Crear Nuevo Producto\">";
     parent::display();
      echo '
@@ -109,7 +101,6 @@ class SCO_ProductosViewEdit extends ViewEdit {
       function convRes() {
         var url = "index.php?module=SCO_ProductosCompras&action=EditView";
         window.open(url, "", "width=990,height=650");
-        //location.reload();
       }
     </script>';        
     echo "<script>
@@ -131,24 +122,24 @@ class SCO_ProductosViewEdit extends ViewEdit {
       <script src=\"modules/SCO_Productos/items.js?".time()."\"></script>
       <link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css?".time()."\" type=\"text/css\" />  
       <script>
+      //Agregando a la vista las tablas de carga masiva y carga individual
       $('#form_SubpanelQuickCreate_SCO_Productos_tabs').append(\"<div role='tabpanel'><ul class='nav nav-tabs' role='tablist'><li role='presentation' class='active'><a href='#home' aria-controls='home' role='tab' data-toggle='tab'> Carga Individual </a></li><li role='presentation'><a href='#tab' aria-controls='tab' role='tab' data-toggle='tab'> Carga Masiva </a></li></ul><div class='tab-content'><div role='tabpanel' class='tab-pane active' id='home'>.<div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><form id='formPro'><table class='panelContainer' cellspacing='1'><table id='idprod' ></table><table id='idser'></table><table id='idnewpro' ></table><div id='findiv'></div></table></form></div></div></div></div><div role='tabpanel' class='tab-pane' id='tab'>.<div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><table class='panelContainer' cellspacing='1'><div id='my'></div><div id='tabmy'></div></table></div></div></div></div></div></div>\");
-      $('#findiv').append(htmljs);
-      insertarProductos();
+      $('#findiv').append(htmljs);          
 
       //////////////////////////////////////////////
       //Formulario de carga masiva con Formato Excel
       //////////////////////////////////////////////
       var idoc2 = $('#form_SubpanelQuickCreate_SCO_Productos input[name=\"relate_id\"]').val();
       //var idoc1= '".$idoc."'; 
-      var subto = 0;        
-      var despor = 0;
-      var desval = 0;
-      var total = 0;
+      var subto = 0.00;        
+      var despor = 0.00;
+      var desval = 0.00;
+      var total = 0.00;
 
       var cont = 0;
       data = [];
       $('#list_subpanel_sco_ordencompra_sco_productos .list tbody tr td').each(function(){
-      if(cont == 7){
+      if(cont == 0){
         var a = $(this).text();
         var b = a.split('|');
         //alert(b[0]);
@@ -157,16 +148,46 @@ class SCO_ProductosViewEdit extends ViewEdit {
         subto = c[0];        
         despor = c[2];
         desval = c[1];
-        total = c[3];
+        total = c[3];        
+
+        var e = b[0].replace(/['\"]+/g, \"'\");   
+        e = e.replace(/','/g,'~');
+        e = e.replace('[[','');
+        e = e.replace(']]','');
+        e = e.replace(/'/g,'');
+        e = e.split('],[');
+
+        for(var i = 0 ; i < e.length ; i++){
+          var d = e[i];
+          d = d.split(\"~\");     
+          insertarProductos(i);
+          $('#pro_nombre'+i).val(d[0]);             
+          $('#pro_descripcion'+i).text(d[1]);
+          $('#pro_unidad'+i).val(d[2]);
+          $('#pro_cant'+i).val(d[3]);
+          $('#pro_precio'+i).val(d[4]); 
+          $('#pro_descpor'+i).val(d[5]);
+          $('#pro_descval'+i).val(d[6]);
+          $('#pro_total'+i).val(d[7]);
+          $('#pory_cod'+i).val(d[8]);
+          $('#producto_id'+i).val(d[9]);
+          $('#proy_id'+i).val(d[10]);          
+          $('#tipo_proy'+i).val(d[11]);
+        }         
         cont++;        
       }else{
           cont++;
         }
       });
+      $('#subtotal').val(subto);
+      $('#decval').val(desval);
+      $('#descpor').val(despor);
+      $('#total').val(total);
+
       update = function (obj, cel, row) {
         function checkPos(pos) {
             return pos == producto;
-        }      
+        }
 
         val = $('#my').jexcel('getValue', $(row));
         var col = $(cel).prop('id').split('-')[0];
@@ -186,7 +207,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
           $('#5-'+row).text('0.00');
           $('#6-'+row).text('0.00');          
         }
-        
+
           var row = $(cel).prop('id').split('-')[1];      
           var cant = $('#3-'+row).text();
           var prec = $('#4-'+row).text();
@@ -221,7 +242,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
         if($('#0-'+row).text() != '' && col == 0){
           buscap($('#0-'+row).text(), row);
         }
-      
+
         var b = '';
         var c = 0;
         for(var a=0; a<$('#my tbody tr').length; a++){
@@ -236,12 +257,12 @@ class SCO_ProductosViewEdit extends ViewEdit {
       $('#my').jexcel({
         data:data, 
         onchange:update,
-        colHeaders: ['Cod Prov','Descripcion', 'Unidad','Cantidad', 'Prec Uni','Desc %','Desc Valor', 'Sub Total', 'Proy / CO','idproy','idpro','tipoproy'],
+        colHeaders: ['Cod Prov','Descripcion', 'Unidad','Cantidad', 'Prec Uni','Desc %','Desc Valor', 'Sub Total', 'Proy / CO','idpro','idproy','tipoproy'],
         colWidths: [ 150, 300, 100, 80, 80, 80, 80, 80, 100, 50, 50, 50 ],
         columns: [
             { type: 'text'},            
             { type: 'text', readOnly:false},
-            { type: 'text', readOnly:true},
+            { type: 'text', readOnly:false},
             { type: 'text'},
             { type: 'text'},
             { type: 'text'},
@@ -266,7 +287,6 @@ class SCO_ProductosViewEdit extends ViewEdit {
       $('#pro_descval').on('blur', function(){
         var a = $(this).val() / $('#pro_subto').val();  
         var v = a * 100 ;
-
         $('#pro_descpor').val(v.toFixed(2)); 
         var t = $('#pro_subto').val() - $(this).val();       
         $('#pro_total').val(t.toFixed(2));        
@@ -301,9 +321,9 @@ class SCO_ProductosViewEdit extends ViewEdit {
         var dv = $(\"#formPro input[name^='pro_descpor']\");
         var dp = $(\"#formPro input[name^='pro_descval']\");
         var to = $(\"#formPro input[name^='pro_total']\");
-        var pry = $(\"#formPro input[name^='pory_cod']\");
-        var pryid = $(\"#formPro input[name^='proy_id']\");
+        var pry = $(\"#formPro input[name^='pory_cod']\");        
         var prid = $(\"#formPro input[name^='producto_id']\");
+        var pryid = $(\"#formPro input[name^='proy_id']\");
         var tproy = $(\"#formPro input[name^='tipo_proy']\");
 
         for(var i = 0; i < pr.length; i++ ){            
@@ -317,8 +337,8 @@ class SCO_ProductosViewEdit extends ViewEdit {
           arrpro.push(dp[i].value);
           arrpro.push(to[i].value);
           arrpro.push(pry[i].value);
-          arrpro.push(pryid[i].value);
           arrpro.push(prid[i].value);
+          arrpro.push(pryid[i].value);          
           arrpro.push(tproy[i].value);   
           arrp[i] = arrpro;                                 
         }   
@@ -335,13 +355,13 @@ class SCO_ProductosViewEdit extends ViewEdit {
       $('.nav-tabs li').on('click',function(){
         $('#description').text('');
       });
-      $('.action_buttons #SCO_Productos_subpanel_save_button').on('mousemove',function(){
-        if($('#home.tab-pane').hasClass('active')){
-          act_prod2();
-        }else if($('#tab.tab-pane').hasClass('active')){
-          act_prod();
-        }
-      });
+      //$('.action_buttons #SCO_Productos_subpanel_save_button').on('mousemove',function(){
+      //  if($('#home.tab-pane').hasClass('active')){
+      //    act_prod2();
+      //  }else if($('#tab.tab-pane').hasClass('active')){
+      //    act_prod();
+      //  }
+      //});
       $('.action_buttons #SCO_Productos_subpanel_save_button').on('focus',function(){
         if($('#home.tab-pane').hasClass('active')){
           act_prod2();

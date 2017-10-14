@@ -84,6 +84,7 @@ class ClProductos
 		  pro_idproy VARCHAR(45)NULL,
 		  pro_idpro VARCHAR(100) NULL,
 		  pro_tipocotiza VARCHAR(100)NULL,
+		  pro_subtotal VARCHAR(45)NULL,
 		  PRIMARY KEY (id))
 		ENGINE = InnoDB
 		DEFAULT CHARACTER SET = utf8
