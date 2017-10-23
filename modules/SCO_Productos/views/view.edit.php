@@ -89,6 +89,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
         margin-left: 5px;
         float:left;
       }
+      #SCO_Productos_subpanel_full_form_button{display:none;}
       #form_SubpanelQuickCreate_SCO_Productos #Default_SCO_Productos_Subpanel{display:none;}
       #description{display:none;}</style>';
     echo "<input type=\"submit\" class=\"button\" onClick=\"convRes();\" value=\"Crear Nuevo Producto\">";
@@ -97,7 +98,6 @@ class SCO_ProductosViewEdit extends ViewEdit {
     <script>
       $("#SCO_Productos_subpanel_cancel_button").hide();
       $("#SCO_Productos_subpanel_save_button").hide();
-      $(".dcQuickEdit #SCO_Productos_subpanel_full_form_button").hide();
       function convRes() {
         var url = "index.php?module=SCO_ProductosCompras&action=EditView";
         window.open(url, "", "width=990,height=650");
@@ -108,7 +108,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
       htmljs += '<div><table width=\"100%\" class=\"panelContainer\" id=\"tablet\"><tbody>';
       htmljs += '<tr><td><button type=\"button\" onclick=\"insertarProductos()\" class=\"btn btn-default btn-xs\">Agregar Producto</button></td>';
       htmljs += '<td><button type=\"button\" class=\"btn btn-default btn-xs\" onclick=\"insertarServicio()\">Agregar Servicio</button></td>';
-      htmljs += '<td><!--<button type=\"hidden\" class=\"btn btn-default btn-xs\" onclick=\"insertarNuevoProd()\">Nuevo Producto</button>--></td><td></td></tr>';
+      htmljs += '<td></td><td></td></tr>';
       htmljs += '<tr><td scope=\"col\" width=\"12.5%\"><div><span>Subtotal</span></td><td><input style=\"width:100px;\"type=\"text\" name=\"subtotal\" id=\"subtotal\" readonly=\"readonly\"></div></td><td></td><td></td></tr>';
       htmljs += '<tr><td scope=\"col\" width=\"12.5%\"><div><span >Descuento valor</span></td><td><input style=\"width:100px;\"type=\"text\" name=\"decval\" id=\"decval\" onblur=\"descvalor();\"><span></div></td><td></td><td></td></tr>';
       htmljs += '<tr><td scope=\"col\" width=\"12.5%\"><div><span >Descuento %</span></td><td><input style=\"width:100px;\"type=\"text\" name=\"descpor\" id=\"descpor\" onblur=\"descporc();\"><span></div></td><td></td><td></td></tr>';
@@ -123,7 +123,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
       <link rel=\"stylesheet\" href=\"custom/modules/SCO_OrdenCompra/jquery.jexcel.css?".time()."\" type=\"text/css\" />  
       <script>
       //Agregando a la vista las tablas de carga masiva y carga individual
-      $('#form_SubpanelQuickCreate_SCO_Productos_tabs').append(\"<div role='tabpanel'><ul class='nav nav-tabs' role='tablist'><li role='presentation' class='active'><a href='#home' aria-controls='home' role='tab' data-toggle='tab'> Carga Individual </a></li><li role='presentation'><a href='#tab' aria-controls='tab' role='tab' data-toggle='tab'> Carga Masiva </a></li></ul><div class='tab-content'><div role='tabpanel' class='tab-pane active' id='home'>.<div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><form id='formPro'><table class='panelContainer' cellspacing='1'><table id='idprod' ></table><table id='idser'></table><table id='idnewpro' ></table><div id='findiv'></div></table></form></div></div></div></div><div role='tabpanel' class='tab-pane' id='tab'>.<div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><table class='panelContainer' cellspacing='1'><div id='my'></div><div id='tabmy'></div></table></div></div></div></div></div></div>\");
+      $('#form_SubpanelQuickCreate_SCO_Productos_tabs').append(\"<div role='tabpanel'><ul class='nav nav-tabs' role='tablist'><li role='presentation' class='active'><a href='#home' aria-controls='home' role='tab' data-toggle='tab'> Carga Individual </a></li><li role='presentation'><a href='#tab' aria-controls='tab' role='tab' data-toggle='tab'> Carga Masiva </a></li></ul><div class='tab-content'><div role='tabpanel' class='tab-pane active' id='home'><div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><form id='formPro'><table class='panelContainer' cellspacing='1'><table id='idprod' ></table><table id='idser'></table><table id='idnewpro' ></table><div id='findiv'></div></table></form></div></div></div></div><div role='tabpanel' class='tab-pane' id='tab'><div class='yui-navset detailview_tabs yui-navset-top'><div class='yui-content'><div class='detail view  detail508 expanded'><table class='panelContainer' cellspacing='1'><div id='my'></div><div id='tabmy'></div></table></div></div></div></div></div></div>\");
       $('#findiv').append(htmljs);          
 
       //////////////////////////////////////////////
@@ -241,6 +241,7 @@ class SCO_ProductosViewEdit extends ViewEdit {
 
         if($('#0-'+row).text() != '' && col == 0){
           buscap($('#0-'+row).text(), row);
+          $('#0-'+row).text()
         }
 
         var b = '';

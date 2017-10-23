@@ -26,6 +26,7 @@ function buscap(nomp, row) {
             if (Object.keys(sqlprod) != '') {
                 $('#1-' + row).text(sqlprod['proge_nompro']);
                 $('#2-' + row).text(sqlprod['proge_unidad']);
+                $('#4-' + row).text(sqlprod['proge_preciounid']);
                 $('#9-' + row).text(sqlprod['id']);
                 //$('#4-'+row).text(sqlprod['proge_preciounid']);
                 $('#0-' + row).css({
@@ -90,6 +91,7 @@ function buscaind(pronum) {
                 $('#producto_id' + pronum).val(sqlprod['id']);
                 $('#pro_unidad' + pronum).val(sqlprod['proge_unidad']);
                 $('#pro_descripcion' + pronum).val(sqlprod['proge_nompro']);
+                $('#pro_precio' + pronum).val(sqlprod['proge_preciounid']);
                 $('#pro_nombre' + pronum).css({
                     'background': '#FFF',
                     'color': '#000'
@@ -132,7 +134,7 @@ function buscaindpy(pronum) {
             nomproy
         },
         success: function(data) {
-            debugger;
+            //debugger;
             var sqlproy = $.parseJSON(data);
             if (Object.keys(sqlproy) != '') {
                 $('#proy_id' + pronum).val(sqlproy['id']);

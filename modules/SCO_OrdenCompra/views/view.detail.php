@@ -16,9 +16,9 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
     }
 
  	function display(){ 
- 		$st = "<style>#alertapp{ position: fixed; float: left; margin-top: 10px; margin-left:35%; z-index:1;}#idpro tbody tr{border-bottom: 1px solid #ccc; background-color: #f2f2f2;}</style>";
+ 		$sty = "<style>#alertapp{ position: fixed; float: left; margin-top: 10px; margin-left:35%; z-index:1;}#idpro tbody tr{border-bottom: 1px solid #ccc; background-color: #f2f2f2;}</style>";
  		$htmlpp ='<div id="alertapp"></div>';
-       	echo $st.$htmlpp;
+       	echo $sty.$htmlpp;
 
  		$estado = $this->bean->orc_estado; 		 	
  		$arr_estado = array(1 => 'En curso',2=>'Borrador ', 3 =>'Solicitar Aprobacion ', 4 => 'Aprobado ' ,5 => 'Cacelado ', 6 =>'Cerrado ');
@@ -141,7 +141,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 	    $('#list_subpanel_sco_ordencompra_sco_productos .list').hide();
 	    $('#list_subpanel_sco_ordencompra_sco_productos').append(htmlpro);
 		//alert('DOM CARGADO');			
-        $('.subnav li a').text('Quitar');		
+        //$('.subnav li a').text('Quitar');		
         $('#sco_ordencompra_sco_productos_remove_1').text('Quitar');
         $('#sco_ordencompra_sco_productos_remove_2').text('Quitar');
         $('#sco_ordencompra_sco_productos_remove_3').text('Quitar');
@@ -212,7 +212,7 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		});		
 	    $('#list_subpanel_sco_ordencompra_sco_productos .list').hide();
 	    $('#list_subpanel_sco_ordencompra_sco_productos').append(htmlpro);
-		$('.subnav li a').text('Quitar');
+		//$('.subnav li a').text('Quitar');
 	    $('#sco_ordencompra_sco_productos_remove_1').text('Quitar');
 	    $('#sco_ordencompra_sco_productos_remove_2').text('Quitar');
 	    $('#sco_ordencompra_sco_productos_remove_3').text('Quitar');
@@ -245,10 +245,10 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					Estado Actual:
 		 				</td>
 		 				<td>
-		 					'.$arr_estado[1].'
+		 					<span style="color:green"><b>'.$arr_estado[1].'</b></span>
 		 				</td>
 		 				<td width="12.5%" >	
-		 				<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="'.$arr_estado[2].'">					
+		 				<!--<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="'.$arr_estado[2].'">-->
 						</td>
 						<td class="" type="enum" field="orc_regional" width="65%">	 
 						</td>
@@ -290,10 +290,10 @@ class SCO_OrdenCompraViewDetail extends ViewDetail {
 		 					Estado Actual:
 		 				</td>
 		 				<td>
-		 					'.$arr_estado[3].'
+		 					<span style="color:#ff0000;">'.$arr_estado[3].'</span>
 		 				</td>
 		 				<td width="12.5%" >	
-		 					<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="Volver a '.$arr_estado[2].'">			
+		 					<!--<input type="button" id="btn-estados" class="btn btn-sm btn-success" onClick="estado(2);" value="Volver a '.$arr_estado[2].'">-->
 						</td>
 						<td class="" type="enum" field="orc_regional" width="65%">	 
 						</td>

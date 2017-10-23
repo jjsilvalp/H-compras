@@ -34,22 +34,17 @@ class PlanPagos
     $objpp = $bean->db->query($querypp, true);    
     $rowpp = $bean->db->fetchByAssoc($objpp);
     
-    if($bean->ppg_porc < 100){
-        $sumto = $rowpp['sumapor'] + $bean->ppg_porc;
-        if($sumto <= 100){    
-            if($sumto <> 0){  
-                $bean->save();               
-            }else{
-                echo "<script>alert('".$sumto." representa ningun valor');</script>";
-                exit();
-            }
-        }else{
-            echo "<script>alert('La suma de los % del Plan de Pagos no debe ser mayor que 100');</script>";
-            exit();
-        }
-    }else{
-        echo "<script>alert('El % ".$bean->ppg_porc." no debe ser mayor a 100');</script>";
+    $sumatotal = $rowpp['sumapor'] + $bean->ppg_porc;
+    if($sumatotal > 100){            
+        echo "<script>alert('La suma de los % del Plan de Pagos no debe ser mayor que 100 %');</script>";
         exit();
+    }else{        
+        if($bean->ppg_porc == 0){  
+            echo "<script>alert('".$bean->ppg_porc." representa ningun valor');</script>";
+            exit();         
+        }else{            
+            $bean->save(); 
+        }
     }
   }
 }

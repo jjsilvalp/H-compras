@@ -1,5 +1,5 @@
 <?php 
-
+/*
 class Clnomdist
 {
 	function Fnnomdist($bean, $event, $arguments) 
@@ -8,5 +8,5 @@ class Clnomdist
  		$bean->save();
 	}
 }
-
+*/
 ?>

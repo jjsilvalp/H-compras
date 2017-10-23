@@ -15,19 +15,7 @@ class SCO_PlandePagosViewEdit extends ViewEdit {
 
   function display($bean){  
   	$js = "<script>
-  		//Cargando el precio total del modulo de productos
-  		$('#ppg_porc').on('blur', function(){
-  			if($(this).val() > 100){  				  			
-  				$(this).val((100).toFixed(2));
-  			}else if($(this).val() <= 0){
-  				$(this).val((0).toFixed(2));
-  			}
-  		});
-  		$('#ppg_monto').on('blur', function(){
-			if($(this).val() <= 0){
-  				$(this).val((0).toFixed(2));
-  			}
-  		});
+  		//Cargando el precio total del modulo de productos  		
   		var b = [];
 		var cont = 0;
   		$('#list_subpanel_sco_ordencompra_sco_productos .list tbody tr td').each(function(){
@@ -47,7 +35,20 @@ class SCO_PlandePagosViewEdit extends ViewEdit {
   			var a = $(this).val() * total / 100;
   			$('#ppg_monto').val(a.toFixed(2));
   		});
+  		$('#ppg_porc').on('blur', function(){
+  			if($(this).val() > 100){  				  			
+  				$(this).val((100).toFixed(2));
+  			}else if($(this).val() <= 0){
+  				$(this).val((0).toFixed(2));
+  			}
+  		});
+  		$('#ppg_monto').on('blur', function(){
+			if($(this).val() <= 0){
+  				$(this).val((0).toFixed(2));
+  			}
+  		});
   	</script>";
+  	echo "<style>#SCO_PlandePagos_subpanel_full_form_button{display:none;}</style>";
   	echo $js;
   	parent::display();
   }

@@ -2,7 +2,7 @@
 
 class Clcontap 
 {
-	#static $ult_rid = "";
+	static $ult_rid = "";
 	static $already_ran = false;
 
   	function Fncontap($bean, $event, $arguments) 
@@ -51,8 +51,8 @@ class Clcontap
 	    $row = $GLOBALS['db']->fetchByAssoc($results);
 	    #$con_id = $row["id"];
 
-	    #if(self::$ult_rid == $bean->id) return;
-    	#self::$ult_rid = $bean->id;
+	    if(self::$ult_rid == $bean->id) return;
+    	self::$ult_rid = $bean->id;
 	    $bean->orc_propercon = $bean->sco_ordencompra_contacts_name;
 	    $bean->orc_protelefono = $row["phone_work"];
 	    $bean->orc_promovil = $row["phone_mobile"];
