@@ -8,7 +8,7 @@ Desc: Manifest file for installing logic hook
 The contents of this file are governed by the GNU General Public License (GPL).
 A copy of said license is available here: http://www.gnu.org/copyleft/gpl.html
 This code is provided AS IS and WITHOUT WARRANTY OF ANY KIND.
-necesita actualizacion...
+necesita actualizacion...hola
 *************************************/
 
 global $sugar_config;
