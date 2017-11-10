@@ -83,9 +83,9 @@ class ClDeproductos
 
 	    $beanoc = BeanFactory::getBean('SCO_OrdenCompra', $idoc);
 	    $beanoc->name = $nom;
-	    $beanoc->orc_tototal = $arrprec[0];  	    
-	    $beanoc->orc_descpor = $arrprec[1];
-	    $beanoc->orc_descvalor = $arrprec[2];
+	    $beanoc->orc_tototal = $arrprec[0];  	    	    
+	    $beanoc->orc_descvalor = $arrprec[1];
+	    $beanoc->orc_descpor = $arrprec[2];
 	    $beanoc->orc_importet = $arrprec[3];
 	    $beanoc->save();
  	}

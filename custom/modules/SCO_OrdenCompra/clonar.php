@@ -19,7 +19,7 @@ class Clclonar
 		ON oc.id = ocpv.sco_proveedor_sco_ordencomprasco_ordencompra_idb
 		INNER JOIN sco_ordencompra_contacts_c as occo
 		ON occo.sco_ordencompra_contactssco_ordencompra_idb = oc.id
-		WHERE oc.deleted = 0
+		WHERE oc.deleted = 0 AND ocpv.deleted = 0 AND occo.deleted = 0
 		AND oc.id = '$idoc_cl'";
 	    $obj = $bean->db->query($query, true);    
 	    $row = $bean->db->fetchByAssoc($obj);
@@ -41,9 +41,11 @@ class Clclonar
 	    $bean->orc_tcmoneda = $row["orc_tcmoneda"];
 	    $bean->orc_tcmulta = $row["orc_tcmulta"];
 	    $bean->orc_tccertor = $row["orc_tccertor"];
+	    $bean->orc_importet = $row["orc_importet"];
 
 	    $bean->sco_ordencompra_id_c = '';
     	$bean->orc_occ = '';
+    	$bean->orc_verco = 0;
 	 	$bean->save();	 	
 	 	$idoc = $bean->id;  
 	  	//Relacion OC con SCO_Contactos 	
@@ -86,7 +88,7 @@ class Clclonar
 		ON pp.id = ocpp.sco_ordencompra_sco_plandepagossco_plandepagos_idb
 		WHERE ocpp.deleted = 0 
 		AND pp.deleted = 0 
-		AND ocpp.sco_ordencompra_sco_plandepagossco_ordencompra_ida = 'c7d112b6-a01e-ced5-e7cf-59e7f0dc05bc';";
+		AND ocpp.sco_ordencompra_sco_plandepagossco_ordencompra_ida = '".$idoc_cl."';";
 		$obj4 = $bean->db->query($query4, true);
 		while($row4 = $bean->db->fetchByAssoc($obj4)){
 			$new_idocpp =  create_guid();
@@ -127,6 +129,18 @@ class Clclonar
 			VALUES
 			('".$new_idp."','".$row8['name']."','".$row8['date_entered']."','".$row8['date_modified']."','".$row8['modified_user_id']."','".$row8['created_by']."','".$row8['description']."','".$row8['deleted']."','".$row8['pro_subtotal']."','".$row8['pro_valor']."','".$row8['pro_procentaje']."','".$row8['pro_aux1']."');";
 			$obj10 = $bean->db->query($query10, true);
+		}
+		//Tabla sco_productos_co
+		$query12 = "SELECT * FROM sco_productos_co WHERE pro_idco = '".$idoc_cl."' ";
+		$obj12 = $bean->db->query($query12, true);
+			while($row12 = $bean->db->fetchByAssoc($obj12)){
+			$new_idprod = create_guid();
+			$query11 = "INSERT INTO sco_productos_co
+			(id, deleted, pro_nombre, pro_descripcion, pro_unidad, pro_cantidad, pro_preciounid, pro_descval, pro_descpor, pro_fecha, pro_nomproyco, pro_idco, pro_idproy, pro_idpro, pro_tipocotiza, pro_subtotal)
+			VALUES
+			('".$new_idprod."','".$row12['deleted']."','".$row12['pro_nombre']."','".$row12['pro_descripcion']."','".$row12['pro_unidad']."','".$row12['pro_cantidad']."','".$row12['pro_preciounid']."','".$row12['pro_descval']."','".$row12['pro_descpor']."','".$row12['pro_fecha']."','".$row12['pro_nomproyco']."','".$idoc."','".$row12['pro_idproy']."','".$row12['pro_idpro']."','".$row12['pro_tipocotiza']."','".$row12['pro_subtotal']."'); 
+			";
+			$obj11 = $bean->db->query($query11, true);
 		}
  	}
   }

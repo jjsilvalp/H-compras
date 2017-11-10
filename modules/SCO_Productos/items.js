@@ -72,9 +72,9 @@ function insertarServicio() {
     var b1 = x.insertCell(0);
     b1.innerHTML = "<input   type='hidden' name='pro_nombre" + pronum + "' id='pro_nombre" + pronum + "' maxlength='50' value='Servicio'><input type='hidden' name='producto_id" + pronum + "' id='producto_id" + pronum + "' size='20' maxlength='50' value='Servicio" + pronum + "'>";
     var b3 = x.insertCell(1);
-    b3.innerHTML = "<textarea id='pro_descripcion" + pronum + "' name='pro_descripcion" + pronum + "' rows='1' cols='80' placeholder='Nombre Servicio'></textarea>";
+    b3.innerHTML = "<textarea id='pro_descripcion" + pronum + "' name='pro_descripcion" + pronum + "' rows='1' cols='60' placeholder='Nombre Servicio'></textarea>";
     var b = x.insertCell(2);
-    b.innerHTML = "<input style='width:100px;' autocomplete='off' type='hidden' name='pro_unidad" + pronum + "' id='pro_unidad" + pronum + "' maxlength='50' tabindex='116' value='-' placeholder='Pro Unidad'>";
+    b.innerHTML = "<input style='width:100px;' autocomplete='off' type='text' name='pro_unidad" + pronum + "' id='pro_unidad" + pronum + "' maxlength='50' tabindex='116' value='' placeholder='Unidad'>";
     var c = x.insertCell(3);
     c.innerHTML = "<input onblur='mulpro(" + pronum + ");fntotal(" + pronum + ");' style='text-align: right; width:75px;' type='text' name='pro_cant" + pronum + "' id='pro_cant" + pronum + "' size='11' maxlength='50' value='' tabindex='116' placeholder='Cantidad'>";
     var c = x.insertCell(4);

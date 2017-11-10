@@ -1,5 +1,5 @@
 <?php
-class Clcreafol
+/*class Clcreafol
 {
 	function Fncreafol($bean, $event, $arguments) 
 	{
@@ -41,5 +41,5 @@ class Clcreafol
 		//$preAdded = $_POST['preAdded'];
 		//$GLOBALS['log']->debug("jjsc ".serialize($bean));
 	}
-}
+}*/
 ?>
