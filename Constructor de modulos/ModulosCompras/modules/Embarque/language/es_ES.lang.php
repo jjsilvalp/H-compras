@@ -97,4 +97,5 @@ $mod_strings = array (
   'LBL_EMB_PUERTOCARGA' => 'Puerto de Carga',
   'LBL_EMB_PUERTODESTINO' => 'Puerto de destino',
   'LBL_EMB_CIUDADDESTINO' => 'Ciudad de destino',
+  'LBL_REPORTE' => 'Reporte',
 );

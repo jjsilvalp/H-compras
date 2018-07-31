@@ -65,9 +65,9 @@ $manifest = array (
   'icon' => '',
   'is_uninstallable' => true,
   'name' => 'ModulosCompras',
-  'published_date' => '2018-07-31 20:59:25',
+  'published_date' => '2018-07-31 21:05:18',
   'type' => 'module',
-  'version' => 1533070767,
+  'version' => 1533071119,
   'remove_tables' => 'prompt',
 );
 
